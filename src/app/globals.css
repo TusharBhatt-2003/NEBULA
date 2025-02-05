@@ -4,14 +4,26 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #000000;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #F3F7DE;
+    --foreground: #000000;
   }
+}
+
+.btnBgColor {
+  background-color: #FE3B01;
+}
+
+.inputBg {
+  background: #EDDDBA;
+}
+
+.placeholderColor::placeholder {
+  color: #000000;
 }
 
 body {
