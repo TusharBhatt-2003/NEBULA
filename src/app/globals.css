@@ -9,17 +9,17 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #F3F7DE;
+    --background: #f3f7de;
     --foreground: #000000;
   }
 }
 
 .btnBgColor {
-  background-color: #FE3B01;
+  background-color: #fe3b01;
 }
 
 .inputBg {
-  background: #EDDDBA;
+  background: #edddba;
 }
 
 .placeholderColor::placeholder {
