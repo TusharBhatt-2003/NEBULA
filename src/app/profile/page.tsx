@@ -4,6 +4,7 @@ import LogoutBtn from "@/app/components/logoutBtn";
 import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import Loading from "../components/loading";
 
 interface User {
   _id: string;
@@ -36,7 +37,7 @@ export default function UserProfile() {
           {user ? (
             <Link href={`/profile/${user._id}`}>{user.username}</Link>
           ) : (
-            "Loading..."
+            <Loading />
           )}
         </span>
       </p>

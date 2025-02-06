@@ -1,3 +1,4 @@
+import Loading from "@/app/components/loading";
 import LogoutBtn from "@/app/components/logoutBtn";
 import React from "react";
 
@@ -14,7 +15,11 @@ export default async function UserProfile({ params }: UserProfileProps) {
       <hr />
       <p className="text-xl">
         This is your user ID: <br />
-        <span className=" p-1 font-mono text-[#fe3b01] rounded-md">{id}</span>
+        {id ? (
+          <span className=" p-1 font-mono text-[#fe3b01] rounded-md">{id}</span>
+        ) : (
+          <Loading />
+        )}
       </p>
       <LogoutBtn />
     </div>
