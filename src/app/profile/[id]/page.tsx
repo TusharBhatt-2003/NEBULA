@@ -10,13 +10,11 @@ export default async function UserProfile({ params }: UserProfileProps) {
 
   return (
     <div className="flex flex-col items-center justify-center gap-2 min-h-screen py-2">
-      <h1>Profile</h1>
+      <h1 className="text-4xl opacity-50 font-semibold">Profile Detail</h1>
       <hr />
-      <p className="text-4xl">
-        This is your user ID:
-        <span className=" p-1 font-mono text-[#f3f7de] btnBgColor rounded-md mx-2">
-          {id}
-        </span>
+      <p className="text-xl">
+        This is your user ID: <br />
+        <span className=" p-1 font-mono text-[#fe3b01] rounded-md">{id}</span>
       </p>
       <LogoutBtn />
     </div>
