@@ -1,17 +1,30 @@
 "use client";
+
 import LogoutBtn from "@/app/components/logoutBtn";
 import axios from "axios";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-export default function UserProfile({ params }: any) {
-  const [data, setData] = useState("Nothing");
+interface User {
+  _id: string;
+  username: string;
+}
 
-  const getUserDetails = async () => {
-    const res = await axios.get("/api/users/me");
-    console.log(res.data);
-    setData(res.data.data);
-  };
+export default function UserProfile({ params }: { params: { id: string } }) {
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      try {
+        const res = await axios.get<{ data: User }>("/api/users/me");
+        setUser(res.data.data);
+      } catch (error) {
+        console.error("Failed to fetch user details:", error);
+      }
+    };
+
+    fetchUserDetails();
+  }, []);
 
   return (
     <div className="flex flex-col items-center justify-center gap-2 min-h-screen py-2">
@@ -20,15 +33,13 @@ export default function UserProfile({ params }: any) {
       <p className="text-4xl">
         Welcome
         <span className="font-mono text-[#fe3b01] mx-2 hover:underline">
-          <Link href={`/profile/${data._id}`}>{data.username}</Link>
+          {user ? (
+            <Link href={`/profile/${user._id}`}>{user.username}</Link>
+          ) : (
+            "Loading..."
+          )}
         </span>
       </p>
-      <button
-        onClick={getUserDetails}
-        className="btnBgColor text-[#f3f7de] p-2 rounded-md"
-      >
-        Get User Detail
-      </button>
       <LogoutBtn />
     </div>
   );
