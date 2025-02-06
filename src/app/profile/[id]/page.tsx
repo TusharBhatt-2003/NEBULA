@@ -1,7 +1,11 @@
 import LogoutBtn from "@/app/components/logoutBtn";
 import React from "react";
 
-export default function UserProfile({ params }: any) {
+interface UserProfileProps {
+  params: { id: string };
+}
+
+export default function UserProfile({ params }: UserProfileProps) {
   return (
     <div className="flex flex-col items-center justify-center gap-2 min-h-screen py-2">
       <h1>Profile</h1>
