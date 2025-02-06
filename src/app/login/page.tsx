@@ -1,30 +1,52 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-// import { useRouter } from 'next/navigation'
-// import { axios } from 'axios'
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import { Toaster, toast } from "react-hot-toast";
 
 export default function LoginPage() {
-  const [user, setUser] = React.useState({
-    //username: '',
+  const router = useRouter();
+
+  const [user, setUser] = useState({
     email: "",
     password: "",
   });
 
-  const onLogin = async () => {};
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [loading, setLoading] = useState(false);
+
+  const onLogin = async () => {
+    const toastId = toast.loading("Logging in...");
+    try {
+      setLoading(true);
+      const response = await axios.post("/api/users/login", user);
+
+      toast.success("Login successful!", { id: toastId });
+      console.log("Login successful", response.data);
+
+      router.push(`/profile`);
+    } catch (error: any) {
+      console.log("Login failed", error.message);
+      toast.error(
+        error.response?.data?.message || "Login failed. Please try again.",
+        { id: toastId },
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    setButtonDisabled(!(user.email && user.password));
+  }, [user]);
 
   return (
     <div className="flex flex-col items-center justify-center gap-2 min-h-screen py-2">
-      <h1>Login</h1>
+      <Toaster position="top-right" reverseOrder={false} />
+
+      <h1>{loading ? "..." : "Login"}</h1>
       <hr />
-      {/* <label htmlFor='username'>Username</label>
-     <input 
-     className='p-1 rounded-lg bg-black border border-neutral-700 placeholder:text-neutral-700'
-     id='username'
-     type='text'
-     value={user.username}
-     onChange={(e) => setUser({...user, username: e.target.value})}
-     placeholder='Username'/> */}
 
       <input
         className="p-1 rounded-md bg-black border-2 border-black inputBg placeholderColor"
@@ -32,7 +54,7 @@ export default function LoginPage() {
         type="email"
         value={user.email}
         onChange={(e) => setUser({ ...user, email: e.target.value })}
-        placeholder="email"
+        placeholder="Email"
       />
 
       <input
@@ -44,14 +66,21 @@ export default function LoginPage() {
         placeholder="Password"
       />
 
-      <button
-        onClick={onLogin}
-        className="py-2 px-4 rounded-lg border-2 border-black btnBgColor"
-      >
-        Login
-      </button>
+      {buttonDisabled ? (
+        ""
+      ) : (
+        <button
+          onClick={onLogin}
+          className="py-2 px-4 rounded-lg btnBgColor border-2 border-black"
+        >
+          Login
+        </button>
+      )}
+
       <Link href="/signup">
-        <p className="py-2 px-4 rounded-lg hover:underline">Sign in</p>
+        <p className="py-2 px-4 rounded-lg hover:underline">
+          Create an account, Sign up
+        </p>
       </Link>
     </div>
   );

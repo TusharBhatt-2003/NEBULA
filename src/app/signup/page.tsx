@@ -1,52 +1,54 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import { toast } from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
+
 export default function SignUp() {
   const router = useRouter();
 
-  const [user, setUser] = React.useState({
+  const [user, setUser] = useState({
     username: "",
     email: "",
     password: "",
   });
 
-  const [buttonDisabled, setButtonDisabled] = React.useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  const [loading, setLoading] = React.useState(false);
   const onSignup = async () => {
+    const toastId = toast.loading("Signing up...");
     try {
       setLoading(true);
       const response = await axios.post("/api/users/signup", user);
+
+      toast.success("Signup successful!", { id: toastId });
       console.log("Signup successful", response.data);
+
       router.push("/login");
     } catch (error: any) {
       console.log("Signup failed", error.message);
-      toast.error(error.message);
+      toast.error(
+        error.response?.data?.message || "Signup failed. Please try again.",
+        { id: toastId },
+      );
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    if (
-      user.email.length > 0 &&
-      user.password.length > 0 &&
-      user.username.length > 0
-    ) {
-      setButtonDisabled(false);
-    } else {
-      setButtonDisabled(true);
-    }
+    setButtonDisabled(!(user.username && user.email && user.password));
   }, [user]);
 
   return (
     <div className="flex flex-col items-center justify-center gap-2 min-h-screen py-2">
+      <Toaster position="top-right" reverseOrder={false} />
+
       <h1>{loading ? "..." : "Signup"}</h1>
       <hr />
-      {/* <label htmlFor='username'>Username</label> */}
+
       <input
         className="p-1 rounded-md bg-black border-2 border-black inputBg placeholderColor"
         id="username"
@@ -64,7 +66,7 @@ export default function SignUp() {
         required
         value={user.email}
         onChange={(e) => setUser({ ...user, email: e.target.value })}
-        placeholder="email"
+        placeholder="Email"
       />
 
       <input
@@ -89,7 +91,9 @@ export default function SignUp() {
       )}
 
       <Link href="/login">
-        <p className="py-2 px-4 rounded-lg hover:underline">Back to Login</p>
+        <p className="py-2 px-4 rounded-lg hover:underline">
+          Already have an account? Login
+        </p>
       </Link>
     </div>
   );
