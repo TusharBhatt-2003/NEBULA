@@ -1,3 +1,4 @@
+import LogoutBtn from "@/app/components/logoutBtn";
 import React from "react";
 
 export default function UserProfile({ params }: any) {
@@ -11,6 +12,7 @@ export default function UserProfile({ params }: any) {
           {params.id}
         </span>
       </p>
+      <LogoutBtn />
     </div>
   );
 }
