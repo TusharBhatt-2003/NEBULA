@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
+import Loading from "../components/loading";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -45,7 +46,7 @@ export default function LoginPage() {
     <div className="flex flex-col items-center justify-center gap-2 min-h-screen py-2">
       <Toaster position="top-right" reverseOrder={false} />
 
-      <h1>{loading ? "..." : "Login"}</h1>
+      {loading ? <Loading /> : <h1>Login</h1>}
       <hr />
 
       <input
