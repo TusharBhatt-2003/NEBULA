@@ -10,7 +10,7 @@ interface User {
   username: string;
 }
 
-export default function UserProfile({ params }: { params: { id: string } }) {
+export default function UserProfile() {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
