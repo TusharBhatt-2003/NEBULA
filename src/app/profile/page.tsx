@@ -29,18 +29,20 @@ export default function UserProfile() {
 
   return (
     <div className="flex flex-col items-center justify-center gap-2 min-h-screen py-2">
-      <h1>Profile</h1>
+      <div className="text-4xl flex gap-2">
+        <h1>Welcome</h1>
+        {user ? (
+          <Link
+            className="font-mono text-[#fe3b01] hover:underline"
+            href={`/profile/${user._id}`}
+          >
+            {user.username}
+          </Link>
+        ) : (
+          <Loading />
+        )}
+      </div>
       <hr />
-      <p className="text-4xl">
-        Welcome
-        <span className="font-mono text-[#fe3b01] mx-2 hover:underline">
-          {user ? (
-            <Link href={`/profile/${user._id}`}>{user.username}</Link>
-          ) : (
-            <Loading />
-          )}
-        </span>
-      </p>
       <LogoutBtn />
     </div>
   );
