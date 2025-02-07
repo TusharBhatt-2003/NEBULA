@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import useUser from "./hooks/useUser";
+import Cat from "./components/cat";
 
 export default function Home() {
   const { user, loading } = useUser();
@@ -20,7 +21,7 @@ export default function Home() {
           </Link>
         </div>
       ) : (
-        "nigga"
+        <Cat />
       )}
     </div>
   );
