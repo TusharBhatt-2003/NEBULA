@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema({
   },
   forgotPasswordToken: String,
   forgotPasswordTokenExpiry: Date,
-  verify: String,
+  verifyToken: String,
   verifyTokenExpiry: Date,
 });
 
