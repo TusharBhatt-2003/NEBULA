@@ -4,7 +4,6 @@ import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Loading from "../components/loading";
-
 export default function VerifyEmailPage() {
   const [token, setToken] = useState("");
   const [verified, setVerified] = useState(false);
@@ -37,14 +36,13 @@ export default function VerifyEmailPage() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <h1 className="text-4xl">Verify Email</h1>
+      <h1 className="text-4xl opacity-50 font-semibold">Email Verification</h1>
       {/* <h2 className="p-2 bg-orange-500 text-black">{token ? `${token}` : "no token"}</h2> */}
 
       {loading ? (
         <Loading />
       ) : (
         <>
-          {" "}
           {verified && (
             <div>
               <h2 className="text-2xl">Email Verified</h2>
@@ -58,7 +56,7 @@ export default function VerifyEmailPage() {
           )}
           {error && (
             <div>
-              <h2 className="text-2xl bg-red-500 text-black">Error</h2>
+              <h2 className="text-2xl text-red-500">Link expired</h2>
             </div>
           )}
         </>
