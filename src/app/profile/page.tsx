@@ -1,32 +1,10 @@
 "use client";
-
-import LogoutBtn from "@/app/components/logoutBtn";
-import axios from "axios";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
 import Loading from "../components/loading";
-
-interface User {
-  _id: string;
-  username: string;
-}
+import useUser from "../hooks/useUser";
 
 export default function UserProfile() {
-  const [user, setUser] = useState<User | null>(null);
-
-  useEffect(() => {
-    const fetchUserDetails = async () => {
-      try {
-        const res = await axios.get<{ data: User }>("/api/users/me");
-        setUser(res.data.data);
-      } catch (error) {
-        console.error("Failed to fetch user details:", error);
-      }
-    };
-
-    fetchUserDetails();
-  }, []);
-
+  const { user, loading } = useUser();
   return (
     <div className="flex flex-col items-center justify-center gap-2 min-h-screen py-2">
       <div className="text-4xl flex gap-2">
@@ -43,7 +21,18 @@ export default function UserProfile() {
         )}
       </div>
       <hr />
-      <LogoutBtn />
+      {user ? (
+        <Link
+          className="font-mono btnBgColor rounded-md px-3 py-2 text-[#f3f7de]"
+          href={`/profile/${user._id}`}
+        >
+          See Your Profile
+        </Link>
+      ) : (
+        <div className="font-mono btnBgColor rounded-md px-3 py-2 text-transparent  animate-pulse">
+          See Your Profile
+        </div>
+      )}
     </div>
   );
 }

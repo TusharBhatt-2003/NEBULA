@@ -47,7 +47,11 @@ export default function SignUp() {
     <div className="flex flex-col items-center justify-center gap-2 min-h-screen py-2">
       <Toaster position="top-right" reverseOrder={false} />
 
-      {loading ? <Loading /> : <h1>Login</h1>}
+      {loading ? (
+        <Loading />
+      ) : (
+        <h1 className="text-4xl opacity-50 font-semibold">Sign up</h1>
+      )}
       <hr />
 
       <input

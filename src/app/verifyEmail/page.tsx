@@ -44,7 +44,7 @@ export default function VerifyEmailPage() {
       ) : (
         <>
           {verified && (
-            <div>
+            <div className="flex flex-col gap-5 justify-center items-center border-2 border-dashed border-black rounded-md p-5 m-5">
               <h2 className="text-2xl">Email Verified</h2>
               <Link
                 className="py-2 px-4 rounded-lg btnBgColor border-2 border-black"

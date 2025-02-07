@@ -1,4 +1,5 @@
 import Loading from "@/app/components/loading";
+import LogoutBtn from "@/app/components/logoutBtn";
 import React from "react";
 
 interface UserProfileProps {
@@ -20,6 +21,7 @@ export default async function UserProfile({ params }: UserProfileProps) {
           <Loading />
         )}
       </div>
+      <LogoutBtn />
     </div>
   );
 }
