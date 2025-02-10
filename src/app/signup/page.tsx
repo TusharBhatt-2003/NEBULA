@@ -13,6 +13,7 @@ export default function SignUp() {
     username: "",
     email: "",
     password: "",
+    profileUrl: "",
   });
 
   const [buttonDisabled, setButtonDisabled] = useState(true);
@@ -22,6 +23,13 @@ export default function SignUp() {
     const toastId = toast.loading("Signing up...");
     try {
       setLoading(true);
+
+      // Check if profileUrl is empty and assign the default value
+      if (!user.profileUrl) {
+        user.profileUrl =
+          "https://i.pinimg.com/736x/1a/bb/12/1abb12125ce51b432f17fda64def85e5.jpg"; // Default URL
+      }
+
       const response = await axios.post("/api/users/signup", user);
 
       toast.success("Signup successful!", { id: toastId });
@@ -84,6 +92,15 @@ export default function SignUp() {
         placeholder="Password"
       />
 
+      <input
+        className="p-1 rounded-md bg-black border-2 border-black inputBg placeholderColor"
+        id="profileUrl"
+        type="text"
+        required
+        value={user.profileUrl}
+        onChange={(e) => setUser({ ...user, profileUrl: e.target.value })}
+        placeholder="Profile Image Url"
+      />
       {buttonDisabled ? (
         ""
       ) : (

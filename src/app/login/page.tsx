@@ -26,7 +26,13 @@ export default function LoginPage() {
       toast.success("Login successful!", { id: toastId });
       console.log("Login successful", response.data);
 
-      router.push(`/profile`);
+      const { isAdmin } = response.data;
+      // Redirect based on isAdmin
+      if (isAdmin) {
+        router.push("/admin"); // Redirect admin
+      } else {
+        router.push("/profile"); // Redirect normal users
+      }
     } catch (error: any) {
       console.log("Login failed", error.message);
       toast.error(

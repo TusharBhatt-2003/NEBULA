@@ -15,6 +15,12 @@ const userSchema = new mongoose.Schema({
     required: [true, "Please enter a email address"],
     unique: true,
   },
+  profileUrl: {
+    type: String,
+    default:
+      "https://i.pinimg.com/736x/1a/bb/12/1abb12125ce51b432f17fda64def85e5.jpg",
+    required: false,
+  },
   isverified: {
     type: Boolean,
     default: false,

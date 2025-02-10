@@ -9,9 +9,9 @@ connect();
 export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
-    const { username, email, password } = reqBody;
+    const { username, email, password, profileUrl } = reqBody;
 
-    console.log(reqBody);
+    console.log("Body", reqBody);
 
     // check if user already exists
     const user = await User.findOne({ email });
@@ -30,10 +30,11 @@ export async function POST(request: NextRequest) {
       username,
       email,
       password: hashedPassword,
+      profileUrl,
     });
 
     const savedUser = await newUser.save();
-    console.log(savedUser);
+    console.log("Saved user", savedUser);
 
     // send verification email
     await sendEmail({ email, emailType: "VERIFY", userId: savedUser._id });

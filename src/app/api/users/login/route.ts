@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
     const { email, password } = reqBody;
-    console.log(reqBody);
+    console.log("Loged In user Body", reqBody);
 
     // check if user exists
     const user = await User.findOne({ email });
@@ -32,6 +32,7 @@ export async function POST(request: NextRequest) {
       id: user._id,
       email: user.email,
       username: user.username,
+      profileUrl: user.profileUrl,
     };
 
     //generate token
