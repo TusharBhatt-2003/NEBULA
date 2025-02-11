@@ -1,10 +1,8 @@
 "use client";
-import Loading from "@/app/components/loading";
 import LogoutBtn from "@/app/components/logoutBtn";
 import ProfileSkeleton from "@/app/components/profileSkeleton";
 import useUser from "@/app/hooks/useUser";
 import React from "react";
-import Head from "next/head"; // Import the Head component
 
 export default function UserProfile() {
   const { user, loading } = useUser();
@@ -21,7 +19,7 @@ export default function UserProfile() {
   return (
     <>
       {/* SEO meta tags */}
-      <Head>
+      <head>
         <title>{seoData.title}</title>
         <meta name="description" content={seoData.description} />
         <meta property="og:title" content={seoData.title} />
@@ -33,7 +31,7 @@ export default function UserProfile() {
         <meta name="twitter:title" content={seoData.title} />
         <meta name="twitter:description" content={seoData.description} />
         <meta name="twitter:image" content={seoData.image} />
-      </Head>
+      </head>
 
       <div className="h-screen flex justify-center items-center p-2">
         {loading ? (
