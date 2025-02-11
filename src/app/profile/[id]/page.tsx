@@ -2,6 +2,8 @@
 
 import ProfileSkeleton from "@/app/components/profileSkeleton";
 import React, { use, useEffect, useState } from "react";
+import Male from "../../../../public/male";
+import Female from "../../../../public/female";
 
 interface Params {
   id: string;
@@ -75,14 +77,22 @@ export default function Page({ params }: { params: Promise<Params> }) {
                 alt={user.username}
               />
               <div className="m-3">
-                <p className="uppercase text-[#B01018] text-xl font-black">
-                  {user.username}
-                </p>
+                <div className="flex items-center gap-2">
+                  <p className="uppercase text-[#B01018] text-xl font-black">
+                    {user.username}
+                  </p>
+                  {user.gender === "Male" ? (
+                    <Male />
+                  ) : user.gender === "Female" ? (
+                    <Female />
+                  ) : null}
+                  {/* <p>{user.gender}</p> */}
+                </div>
                 <p>{user.email}</p>
-                <p>{user.gender}</p>
                 <p>{user.bio}</p>
                 <p>{user.city}</p>
               </div>
+
               <div className="flex items-center gap-3 m-3">
                 {user.isverified ? (
                   <div className=" py-1 px-2 text-[#f3f7de] rounded bg-emerald-600">

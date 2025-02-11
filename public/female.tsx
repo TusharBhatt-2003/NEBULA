@@ -5,11 +5,13 @@ export default function Female() {
     <svg
       version="1.1"
       id="Layer_1"
+      width="15px"
+      height="15px"
       xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
+      // xmlns:xlink="http://www.w3.org/1999/xlink"
       viewBox="0 0 32 32"
       enable-background="new 0 0 32 32"
-      xml:space="preserve"
+      // xml:space="preserve"
       fill="#000000"
     >
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
