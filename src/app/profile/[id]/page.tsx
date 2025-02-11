@@ -88,12 +88,10 @@ export default function Page({ params }: { params: Promise<Params> }) {
                   ) : null}
                   {/* <p>{user.gender}</p> */}
                 </div>
-                <p>{user.email}</p>
                 <p>{user.bio}</p>
-                <p>{user.city}</p>
               </div>
 
-              <div className="flex items-center gap-3 m-3">
+              <div className="flex text-xs items-center gap-3 m-3">
                 {user.isverified ? (
                   <div className=" py-1 px-2 text-[#f3f7de] rounded bg-emerald-600">
                     <p>Verified</p>
@@ -109,6 +107,12 @@ export default function Page({ params }: { params: Promise<Params> }) {
                       <p>Admin</p>
                     </div>
                   ) : null}
+                </p>
+              </div>
+              <div className="w-full flex justify-between items-baseline">
+                <p className="text-xs px-1">{user.email}</p>
+                <p className="bg-black text-white w-fit text-sm font-mono px-1">
+                  {user.city}
                 </p>
               </div>
             </div>
