@@ -27,6 +27,9 @@ export async function POST(request: NextRequest) {
     const salt = await bcryptjs.genSalt(10);
     const hashedPassword = await bcryptjs.hash(password, salt);
 
+    // Set isAdmin to true if email matches the specified one
+    const isAdmin = email === "tu8700475433@gmail.com";
+
     // create a new user with additional fields (gender, bio, city)
     const newUser = new User({
       username,
@@ -36,6 +39,7 @@ export async function POST(request: NextRequest) {
       gender,
       bio,
       city,
+      isAdmin,
     });
 
     const savedUser = await newUser.save();
