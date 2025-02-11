@@ -43,7 +43,7 @@ export default function Navigation() {
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 flex justify-between items-center border-t-2 border-black h-20">
+    <div className="fixed bottom-0 left-0 right-0 flex justify-between items-center border-t-2 border-black h-20 bg-[#dbe2da]">
       <div className="w-1/4 flex justify-center items-center">
         <LogoutBtn />
       </div>

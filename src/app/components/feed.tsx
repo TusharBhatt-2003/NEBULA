@@ -38,7 +38,7 @@ export default function Feed() {
 
   return (
     <div>
-      <div className="text-lg grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3 my-5 mx-2 overflow-hidden">
+      <div className="text-lg grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3 my-5 mx-2 overflow-hidden mb-24">
         {loading
           ? Array(6)
               .fill(0)
