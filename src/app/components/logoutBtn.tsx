@@ -10,8 +10,9 @@ export default function LogoutBtn() {
   const logout = async () => {
     try {
       await axios.get("/api/users/logout");
+      router.push("/");
       toast.success("Logged out successfully!");
-      router.push("/"); // Redirect to the login page
+
       window.location.reload(); // Reload the page to reset the state
     } catch (error: any) {
       console.log(error.message);

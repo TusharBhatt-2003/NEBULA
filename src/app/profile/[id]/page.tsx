@@ -1,7 +1,6 @@
 "use client";
-import LogoutBtn from "@/app/components/logoutBtn";
+
 import ProfileSkeleton from "@/app/components/profileSkeleton";
-import useUser from "@/app/hooks/useUser";
 import React, { use, useEffect, useState } from "react";
 
 interface Params {
@@ -80,6 +79,9 @@ export default function Page({ params }: { params: Promise<Params> }) {
                   {user.username}
                 </p>
                 <p>{user.email}</p>
+                <p>{user.gender}</p>
+                <p>{user.bio}</p>
+                <p>{user.city}</p>
               </div>
               <div className="flex items-center gap-3 m-3">
                 {user.isverified ? (
