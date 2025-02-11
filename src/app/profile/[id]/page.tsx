@@ -100,9 +100,6 @@ export default function Page({ params }: { params: Promise<Params> }) {
                 </p>
               </div>
             </div>
-            <div className="my-4 w-full flex justify-center items-center">
-              <LogoutBtn />
-            </div>
           </div>
         ) : (
           <p>No user found.</p>
