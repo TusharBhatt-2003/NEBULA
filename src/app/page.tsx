@@ -2,7 +2,6 @@
 import Link from "next/link";
 import useUser from "./hooks/useUser";
 import Cat from "./components/cat";
-import AdBanner from "./components/adbanner";
 
 export default function Home() {
   const { user, loading } = useUser();
@@ -20,7 +19,6 @@ export default function Home() {
               Sign Up
             </button>
           </Link>
-          <AdBanner />
         </div>
       ) : (
         <Cat />
