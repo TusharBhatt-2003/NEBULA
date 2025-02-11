@@ -8,34 +8,46 @@ export default function UserProfile() {
   const { user, loading } = useUser();
 
   return (
-    <div className="flex flex-col items-center justify-center gap-2 h-screen py-2">
-      <div className="w-40 bg-contain">
-        <img src={user?.profileUrl} className="" />
-      </div>
-      <h1 className="text-4xl text-[#fe3b01] font-semibold">
-        {user?.username}
-      </h1>
-      <hr />
-      <div className="text-xl">
-        {loading ? (
-          <Loading />
-        ) : (
-          <div className="border-2 border-black rounded-xl p-2">
-            <p>
-              user ID:{" "}
-              <span className="p-1 font-mono text-[#fe3b01] rounded-md">
-                {user?._id}
-              </span>
-            </p>
-            <p>email: {user?.email}</p>
-            <p></p>
-            <p className="text-center mt-2 rounded bg-[#8DBF8A] text-[#F3F6D7]">
-              {user?.isAdmin ? "You are admin." : "You are a regular user."}
-            </p>
+    <div className="h-screen flex justify-center items-center p-2">
+      {user ? (
+        <div>
+          <div className="shadow-xl rounded-2xl border-2 border-black">
+            <img
+              src={user.profileUrl}
+              className="w-64 rounded-lg m-3 border-2 border-black"
+            />
+            <div className="m-3">
+              <p className="uppercase text-[#fe3b01] text-xl font-black">
+                {user.username}
+              </p>
+              <p>{user.email}</p>
+            </div>
+            <div className="flex items-center gap-3 m-3">
+              {user.isverified ? (
+                <div className=" py-1 px-2 text-[#f3f7de] rounded bg-emerald-600">
+                  <p>Verified</p>
+                </div>
+              ) : (
+                <div className=" py-1 px-2 rounded bg-green-100">
+                  <p>Not Verified</p>
+                </div>
+              )}
+              <p>
+                {user.isAdmin ? (
+                  <div className=" py-1 px-2 rounded text-yellow-600 bg-yellow-100">
+                    <p>Admin</p>
+                  </div>
+                ) : null}
+              </p>
+            </div>
           </div>
-        )}
-      </div>
-      <LogoutBtn />
+          <div className="my-4 w-full flex justify-center items-center">
+            <LogoutBtn />
+          </div>
+        </div>
+      ) : (
+        <p>No user found.</p>
+      )}
     </div>
   );
 }

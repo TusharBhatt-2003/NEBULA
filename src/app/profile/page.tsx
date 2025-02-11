@@ -26,7 +26,7 @@ export default function UserProfile() {
           <div className="flex flex-col items-center justify-center gap-5">
             <Link
               className="font-mono btnBgColor rounded-md px-3 py-2 text-[#f3f7de]"
-              href={user.isAdmin ? "/admin" : `/profile/${user._id}`}
+              href={user.isAdmin ? "/admin-panel" : `/profile/${user._id}`}
             >
               {user.isAdmin ? "See Admin Panel" : "See Your Profile"}
             </Link>

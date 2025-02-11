@@ -29,7 +29,7 @@ export default function LoginPage() {
       const { isAdmin } = response.data;
       // Redirect based on isAdmin
       if (isAdmin) {
-        router.push("/admin"); // Redirect admin
+        router.push("/admin-panel"); // Redirect admin
       } else {
         router.push("/profile"); // Redirect normal users
       }
