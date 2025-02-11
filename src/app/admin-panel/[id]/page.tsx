@@ -1,4 +1,5 @@
 "use client";
+import ProfileSkeleton from "@/app/components/profileSkeleton";
 import { useEffect, useState } from "react";
 import { use } from "react"; // Import use from React to unwrap promises
 
@@ -8,6 +9,7 @@ interface Params {
 
 export default function Page({ params }: { params: Promise<Params> }) {
   const [users, setUsers] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   // Unwrap the params using React.use() and ensure the type is correct
   const { id } = use(params);
@@ -24,6 +26,8 @@ export default function Page({ params }: { params: Promise<Params> }) {
         }
       } catch (error) {
         console.error("Error fetching users:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -35,7 +39,9 @@ export default function Page({ params }: { params: Promise<Params> }) {
 
   return (
     <div className="h-screen flex justify-center items-center p-2">
-      {user ? (
+      {loading ? (
+        <ProfileSkeleton />
+      ) : user ? (
         <div className="shadow-xl rounded-2xl border-2 border-black">
           <img
             src={user.profileUrl}
