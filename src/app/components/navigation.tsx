@@ -66,7 +66,7 @@ export default function Navigation() {
         className="w-1/4 flex justify-center items-center"
       >
         <div
-          className="w-16 h-16 bg-cover bg-center rounded-full border-2 border-black"
+          className="w-16 h-16 bg-cover bg-center"
           style={{
             backgroundImage: `url(${user.profileUrl || "/default-profile.jpg"})`,
           }}
