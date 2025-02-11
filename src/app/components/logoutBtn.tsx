@@ -19,10 +19,7 @@ export default function LogoutBtn() {
   };
 
   return (
-    <button
-      onClick={logout}
-      className="btnBgColor text-[#f3f7de] px-2 py-1 rounded-md"
-    >
+    <button onClick={logout} className="btnBgColor text-[#f3f7de] px-2 py-1">
       Logout
     </button>
   );

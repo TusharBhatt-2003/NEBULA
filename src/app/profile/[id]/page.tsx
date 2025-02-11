@@ -2,10 +2,41 @@
 import LogoutBtn from "@/app/components/logoutBtn";
 import ProfileSkeleton from "@/app/components/profileSkeleton";
 import useUser from "@/app/hooks/useUser";
-import React from "react";
+import React, { use, useEffect, useState } from "react";
 
-export default function UserProfile() {
-  const { user, loading } = useUser();
+interface Params {
+  id: string;
+}
+
+export default function Page({ params }: { params: Promise<Params> }) {
+  const [users, setUsers] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Unwrap the params using React.use() and ensure the type is correct
+  const { id } = use(params);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch("/api/users");
+        const data = await response.json();
+        if (response.ok) {
+          setUsers(data);
+        } else {
+          console.error(data.message || "Error fetching users.");
+        }
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
+  // Filter the users array to only include the user with the matching _id
+  const user = users.find((user) => user._id === id);
 
   // Dynamic meta data for SEO
   const seoData = {
@@ -38,10 +69,10 @@ export default function UserProfile() {
           <ProfileSkeleton />
         ) : user ? (
           <div>
-            <div className="shadow-xl rounded-2xl border-2 border-black">
+            <div className="shadow-xl border-4 border-black">
               <img
                 src={user.profileUrl}
-                className="w-64 rounded-lg m-3 border-2 border-black"
+                className="w-64 m-3 border-2 border-black"
                 alt={user.username}
               />
               <div className="m-3">

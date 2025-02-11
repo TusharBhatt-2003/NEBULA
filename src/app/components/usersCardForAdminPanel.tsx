@@ -33,7 +33,7 @@ const UsersCardForAdminPanel: React.FC<UserProps> = ({ user, onDelete }) => {
 
   return (
     <div
-      className="border-2 border-black rounded-xl flex justify-between items-center overflow-hidden"
+      className="border-2 border-black  flex justify-between items-center overflow-hidden"
       style={{ backgroundColor, color: textColor, borderColor }}
     >
       <Link href={`/admin-panel/${user._id}`} className="flex w-full h-full">

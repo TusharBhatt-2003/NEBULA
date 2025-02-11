@@ -42,10 +42,10 @@ export default function Page({ params }: { params: Promise<Params> }) {
       {loading ? (
         <ProfileSkeleton />
       ) : user ? (
-        <div className="shadow-xl rounded-2xl border-2 border-black">
+        <div className="shadow-xl border-4 border-black">
           <img
             src={user.profileUrl}
-            className="w-64 rounded-lg m-3 border-2 border-black"
+            className="w-64 m-3 border-2 border-black"
           />
           <div className="m-3">
             <p className="uppercase text-[#B01018] text-xl font-black">

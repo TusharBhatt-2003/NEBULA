@@ -52,46 +52,46 @@ export default function LoginPage() {
     <div className="flex flex-col items-center justify-center gap-2 min-h-screen py-2">
       <Toaster position="top-right" reverseOrder={false} />
 
-      {loading ? (
-        <Loading />
-      ) : (
-        <h1 className="text-4xl text-[#B01018] font-semibold">Login</h1>
-      )}
-      <hr />
+      <div className="flex flex-col items-center justify-center gap-2 border-4 border-black p-5">
+        {loading ? (
+          <Loading />
+        ) : (
+          <h1 className="text-4xl text-[#B01018] font-semibold">Login</h1>
+        )}
+        <hr />
 
-      <input
-        className="p-1 rounded-md bg-black border-2 border-black inputBg placeholderColor outline-none"
-        id="email"
-        type="email"
-        value={user.email}
-        onChange={(e) => setUser({ ...user, email: e.target.value })}
-        placeholder="Email"
-      />
+        <input
+          className="p-1 bg-black border-2 border-black inputBg placeholderColor outline-none"
+          id="email"
+          type="email"
+          value={user.email}
+          onChange={(e) => setUser({ ...user, email: e.target.value })}
+          placeholder="Email"
+        />
 
-      <input
-        className="p-1 rounded-md bg-black border-2 border-black inputBg placeholderColor outline-none"
-        id="password"
-        type="password"
-        value={user.password}
-        onChange={(e) => setUser({ ...user, password: e.target.value })}
-        placeholder="Password"
-      />
+        <input
+          className="p-1 bg-black border-2 border-black inputBg placeholderColor outline-none"
+          id="password"
+          type="password"
+          value={user.password}
+          onChange={(e) => setUser({ ...user, password: e.target.value })}
+          placeholder="Password"
+        />
 
-      {buttonDisabled ? (
-        ""
-      ) : (
-        <button
-          onClick={onLogin}
-          className="py-2 px-4 rounded-lg btnBgColor border-2 border-black"
-        >
-          Login
-        </button>
-      )}
+        {buttonDisabled ? (
+          ""
+        ) : (
+          <button
+            onClick={onLogin}
+            className="py-2 px-4 btnBgColor border-2 border-black"
+          >
+            Login
+          </button>
+        )}
+      </div>
 
       <Link href="/signup">
-        <p className="py-2 px-4 rounded-lg hover:underline">
-          Create an account, Sign up
-        </p>
+        <p className="py-2 px-4  hover:underline">Create an account, Sign up</p>
       </Link>
     </div>
   );
