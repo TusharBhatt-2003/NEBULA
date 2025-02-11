@@ -2,7 +2,12 @@ import React from "react";
 
 export default function Loading() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 200 200"
+      width="45"
+      height="45"
+    >
       <circle
         fill="#B01018"
         stroke="#B01018"
