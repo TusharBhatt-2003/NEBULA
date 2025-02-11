@@ -14,6 +14,9 @@ export default function SignUp() {
     email: "",
     password: "",
     profileUrl: "",
+    gender: "",
+    bio: "",
+    city: "",
   });
 
   const [buttonDisabled, setButtonDisabled] = useState(true);
@@ -97,11 +100,45 @@ export default function SignUp() {
           className="p-1 bg-black border-2 border-black inputBg placeholderColor"
           id="profileUrl"
           type="text"
-          required
           value={user.profileUrl}
           onChange={(e) => setUser({ ...user, profileUrl: e.target.value })}
           placeholder="Profile Image Url"
         />
+
+        {/* Gender input */}
+        <select
+          className="p-1 bg-black border-2 border-black inputBg placeholderColor"
+          id="gender"
+          value={user.gender}
+          onChange={(e) => setUser({ ...user, gender: e.target.value })}
+        >
+          <option value="" disabled>
+            Select Gender
+          </option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+
+        {/* Bio input */}
+        <textarea
+          className="p-1 bg-black border-2 border-black inputBg placeholderColor"
+          id="bio"
+          value={user.bio}
+          onChange={(e) => setUser({ ...user, bio: e.target.value })}
+          placeholder="Write a short bio"
+        />
+
+        {/* City input */}
+        <input
+          className="p-1 bg-black border-2 border-black inputBg placeholderColor"
+          id="city"
+          type="text"
+          value={user.city}
+          onChange={(e) => setUser({ ...user, city: e.target.value })}
+          placeholder="City"
+        />
+
         {buttonDisabled ? (
           ""
         ) : (

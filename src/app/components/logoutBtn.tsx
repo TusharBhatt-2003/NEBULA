@@ -11,7 +11,7 @@ export default function LogoutBtn() {
     try {
       await axios.get("/api/users/logout");
       toast.success("Logged out successfully!");
-      router.push("/login"); // Redirect to the login page
+      router.push("/"); // Redirect to the login page
       window.location.reload(); // Reload the page to reset the state
     } catch (error: any) {
       console.log(error.message);

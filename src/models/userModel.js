@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    required: [true, "Please enter a email address"],
+    required: [true, "Please enter an email address"],
     unique: true,
   },
   profileUrl: {
@@ -33,6 +33,22 @@ const userSchema = new mongoose.Schema({
   forgotPasswordTokenExpiry: Date,
   verifyToken: String,
   verifyTokenExpiry: Date,
+
+  // Adding new fields
+  gender: {
+    type: String,
+    enum: ["Male", "Female", "Other"], // You can modify or add more options if needed
+    required: false,
+  },
+  bio: {
+    type: String,
+    default: "", // Default to an empty string if bio is not provided
+    required: false,
+  },
+  city: {
+    type: String,
+    required: false,
+  },
 });
 
 const User = mongoose.models.users || mongoose.model("users", userSchema);
