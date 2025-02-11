@@ -17,7 +17,7 @@ export default function UserProfile() {
               className="w-64 rounded-lg m-3 border-2 border-black"
             />
             <div className="m-3">
-              <p className="uppercase text-[#fe3b01] text-xl font-black">
+              <p className="uppercase text-[#B01018] text-xl font-black">
                 {user.username}
               </p>
               <p>{user.email}</p>

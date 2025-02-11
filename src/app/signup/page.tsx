@@ -58,12 +58,12 @@ export default function SignUp() {
       {loading ? (
         <Loading />
       ) : (
-        <h1 className="text-4xl opacity-50 font-semibold">Sign up</h1>
+        <h1 className="text-4xl text-[#B01018] font-semibold">Sign up</h1>
       )}
       <hr />
 
       <input
-        className="p-1 rounded-md bg-black border-2 border-black inputBg placeholderColor"
+        className="p-1 rounded-md bg-black border-2 border-black inputBg placeholderColor outline-none"
         id="username"
         type="text"
         required
@@ -73,7 +73,7 @@ export default function SignUp() {
       />
 
       <input
-        className="p-1 rounded-md bg-black border-2 border-black inputBg placeholderColor"
+        className="p-1 rounded-md bg-black border-2 border-black inputBg placeholderColor outline-none"
         id="email"
         type="email"
         required
@@ -83,7 +83,7 @@ export default function SignUp() {
       />
 
       <input
-        className="p-1 rounded-md bg-black border-2 border-black inputBg placeholderColor"
+        className="p-1 rounded-md bg-black border-2 border-black inputBg placeholderColor outline-none"
         id="password"
         type="password"
         required

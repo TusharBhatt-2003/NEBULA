@@ -55,12 +55,12 @@ export default function LoginPage() {
       {loading ? (
         <Loading />
       ) : (
-        <h1 className="text-4xl opacity-50 font-semibold">Login</h1>
+        <h1 className="text-4xl text-[#B01018] font-semibold">Login</h1>
       )}
       <hr />
 
       <input
-        className="p-1 rounded-md bg-black border-2 border-black inputBg placeholderColor"
+        className="p-1 rounded-md bg-black border-2 border-black inputBg placeholderColor outline-none"
         id="email"
         type="email"
         value={user.email}
@@ -69,7 +69,7 @@ export default function LoginPage() {
       />
 
       <input
-        className="p-1 rounded-md bg-black border-2 border-black inputBg placeholderColor"
+        className="p-1 rounded-md bg-black border-2 border-black inputBg placeholderColor outline-none"
         id="password"
         type="password"
         value={user.password}

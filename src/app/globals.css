@@ -3,23 +3,23 @@
 @tailwind utilities;
 
 :root {
-  --background: #f3f7de;
+  --background: #dbe2da;
   --foreground: #000000;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #f3f7de;
+    --background: #dbe2da;
     --foreground: #000000;
   }
 }
 
 .btnBgColor {
-  background-color: #fe3b01;
+  background-color: #b01018;
 }
 
 .inputBg {
-  background: #edddba;
+  background: #f6f5f1;
 }
 
 .placeholderColor::placeholder {

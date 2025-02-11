@@ -11,7 +11,7 @@ export default function UserProfile() {
         <h1>Welcome</h1>
         {user ? (
           <Link
-            className="font-mono text-[#fe3b01] hover:underline"
+            className="font-mono text-[#B01018] hover:underline"
             href={`/profile/${user._id}`}
           >
             {user.username}
