@@ -1,6 +1,7 @@
 "use client";
 import Loading from "@/app/components/loading";
 import LogoutBtn from "@/app/components/logoutBtn";
+import ProfileSkeleton from "@/app/components/profileSkeleton";
 import useUser from "@/app/hooks/useUser";
 import React from "react";
 
