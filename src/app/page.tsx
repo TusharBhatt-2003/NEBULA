@@ -26,10 +26,10 @@ export default function Home() {
             <NEBULA />
           </div>
 
-          <div className="relative  backdrop-blur gap-5 py-5 px-10 rounded-xl border border-[#F2F0E4]/30 z-10 w-[90%] md:w-[40%] lg:w-[30%] text-center space-y-2">
+          <div className="relative  backdrop-blur gap-5 py-5 px-10 rounded-xl border border-[#F2F0E4]/30 z-10 w-[90%] md:w-[40%] lg:w-[30%] text-center space-y-2 overflow-hidden">
             <div className="grain"></div>
             {paragraph.map((line, index) => (
-              <p key={index} className="relative">
+              <p key={index} className="relative text-xl">
                 {line.split(" ").map((word, i) => (
                   <span
                     key={i}

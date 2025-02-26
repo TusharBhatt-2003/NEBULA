@@ -5,10 +5,14 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
 import Loading from "../components/loading";
+import NEBULA from "../components/NEBULA";
+import { Input } from "../components/ui/input";
+import { RadioGroup, RadioGroupItem } from "../components/ui/radio-group";
+import { Label } from "../components/ui/label";
 
 export default function SignUp() {
   const router = useRouter();
-
+  const [hoveredLink, setHoveredLink] = useState<string | null>(null);
   const [user, setUser] = useState({
     username: "",
     email: "",
@@ -56,106 +60,122 @@ export default function SignUp() {
 
   return (
     <div className="flex flex-col items-center justify-center gap-2 min-h-screen py-2">
+      <div className="absolute w-screen h-screen">
+        <NEBULA />
+      </div>
       <Toaster position="top-right" reverseOrder={false} />
 
-      <div className="flex flex-col items-center justify-center gap-2 border-2 border-black p-5">
-        {loading ? (
-          <Loading />
-        ) : (
-          <h1 className="text-4xl text-[#B01018] font-semibold">Sign up</h1>
-        )}
-        <hr />
+      <div className="z-10 light-text">
+        <div className="relative flex backdrop-blur gap-5 py-5 px-10 rounded-xl border border-[#F2F0E4]/30 z-10 flex-col items-center justify-center overflow-hidden">
+          {loading ? (
+            <Loading />
+          ) : (
+            <h1 className="text-4xl text-transparent bg-clip-text animate-gradient-para z-50 font-['LogoFont'] font-semibold">
+              Sign up
+            </h1>
+          )}
+          <hr />
 
-        <input
-          className="p-1 bg-black border-2 border-black inputBg placeholderColor outline-none"
-          id="username"
-          type="text"
-          required
-          value={user.username}
-          onChange={(e) => setUser({ ...user, username: e.target.value })}
-          placeholder="Username"
-        />
+          <Input
+            className="border border-[#F2F0E4]/30"
+            id="username"
+            type="text"
+            required
+            value={user.username}
+            onChange={(e) => setUser({ ...user, username: e.target.value })}
+            placeholder="Username"
+          />
 
-        <input
-          className="p-1 bg-black border-2 border-black inputBg placeholderColor outline-none"
-          id="email"
-          type="email"
-          required
-          value={user.email}
-          onChange={(e) => setUser({ ...user, email: e.target.value })}
-          placeholder="Email"
-        />
+          <Input
+            className="border border-[#F2F0E4]/30"
+            id="email"
+            type="email"
+            required
+            value={user.email}
+            onChange={(e) => setUser({ ...user, email: e.target.value })}
+            placeholder="Email"
+          />
 
-        <input
-          className="p-1 bg-black border-2 border-black inputBg placeholderColor outline-none"
-          id="password"
-          type="password"
-          required
-          value={user.password}
-          onChange={(e) => setUser({ ...user, password: e.target.value })}
-          placeholder="Password"
-        />
+          <Input
+            className="border border-[#F2F0E4]/30"
+            id="password"
+            type="password"
+            required
+            value={user.password}
+            onChange={(e) => setUser({ ...user, password: e.target.value })}
+            placeholder="Password"
+          />
 
-        <input
-          className="p-1 bg-black border-2 border-black inputBg placeholderColor"
-          id="profileUrl"
-          type="text"
-          value={user.profileUrl}
-          onChange={(e) => setUser({ ...user, profileUrl: e.target.value })}
-          placeholder="Profile Image Url"
-        />
+          <Input
+            className="border border-[#F2F0E4]/30"
+            id="profileUrl"
+            type="text"
+            value={user.profileUrl}
+            onChange={(e) => setUser({ ...user, profileUrl: e.target.value })}
+            placeholder="Profile Image Url"
+          />
 
-        {/* Gender input */}
-        <select
-          className="p-1 bg-black border-2 border-black inputBg placeholderColor"
-          id="gender"
-          value={user.gender}
-          onChange={(e) => setUser({ ...user, gender: e.target.value })}
-        >
-          <option value="" disabled>
-            Select Gender
-          </option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-          <option value="Other">Other</option>
-        </select>
-
-        {/* Bio input */}
-        <textarea
-          className="p-1 bg-black border-2 border-black inputBg placeholderColor"
-          id="bio"
-          value={user.bio}
-          onChange={(e) => setUser({ ...user, bio: e.target.value })}
-          placeholder="Write a short bio"
-        />
-
-        {/* City input */}
-        <input
-          className="p-1 bg-black border-2 border-black inputBg placeholderColor"
-          id="city"
-          type="text"
-          value={user.city}
-          onChange={(e) => setUser({ ...user, city: e.target.value })}
-          placeholder="City"
-        />
-
-        {buttonDisabled ? (
-          ""
-        ) : (
-          <button
-            onClick={onSignup}
-            className="py-2 px-4 btnBgColor border-2 border-black"
+          <RadioGroup
+            className="flex justify-center items-center"
+            value={user.gender}
+            onValueChange={(value) => setUser({ ...user, gender: value })}
           >
-            Signup
-          </button>
-        )}
-      </div>
+            <Label className="text-sm font-semibold">Gender</Label>
 
-      <Link href="/login">
-        <p className="py-2 px-4 rounded-lg hover:underline">
-          Already have an account? Login
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="Male" id="male" />
+              <Label htmlFor="male">Male</Label>
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="Female" id="female" />
+              <Label htmlFor="female">Female</Label>
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="Other" id="other" />
+              <Label htmlFor="other">Other</Label>
+            </div>
+          </RadioGroup>
+
+          {/* City input */}
+          <Input
+            className="border border-[#F2F0E4]/30"
+            id="city"
+            type="text"
+            value={user.city}
+            onChange={(e) => setUser({ ...user, city: e.target.value })}
+            placeholder="City"
+          />
+
+          {buttonDisabled ? (
+            ""
+          ) : (
+            <button
+              onClick={onSignup}
+              className="py-2 px-4 btnBgColor border-2 border-black"
+            >
+              Signup
+            </button>
+          )}
+        </div>
+
+        <p className="py-2 px-4 text-center">
+          Already Have an account,
+          <Link
+            href="/signup"
+            className={`inline-block mx-1 cursor-pointer underline ${
+              hoveredLink === "Sign Up"
+                ? "text-transparent bg-clip-text animate-gradient-para"
+                : "light-text"
+            }`}
+            onMouseEnter={() => setHoveredLink("Sign Up")}
+            onMouseLeave={() => setHoveredLink(null)}
+          >
+            Log In
+          </Link>
         </p>
-      </Link>
+      </div>
     </div>
   );
 }
