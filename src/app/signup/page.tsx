@@ -9,6 +9,7 @@ import NEBULA from "../components/NEBULA";
 import { Input } from "../components/ui/input";
 import { RadioGroup, RadioGroupItem } from "../components/ui/radio-group";
 import { Label } from "../components/ui/label";
+import { Button } from "../components/ui/button";
 
 export default function SignUp() {
   const router = useRouter();
@@ -26,7 +27,8 @@ export default function SignUp() {
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
 
-  const onSignup = async () => {
+  const onSignup = async (e: React.FormEvent) => {
+    e.preventDefault(); // Prevent default form submission behavior
     const toastId = toast.loading("Signing up...");
     try {
       setLoading(true);
@@ -66,7 +68,10 @@ export default function SignUp() {
       <Toaster position="top-right" reverseOrder={false} />
 
       <div className="z-10 light-text">
-        <div className="relative flex backdrop-blur gap-5 py-5 px-10 rounded-xl border border-[#F2F0E4]/30 z-10 flex-col items-center justify-center overflow-hidden">
+        <form
+          className="relative flex backdrop-blur gap-5 py-5 px-10 rounded-xl border border-[#F2F0E4]/30 z-10 flex-col items-center justify-center overflow-hidden"
+          onSubmit={onSignup}
+        >
           {loading ? (
             <Loading />
           ) : (
@@ -138,7 +143,6 @@ export default function SignUp() {
             </div>
           </RadioGroup>
 
-          {/* City input */}
           <Input
             className="border border-[#F2F0E4]/30"
             id="city"
@@ -148,22 +152,20 @@ export default function SignUp() {
             placeholder="City"
           />
 
-          {buttonDisabled ? (
-            ""
-          ) : (
-            <button
+          {!buttonDisabled && (
+            <Button
               onClick={onSignup}
-              className="py-2 px-4 btnBgColor border-2 border-black"
+              className="py-2 px-4 border light-bg text-black"
             >
-              Signup
-            </button>
+              Sign Up
+            </Button>
           )}
-        </div>
+        </form>
 
         <p className="py-2 px-4 text-center">
           Already Have an account,
           <Link
-            href="/signup"
+            href="/login"
             className={`inline-block mx-1 cursor-pointer underline ${
               hoveredLink === "Sign Up"
                 ? "text-transparent bg-clip-text animate-gradient-para"

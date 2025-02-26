@@ -47,6 +47,12 @@ export default function LoginPage() {
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && !buttonDisabled) {
+      onLogin();
+    }
+  };
+
   useEffect(() => {
     setButtonDisabled(!(user.email && user.password));
   }, [user]);
@@ -59,7 +65,11 @@ export default function LoginPage() {
       <Toaster position="top-right" reverseOrder={false} />
 
       <div className="z-10 light-text">
-        <div className="relative flex backdrop-blur gap-5 py-5 px-10 rounded-xl border border-[#F2F0E4]/30 z-10 flex-col items-center justify-center overflow-hidden">
+        <div
+          className="relative flex backdrop-blur gap-5 py-5 px-10 rounded-xl border border-[#F2F0E4]/30 z-10 flex-col items-center justify-center overflow-hidden"
+          onKeyDown={handleKeyDown} // Add keydown listener here
+          tabIndex={0} // Make div focusable for onKeyDown to work
+        >
           {loading ? (
             <Loading />
           ) : (
