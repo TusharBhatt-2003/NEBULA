@@ -5,10 +5,13 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
 import Loading from "../components/loading";
+import NEBULA from "../components/NEBULA";
+import { Input } from "../components/ui/input";
+import { Button } from "../components/ui/button";
 
 export default function LoginPage() {
   const router = useRouter();
-
+  const [hoveredLink, setHoveredLink] = useState<string | null>(null);
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -49,50 +52,69 @@ export default function LoginPage() {
   }, [user]);
 
   return (
-    <div className="flex flex-col items-center justify-center gap-2 min-h-screen py-2">
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="absolute w-screen h-screen">
+        <NEBULA />
+      </div>
       <Toaster position="top-right" reverseOrder={false} />
 
-      <div className="flex flex-col items-center justify-center gap-2 border-4 border-black p-5">
-        {loading ? (
-          <Loading />
-        ) : (
-          <h1 className="text-4xl text-[#B01018] font-semibold">Login</h1>
-        )}
-        <hr />
+      <div className="z-10 light-text">
+        <div className="relative flex backdrop-blur gap-5 py-5 px-10 rounded-xl border border-[#F2F0E4]/30 z-10 flex-col items-center justify-center overflow-hidden">
+          {loading ? (
+            <Loading />
+          ) : (
+            <h1 className="text-4xl text-transparent bg-clip-text animate-gradient-para z-50 font-['LogoFont'] font-semibold">
+              Login
+            </h1>
+          )}
+          <hr />
 
-        <input
-          className="p-1 bg-black border-2 border-black inputBg placeholderColor outline-none"
-          id="email"
-          type="email"
-          value={user.email}
-          onChange={(e) => setUser({ ...user, email: e.target.value })}
-          placeholder="Email"
-        />
+          <Input
+            className="border border-[#F2F0E4]/30"
+            id="email"
+            type="email"
+            value={user.email}
+            onChange={(e) => setUser({ ...user, email: e.target.value })}
+            placeholder="Email"
+          />
 
-        <input
-          className="p-1 bg-black border-2 border-black inputBg placeholderColor outline-none"
-          id="password"
-          type="password"
-          value={user.password}
-          onChange={(e) => setUser({ ...user, password: e.target.value })}
-          placeholder="Password"
-        />
+          <Input
+            className="border border-[#F2F0E4]/30"
+            id="password"
+            type="password"
+            value={user.password}
+            onChange={(e) => setUser({ ...user, password: e.target.value })}
+            placeholder="Password"
+          />
 
-        {buttonDisabled ? (
-          ""
-        ) : (
-          <button
-            onClick={onLogin}
-            className="py-2 px-4 btnBgColor border-2 border-black"
+          {buttonDisabled ? (
+            ""
+          ) : (
+            <Button
+              onClick={onLogin}
+              className="py-2 px-4 border light-bg text-black"
+            >
+              Login
+            </Button>
+          )}
+        </div>
+
+        <p className="py-2 px-4 text-center">
+          Create an account,
+          <Link
+            href="/signup"
+            className={`inline-block mx-1 cursor-pointer underline ${
+              hoveredLink === "Sign Up"
+                ? "text-transparent bg-clip-text animate-gradient-para"
+                : "light-text"
+            }`}
+            onMouseEnter={() => setHoveredLink("Sign Up")}
+            onMouseLeave={() => setHoveredLink(null)}
           >
-            Login
-          </button>
-        )}
+            Sign Up
+          </Link>
+        </p>
       </div>
-
-      <Link href="/signup">
-        <p className="py-2 px-4  hover:underline">Create an account, Sign up</p>
-      </Link>
     </div>
   );
 }

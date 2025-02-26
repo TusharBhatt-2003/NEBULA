@@ -2,15 +2,46 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #dbe2da;
-  --foreground: #000000;
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #dbe2da;
-    --foreground: #000000;
+.light-text {
+  color: #f2f0e4;
+}
+.light-bg {
+  background-color: #f2f0e4;
+}
+.animate-gradient {
+  background: linear-gradient(
+    45deg,
+    #9e120e,
+    #0b8e60,
+    #30568c,
+    #f9ce79,
+    #981696,
+    #639438
+  );
+  background-size: 200% 200%;
+  animation: gradient 8s infinite linear;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 
@@ -26,8 +57,162 @@
   color: #000000;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@font-face {
+  font-family: LogoFont;
+  src: url(../../fonts/Bright.otf);
+}
+
+@font-face {
+  font-family: spring;
+  src: url(../../fonts/Fontspring-DEMO-integralcf-regular.otf);
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 10% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: #f2f0e4;
+  border-radius: 50%;
+  opacity: 1;
+  animation: twinkle infinite alternate ease-in-out;
+  transition:
+    filter 0.1s ease,
+    transform 0.1s ease;
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
+}
+
+.grain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Dissolve_Noise_Texture.png");
+  opacity: 0.1; /* Adjust the opacity for a stronger or lighter grain */
+  mix-blend-mode: color-burn; /* Blend mode for the grain effect */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.nebula-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 150%;
+  height: 150%;
+  pointer-events: none;
+  z-index: 50;
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Dissolve_Noise_Texture.png");
+  background-repeat: repeat;
+  background-size: contain; /* Makes the noise fine-grained */
+  opacity: 0.5; /* Adjust opacity for grain intensity */
+  mix-blend-mode: overlay;
+}
+
+/* Gradient Animation */
+.animate-gradient-para {
+  background: linear-gradient(
+    45deg,
+    #9e120e,
+    #0b8e60,
+    #30568c,
+    #f9ce79,
+    #981696,
+    #639438
+  );
+  background-size: 200% 200%;
+  animation: gradient 8s infinite linear;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }

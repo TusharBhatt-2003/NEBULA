@@ -9,16 +9,25 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.1.2",
     "authnextjs": "file:",
     "axios": "^1.7.9",
     "bcryptjs": "^2.4.3",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "gsap": "^3.12.7",
     "jsonwebtoken": "^9.0.2",
+    "lucide-react": "^0.476.0",
     "mongoose": "^8.9.7",
+    "motion": "^12.4.7",
     "next": "15.1.6",
     "nodemailer": "^6.10.0",
     "react": "^19.0.0",
+    "react-blur": "^1.1.1",
     "react-dom": "^19.0.0",
-    "react-hot-toast": "^2.5.1"
+    "react-hot-toast": "^2.5.1",
+    "tailwind-merge": "^3.0.2",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
