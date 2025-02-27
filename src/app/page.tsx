@@ -19,14 +19,14 @@ export default function Home() {
   const [hoveredWord, setHoveredWord] = useState<string | null>(null);
 
   return (
-    <div className="relative">
+    <div className="relative overflow-hidden">
       {!user ? (
         <div className="relative font-['spring'] gap-10 flex flex-col bg-black h-screen items-center justify-around overflow-hidden">
           <div className="absolute w-screen h-screen">
             <NEBULA />
           </div>
 
-          <div className="relative  backdrop-blur gap-5 py-5 px-10 rounded-xl border border-[#F2F0E4]/30 z-10 w-[90%] md:w-[40%] lg:w-[30%] text-center space-y-2 overflow-hidden">
+          <div className="relative z-10  backdrop-blur gap-5 py-5 px-10 rounded-xl border border-[#F2F0E4]/30 w-[90%] md:w-[40%] lg:w-[30%] text-center space-y-2 overflow-hidden">
             <div className="grain"></div>
             {paragraph.map((line, index) => (
               <p key={index} className="relative text-xl">
