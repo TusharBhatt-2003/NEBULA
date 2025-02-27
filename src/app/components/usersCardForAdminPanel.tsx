@@ -17,11 +17,10 @@ interface UserProps {
 const UsersCardForAdminPanel: React.FC<UserProps> = ({ user, onDelete }) => {
   let backgroundColor = "transparent";
   let textColor = "";
-  let borderColor = "black";
+  let borderColor = "#f2f0e4";
 
   if (user.isverified) {
     backgroundColor = "#C6CFBE";
-    textColor = "#43685C";
     borderColor = "#43685C";
   }
 
@@ -33,11 +32,11 @@ const UsersCardForAdminPanel: React.FC<UserProps> = ({ user, onDelete }) => {
 
   return (
     <div
-      className="border-2 border-black  flex justify-between items-center overflow-hidden"
+      className="border z-20  light-text flex justify-between items-center overflow-hidden rounded-xl"
       style={{ backgroundColor, color: textColor, borderColor }}
     >
       <Link href={`/admin-panel/${user._id}`} className="flex w-full h-full">
-        <img src={user.profileUrl} className="w-20 h-20 m-2 rounded-md" />
+        <img src={user.profileUrl} className="w-20 h-20 m-2 rounded-xl" />
         <div className="px-2 flex flex-col justify-center items-center h-full">
           <p className="capitalize font-bold text-lg">{user.username}</p>
         </div>

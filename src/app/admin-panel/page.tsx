@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import LogoutBtn from "../components/logoutBtn";
 import ConfirmationModal from "../components/confirmationModal";
 import UsersCardForAdminPanel from "../components/usersCardForAdminPanel";
+import NEBULA from "../components/NEBULA";
+import StarField from "../components/starField";
 
 const SkeletonUserCard = () => {
   return (
@@ -75,17 +77,13 @@ export default function Page() {
   };
 
   return (
-    <div>
-      <div className="flex justify-between items-center border-b-2 border-black">
-        <h2 className="text-2xl border-r-2 p-2 border-black font-bold">
-          All Users:
-        </h2>
-        <div className="border-l-2 p-2 border-black">
-          <LogoutBtn />
-        </div>
+    <div className="relative overflow-hidden pb-24">
+      <StarField />
+      <div className="flex z-10  light-text justify-between items-center">
+        <h2 className="text-2xl p-2 font-bold">All Users:</h2>
       </div>
 
-      <div className="text-lg grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 my-5 mx-2 overflow-hidden">
+      <div className="text-lg grid z-10  grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 my-5 mx-2 overflow-hidden">
         {loading
           ? Array(15)
               .fill(0)
