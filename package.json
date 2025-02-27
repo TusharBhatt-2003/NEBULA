@@ -1,5 +1,5 @@
 {
-  "name": "authnextjs",
+  "name": "nebula",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -23,6 +23,7 @@
     "lucide-react": "^0.476.0",
     "mongoose": "^8.9.7",
     "motion": "^12.4.7",
+    "nebula": "file:",
     "next": "15.1.6",
     "nodemailer": "^6.10.0",
     "react": "^18.3.1",
