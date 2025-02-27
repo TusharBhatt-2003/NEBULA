@@ -8,8 +8,17 @@ connect();
 export async function PUT(request: NextRequest) {
   try {
     const reqBody = await request.json();
-    const { userId, username, email, password, profileUrl, gender, bio, city } =
-      reqBody;
+    const {
+      userId,
+      fullName,
+      username,
+      email,
+      password,
+      profileUrl,
+      gender,
+      bio,
+      city,
+    } = reqBody;
 
     console.log("Update Body", reqBody);
 
@@ -33,6 +42,7 @@ export async function PUT(request: NextRequest) {
     if (gender) user.gender = gender;
     if (bio) user.bio = bio;
     if (city) user.city = city;
+    if (fullName) user.fullname = fullName;
 
     // Hash new password if provided
     if (password) {

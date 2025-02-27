@@ -8,6 +8,7 @@ import { Button } from "../components/ui/button";
 
 interface FormData {
   userId?: string;
+  fullName?: string;
   username?: string;
   email?: string;
   password?: string;
@@ -22,9 +23,9 @@ const UpdateProfilePage = () => {
   const router = useRouter();
   const { user } = useUser();
   const [formData, setFormData] = useState<FormData>({
+    fullName: "",
     username: "",
     email: "",
-    password: "",
     profileUrl: "",
     gender: "",
     bio: "",
@@ -71,29 +72,31 @@ const UpdateProfilePage = () => {
       <StarField />
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col h-full  items-center gap-5"
+        className="flex flex-col z-20 h-full items-center gap-5"
       >
         <div className="flex justify-between items-center">
-          {" "}
           <h1 className="text-4xl text-center text-transparent bg-clip-text animate-gradient-para z-50 font-['LogoFont'] font-semibold">
             Update Profile
-          </h1>{" "}
+          </h1>
           <Button type="submit">Update Profile</Button>
         </div>
         <div className="relative flex overflow-y-scroll backdrop-blur h-[40%] gap-5 py-5 px-10 rounded-xl border border-[#F2F0E4]/30 z-10 flex-col">
           {Object.keys(formData).map((key) =>
             key !== "userId" ? (
-              <div>
-                <label key={key} className="text-lg light-text">
+              <div key={key}>
+                <label className="text-lg light-text">
                   {key.charAt(0).toUpperCase() + key.slice(1)}:
                 </label>
                 <Input
-                  key={key}
                   name={key}
                   value={formData[key] || ""}
                   onChange={handleChange}
                   placeholder={key.charAt(0).toUpperCase() + key.slice(1)}
-                  className="light-text focus:border-2"
+                  className={`light-text focus:border-2 ${
+                    user && user[key as keyof typeof user]
+                      ? "border-green-500"
+                      : "border-red-500"
+                  }`}
                 />
               </div>
             ) : null,
