@@ -1,7 +1,17 @@
 "use client";
-import ProfileSkeleton from "@/app/components/profileSkeleton";
-import { useEffect, useState } from "react";
-import { use } from "react"; // Import use from React to unwrap promises
+import Link from "next/link";
+import Female from "../../../../public/female";
+import Male from "../../../../public/male";
+import Loading from "../../components/loading";
+import useUser from "../../hooks/useUser";
+import { Button } from "../../components/ui/button";
+import LogoutBtn from "../../components/logoutBtn";
+import StarField from "../../components/starField";
+import { use, useEffect, useState } from "react";
+import Skeleton from "@/app/components/profile/skeleton";
+import { ProfileImage } from "@/app/components/profile/profileImage";
+import { ProfileDetails } from "@/app/components/profile/profileDetails";
+import { Post } from "@/app/components/profile/posts";
 
 interface Params {
   id: string;
@@ -37,44 +47,59 @@ export default function Page({ params }: { params: Promise<Params> }) {
   // Filter the users array to only include the user with the matching _id
   const user = users.find((user) => user._id === id);
 
+  // Dynamic meta data for SEO
+  const seoData = {
+    title: user ? `${user.username}'s Profile` : "User Profile",
+    description: user
+      ? `View the profile of ${user.username}. ${user.isverified ? "Verified User" : "Unverified User"}.`
+      : "No user found",
+    image: user ? user.profileUrl : "/default-profile.png", // Fallback to a default image if no user is found
+  };
+
   return (
-    <div className="h-screen flex justify-center items-center p-2">
-      {loading ? (
-        <ProfileSkeleton />
-      ) : user ? (
-        <div className="shadow-xl border-4 border-black">
-          <img
-            src={user.profileUrl}
-            className="w-64 m-3 border-2 border-black"
-          />
-          <div className="m-3">
-            <p className="uppercase text-[#B01018] text-xl font-black">
-              {user.username}
-            </p>
-            <p>{user.email}</p>
-          </div>
-          <div className="flex items-center gap-3 m-3">
-            {user.isverified ? (
-              <div className=" py-1 px-2 text-[#f3f7de] rounded bg-emerald-600">
-                <p>Verified</p>
-              </div>
-            ) : (
-              <div className=" py-1 px-2 rounded bg-green-100">
-                <p>Not Verified</p>
-              </div>
-            )}
-            <p>
-              {user.isAdmin ? (
-                <div className=" py-1 px-2 rounded text-yellow-600 bg-yellow-100">
-                  <p>Admin</p>
-                </div>
-              ) : null}
-            </p>
-          </div>
+    <>
+      {/* SEO meta tags */}
+      <head>
+        <title>{seoData.title}</title>
+        <meta name="description" content={seoData.description} />
+        <meta property="og:title" content={seoData.title} />
+        <meta property="og:description" content={seoData.description} />
+        <meta property="og:image" content={seoData.image} />
+        <meta property="og:type" content="profile" />
+        <meta property="og:url" content={window.location.href} />
+        {/* Twitter meta tags */}
+        <meta name="twitter:title" content={seoData.title} />
+        <meta name="twitter:description" content={seoData.description} />
+        <meta name="twitter:image" content={seoData.image} />
+      </head>
+
+      <div className="h-screen p-5 overflow-hidden relative w-full flex flex-col items-center">
+        <StarField />
+        <div className="w-full z-20 space-y-5">
+          {user ? (
+            <>
+              <ProfileImage
+                profileUrl={user.profileUrl}
+                username={user.username}
+                gender={user.gender}
+              />
+
+              <ProfileDetails
+                fullName="Full Name"
+                bio="This is the bio of the user, They can write anything here."
+                birthDate="1 9 / 0 3 / 0 3"
+                city={user.city}
+              />
+              <Button>
+                <Link href="/update-profile">Update Profile</Link>
+              </Button>
+              <Post posts={user?.posts || []} />
+            </>
+          ) : (
+            <Skeleton />
+          )}
         </div>
-      ) : (
-        <p>No user found.</p>
-      )}
-    </div>
+      </div>
+    </>
   );
 }
