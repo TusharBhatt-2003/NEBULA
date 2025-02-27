@@ -3,15 +3,22 @@ import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import { connect } from "@/dbConfig/dbConfig";
 import { sendEmail } from "@/helpers/mailer";
-import { uploadOnCloudinary } from "@/utils/cloudinary";
 
 connect();
 
 export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
-    const { username, email, password, profileUrl, gender, bio, city } =
-      reqBody;
+    const {
+      fullName,
+      username,
+      email,
+      password,
+      profileUrl,
+      gender,
+      bio,
+      city,
+    } = reqBody;
 
     console.log("Body", reqBody);
 
@@ -28,24 +35,16 @@ export async function POST(request: NextRequest) {
     const salt = await bcryptjs.genSalt(10);
     const hashedPassword = await bcryptjs.hash(password, salt);
 
-    // Upload profile image to Cloudinary if provided
-    let uploadedProfileUrl = "";
-    if (profileUrl) {
-      const uploadResponse = await uploadOnCloudinary(profileUrl);
-      if (uploadResponse) {
-        uploadedProfileUrl = uploadResponse.secure_url;
-      }
-    }
-
     // Set isAdmin to true if email matches the specified one
     const isAdmin = email === "tu8700475433@gmail.com";
 
     // Create a new user with additional fields (gender, bio, city)
     const newUser = new User({
+      fullName,
       username,
       email,
       password: hashedPassword,
-      profileUrl: uploadedProfileUrl,
+      profileUrl,
       gender,
       bio,
       city,

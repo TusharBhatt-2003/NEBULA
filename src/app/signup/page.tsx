@@ -22,6 +22,7 @@ export default function SignUp() {
     gender: "",
     bio: "",
     city: "",
+    fullName: "",
   });
 
   const [buttonDisabled, setButtonDisabled] = useState(true);
@@ -80,6 +81,15 @@ export default function SignUp() {
             </h1>
           )}
           <hr />
+          <Input
+            className="border border-[#F2F0E4]/30"
+            id="fullName"
+            type="text"
+            required
+            value={user.fullName}
+            onChange={(e) => setUser({ ...user, fullName: e.target.value })}
+            placeholder="Full Name"
+          />
 
           <Input
             className="border border-[#F2F0E4]/30"
