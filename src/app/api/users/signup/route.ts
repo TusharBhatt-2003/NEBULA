@@ -3,6 +3,7 @@ import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import { connect } from "@/dbConfig/dbConfig";
 import { sendEmail } from "@/helpers/mailer";
+import { uploadOnCloudinary } from "@/utils/cloudinary";
 
 connect();
 
@@ -14,7 +15,7 @@ export async function POST(request: NextRequest) {
 
     console.log("Body", reqBody);
 
-    // check if user already exists
+    // Check if user already exists
     const user = await User.findOne({ email });
     if (user) {
       return NextResponse.json(
@@ -23,19 +24,28 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // hash password
+    // Hash password
     const salt = await bcryptjs.genSalt(10);
     const hashedPassword = await bcryptjs.hash(password, salt);
+
+    // Upload profile image to Cloudinary if provided
+    let uploadedProfileUrl = "";
+    if (profileUrl) {
+      const uploadResponse = await uploadOnCloudinary(profileUrl);
+      if (uploadResponse) {
+        uploadedProfileUrl = uploadResponse.secure_url;
+      }
+    }
 
     // Set isAdmin to true if email matches the specified one
     const isAdmin = email === "tu8700475433@gmail.com";
 
-    // create a new user with additional fields (gender, bio, city)
+    // Create a new user with additional fields (gender, bio, city)
     const newUser = new User({
       username,
       email,
       password: hashedPassword,
-      profileUrl,
+      profileUrl: uploadedProfileUrl,
       gender,
       bio,
       city,
@@ -45,7 +55,7 @@ export async function POST(request: NextRequest) {
     const savedUser = await newUser.save();
     console.log("Saved user", savedUser);
 
-    // send verification email
+    // Send verification email
     await sendEmail({ email, emailType: "VERIFY", userId: savedUser._id });
 
     return NextResponse.json({

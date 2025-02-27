@@ -67,32 +67,39 @@ const UpdateProfilePage = () => {
   };
 
   return (
-    <div className="relative  h-screen flex flex-col justify-start items-center overflow-hidden max-w-md mx-auto p-10">
+    <div className="relative h-screen flex flex-col justify-start items-center overflow-hidden max-w-md mx-auto p-10">
       <StarField />
-      <div className="z-20 space-y-5">
-        <h1 className="text-4xl text-transparent bg-clip-text animate-gradient-para z-50 font-['LogoFont'] font-semibold">
-          Update Profile
-        </h1>
-        <form
-          onSubmit={handleSubmit}
-          className="relative flex backdrop-blur gap-5 py-5 px-10 rounded-xl border border-[#F2F0E4]/30 z-10 flex-col items-center justify-center overflow-hidden"
-        >
-          <div className="grain"></div>
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col h-full  items-center gap-5"
+      >
+        <div className="flex justify-between items-center">
+          {" "}
+          <h1 className="text-4xl text-center text-transparent bg-clip-text animate-gradient-para z-50 font-['LogoFont'] font-semibold">
+            Update Profile
+          </h1>{" "}
+          <Button type="submit">Update Profile</Button>
+        </div>
+        <div className="relative flex overflow-y-scroll backdrop-blur h-[40%] gap-5 py-5 px-10 rounded-xl border border-[#F2F0E4]/30 z-10 flex-col">
           {Object.keys(formData).map((key) =>
             key !== "userId" ? (
-              <Input
-                key={key}
-                name={key}
-                value={formData[key] || ""}
-                onChange={handleChange}
-                placeholder={key.charAt(0).toUpperCase() + key.slice(1)}
-                className="w-full p-2 border rounded light-text focus:border-2"
-              />
+              <div>
+                <label key={key} className="text-lg light-text">
+                  {key.charAt(0).toUpperCase() + key.slice(1)}:
+                </label>
+                <Input
+                  key={key}
+                  name={key}
+                  value={formData[key] || ""}
+                  onChange={handleChange}
+                  placeholder={key.charAt(0).toUpperCase() + key.slice(1)}
+                  className="light-text focus:border-2"
+                />
+              </div>
             ) : null,
           )}
-          <Button type="submit">Update Profile</Button>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   );
 };

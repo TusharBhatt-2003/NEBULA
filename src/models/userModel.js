@@ -5,6 +5,8 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter a username"],
     unique: true,
+    lowercase: true,
+    index: true,
   },
   password: {
     type: String,
@@ -14,6 +16,13 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter an email address"],
     unique: true,
+    lowecase: true,
+  },
+  fullName: {
+    type: String,
+    required: true,
+    trim: true,
+    index: true,
   },
   profileUrl: {
     type: String,
