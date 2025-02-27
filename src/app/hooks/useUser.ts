@@ -9,6 +9,7 @@ interface User {
   isAdmin: boolean;
   isverified: boolean;
   gender: string;
+  city: string;
 }
 
 export default function useUser() {

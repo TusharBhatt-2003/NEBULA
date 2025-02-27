@@ -3,7 +3,7 @@ import StarField from "./components/starField";
 
 export default function NotFound() {
   return (
-    <div className="bg-black  w-screen h-screen flex justify-center flex-col gap-5 items-center relative overflow-hidden">
+    <div className="w-screen h-screen flex justify-center flex-col gap-5 items-center relative overflow-hidden">
       <StarField />
       <div className="relative z-10  backdrop-blur gap-5 py-10 rounded-xl border border-[#F2F0E4]/30 w-[90%] md:w-[40%] lg:w-[30%] text-center space-y-2 overflow-hidden light-text">
         <div className="grain"></div>

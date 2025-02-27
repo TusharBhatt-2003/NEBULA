@@ -21,7 +21,7 @@ export default function LogoutBtn() {
   };
 
   return (
-    <Button onClick={logout} className=" px-2 py-1">
+    <Button onClick={logout} variant="outline" className="">
       Logout
     </Button>
   );
