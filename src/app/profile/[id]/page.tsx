@@ -9,6 +9,9 @@ import LogoutBtn from "../../components/logoutBtn";
 import StarField from "../../components/starField";
 import { use, useEffect, useState } from "react";
 import Skeleton from "@/app/components/profile/skeleton";
+import { ProfileImage } from "@/app/components/profile/profileImage";
+import { ProfileDetails } from "@/app/components/profile/profileDetails";
+import { Post } from "@/app/components/profile/posts";
 
 interface Params {
   id: string;
@@ -75,53 +78,22 @@ export default function Page({ params }: { params: Promise<Params> }) {
         <div className="w-full z-20 space-y-5">
           {user ? (
             <>
-              <div className="flex justify-end">
-                <LogoutBtn />
-              </div>
-              <div className="relative ">
-                <img
-                  className="w-full aspect-square h-full rounded-xl object-cover"
-                  src={user.profileUrl}
-                  alt="Profile Pic"
-                />
-                <div className="absolute left-2 bottom-2 flex items-center justify-center">
-                  <span className="font-['spring'] light-text text-xl font-bold">
-                    {user.username}
-                  </span>
-                </div>
-                <div className="absolute right-2 top-2 flex items-center justify-center">
-                  {user.gender === "Male" ? (
-                    <Male />
-                  ) : user.gender === "Female" ? (
-                    <Female />
-                  ) : null}
-                </div>
-              </div>
+              <ProfileImage
+                profileUrl={user.profileUrl}
+                username={user.username}
+                gender={user.gender}
+              />
 
-              <div className="relative py-2 px-3 flex flex-col gap-2 z-10 backdrop-blur rounded-xl border border-[#F2F0E4]/30 overflow-hidden light-text">
-                <div className="grain"></div>
-                <div className="flex items-center justify-between">
-                  <h1 className="text-2xl font-['spring'] rounded-t-xl">
-                    Full Name
-                  </h1>
-                  <p className="p-1 rounded-xl border border-[#F2F0E4]/30">
-                    connection
-                  </p>
-                </div>
-                <p className="">
-                  This is the bio of the user, They can write any thing here.
-                </p>
-
-                <div className="flex justify-between items-center">
-                  <p className="font-['Big']">1 9 / 0 3 / 0 3</p>
-                  <p className="bg-black font-['spring'] px-1">{user.city}</p>
-                </div>
-              </div>
-              <div className="border-t-2 border-[#f2f0e4]">
-                <h1 className="font-['spring'] light-text border-b w-fit">
-                  POSTS:
-                </h1>
-              </div>
+              <ProfileDetails
+                fullName="Full Name"
+                bio="This is the bio of the user, They can write anything here."
+                birthDate="1 9 / 0 3 / 0 3"
+                city={user.city}
+              />
+              <Button>
+                <Link href="/update-profile">Update Profile</Link>
+              </Button>
+              <Post posts={user?.posts || []} />
             </>
           ) : (
             <Skeleton />

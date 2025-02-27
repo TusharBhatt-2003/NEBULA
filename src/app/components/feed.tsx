@@ -2,12 +2,16 @@
 import React, { useEffect, useState } from "react";
 import LogoutBtn from "../components/logoutBtn";
 import UsersCard from "./userCard";
+import StarField from "./starField";
 
 const SkeletonUserCard = () => {
   return (
-    <div className="border-2 border-black  flex justify-between items-center ">
-      <div className="w-20 bg-neutral-300 h-20 m-2 animate-pulse"></div>
-      <div className="w-1/2 h-5 bg-neutral-300 animate-pulse"></div>
+    <div className="relative rounded-3xl overflow-hidden backdrop-blur-[5px] flex justify-between w-full h-full">
+      <div className="grain"></div>
+      <div className="w-20 relative overflow-hidden backdrop-blur-lg rounded-3xl border border-[#f2f0e4] h-20 m-2 animate-pulse">
+        {" "}
+        <div className="grain"></div>
+      </div>
     </div>
   );
 };
@@ -39,6 +43,7 @@ export default function Feed() {
   return (
     <div>
       <div className="text-lg grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3 my-5 mx-2 overflow-hidden mb-24">
+        <StarField />
         {loading
           ? Array(6)
               .fill(0)

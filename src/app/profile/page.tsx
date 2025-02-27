@@ -37,12 +37,6 @@ export default function UserProfile() {
               <Link href="/update-profile">Update Profile</Link>
             </Button>
             <Post posts={user?.posts || []} />
-
-            <div className="border-t-2 border-[#f2f0e4]">
-              <h1 className="font-['spring'] light-text border-b w-fit">
-                POSTS:
-              </h1>
-            </div>
           </>
         ) : (
           <Skeleton />

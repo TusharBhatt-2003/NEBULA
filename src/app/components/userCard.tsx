@@ -14,7 +14,7 @@ interface UserProps {
 
 const UsersCard: React.FC<UserProps> = ({ user }) => {
   let backgroundColor = "transparent";
-  let textColor = "";
+  let textColor = "light-text";
   let borderColor = "black";
 
   if (user.isverified) {
@@ -25,21 +25,19 @@ const UsersCard: React.FC<UserProps> = ({ user }) => {
 
   return (
     <div
-      className="border-2 border-black  flex justify-between items-center overflow-hidden"
-      style={{ backgroundColor, color: textColor, borderColor }}
+      className="z-20 flex light-text justify-between items-center overflow-hidden"
+      style={{ backgroundColor, color: textColor }}
     >
-      <div className="flex justify-between w-full h-full">
+      <div className="relative rounded-xl overflow-hidden backdrop-blur-[5px] flex justify-between w-full h-full">
+        <div className="grain"></div>
         <div className="flex">
-          <img
-            src={user.profileUrl}
-            className="w-20 h-20 p-2 border-r-2 border-black"
-          />
+          <img src={user.profileUrl} className="w-20 h-20 p-2 rounded-3xl" />
           <div className="px-2 flex flex-col justify-center items-center h-full">
             <p className="capitalize font-bold text-lg">{user.username}</p>
           </div>
         </div>
         <Link
-          className="bg-[#b01018] flex flex-col justify-center items-center h-full border-l-4 border-black"
+          className="animate-gradient-bg flex flex-col justify-center items-center h-full"
           href={`/profile/${user._id}`}
         >
           <svg

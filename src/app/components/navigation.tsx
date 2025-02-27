@@ -49,7 +49,7 @@ export default function Navigation() {
   }
 
   return (
-    <div className="fixed  py-2 bg-white/30 backdrop-blur-sm bottom-2 left-2 right-2 rounded-xl flex justify-between items-center overflow-hidden">
+    <div className="fixed z-[99] py-2 bg-white/10 backdrop-blur-sm bottom-2 left-2 right-2 rounded-xl flex justify-between items-center overflow-hidden">
       <div className="grain"></div>
       <Link
         href="/"
