@@ -81,7 +81,7 @@ export default function Page({ params }: { params: Promise<Params> }) {
 
               <ProfileDetails
                 fullName="Full Name"
-                bio="This is the bio of the user, They can write anything here."
+                bio={user.bio}
                 birthDate="1 9 / 0 3 / 0 3"
                 city={user.city}
               />

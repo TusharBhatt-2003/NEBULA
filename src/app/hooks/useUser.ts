@@ -5,6 +5,7 @@ interface User {
   profileUrl: string;
   email: string;
   _id: string;
+  bio: string;
   username: string;
   isAdmin: boolean;
   isverified: boolean;
