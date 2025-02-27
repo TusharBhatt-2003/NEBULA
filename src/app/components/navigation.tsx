@@ -89,9 +89,9 @@ export default function Navigation() {
       </Link>
 
       <Link
-        href={`/profile/${user._id}`}
+        href={`/profile`}
         className={`w-1/4 flex justify-center rounded-xl p-2 items-center ${
-          pathname === `/profile/${user._id}` ? "animate-gradient-bg" : ""
+          pathname === `/profile}` ? "animate-gradient-bg" : ""
         }`}
       >
         <div
