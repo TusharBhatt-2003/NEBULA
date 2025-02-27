@@ -52,9 +52,9 @@ export default function Navigation() {
     <div className="fixed z-[99] py-2 bg-white/10 backdrop-blur-sm bottom-2 left-2 right-2 rounded-xl flex justify-between items-center overflow-hidden">
       <div className="grain"></div>
       <Link
-        href="/"
+        href="/feed"
         className={`w-1/4 flex justify-center rounded-xl p-2  items-center cursor-pointer font-bold ${
-          pathname === "/" ? "animate-gradient-bg" : ""
+          pathname === "/feed" ? "animate-gradient-bg" : ""
         }`}
       >
         <Galaxy />

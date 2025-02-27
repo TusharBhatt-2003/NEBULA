@@ -60,6 +60,7 @@ export default function Home() {
         </div>
       ) : (
         <Feed />
+        //todo: make a about NEBULA page
       )}
     </div>
   );
