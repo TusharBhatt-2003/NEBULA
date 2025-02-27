@@ -51,12 +51,10 @@ export default function Home() {
           <div className="relative flex backdrop-blur gap-5 py-5 px-10 rounded-xl border border-[#F2F0E4]/30 z-10 flex-col items-center justify-center overflow-hidden">
             <div className="grain"></div>
             <Link href="/login">
-              <Button className="light-bg" variant="outline">
-                Login
-              </Button>
+              <Button variant="outline">Login</Button>
             </Link>
             <Link href="/signup">
-              <Button className="border bg-transparent">Signup</Button>
+              <Button>Signup</Button>
             </Link>
           </div>
         </div>

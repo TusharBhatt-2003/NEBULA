@@ -1,5 +1,4 @@
 "use client";
-
 import ProfileSkeleton from "@/app/components/profileSkeleton";
 import React, { use, useEffect, useState } from "react";
 import Male from "../../../../public/male";

@@ -8,6 +8,7 @@ interface User {
   username: string;
   isAdmin: boolean;
   isverified: boolean;
+  gender: string;
 }
 
 export default function useUser() {

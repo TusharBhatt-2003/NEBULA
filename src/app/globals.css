@@ -67,6 +67,11 @@
   src: url(../../fonts/Fontspring-DEMO-integralcf-regular.otf);
 }
 
+@font-face {
+  font-family: big;
+  src: url(../../fonts/BiggerDisplay.otf);
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -200,9 +205,26 @@
     #639438
   );
   background-size: 200% 200%;
-  animation: gradient 8s infinite linear;
+  animation: gradient-animation 8s infinite linear;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.animate-gradient-bg {
+  background: linear-gradient(
+    45deg,
+    #9e130e79,
+    #0b8e6077,
+    #30568c78,
+    #f9ce797a,
+    #98169648,
+    #63943845
+  );
+  background-size: 200% 200%;
+
+  animation: gradient-animation 8s infinite linear;
+  border-radius: 1rem; /* Optional: for a rounded effect */
+  transition: background-color 0.2s ease;
 }
 
 @keyframes gradient-animation {

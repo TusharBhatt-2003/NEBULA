@@ -34,7 +34,7 @@ export default function LoginPage() {
       if (isAdmin) {
         router.push("/admin-panel"); // Redirect admin
       } else {
-        router.push("/profile"); // Redirect normal users
+        router.push("/welcome"); // Redirect normal users
       }
     } catch (error: any) {
       console.log("Login failed", error.message);
