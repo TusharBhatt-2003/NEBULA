@@ -1,0 +1,27 @@
+interface ProfileDetailsProps {
+  fullName: string;
+  bio: string;
+  birthDate: string;
+  city: string;
+}
+export const ProfileDetails = ({
+  fullName,
+  bio,
+  birthDate,
+  city,
+}: ProfileDetailsProps) => {
+  return (
+    <div className="relative py-2 px-3 flex flex-col gap-2 z-10 backdrop-blur rounded-xl border border-[#F2F0E4]/30 overflow-hidden light-text">
+      <div className="grain"></div>
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-['spring'] rounded-t-xl">{fullName}</h1>
+        <p className="p-1 rounded-xl border border-[#F2F0E4]/30">connection</p>
+      </div>
+      <p>{bio}</p>
+      <div className="flex justify-between items-center">
+        <p className="font-['Big']">{birthDate}</p>
+        <p className="bg-black font-['spring'] px-1">{city}</p>
+      </div>
+    </div>
+  );
+};

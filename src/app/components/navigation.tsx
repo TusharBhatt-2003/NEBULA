@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import LogoutBtn from "./logoutBtn";
 import Galaxy from "../../../public/galaxy";
 import Admin from "../../../public/admin";
 import Search from "../../../public/search";

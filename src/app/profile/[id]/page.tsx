@@ -1,8 +1,14 @@
 "use client";
-import ProfileSkeleton from "@/app/components/profileSkeleton";
-import React, { use, useEffect, useState } from "react";
-import Male from "../../../../public/male";
+import Link from "next/link";
 import Female from "../../../../public/female";
+import Male from "../../../../public/male";
+import Loading from "../../components/loading";
+import useUser from "../../hooks/useUser";
+import { Button } from "../../components/ui/button";
+import LogoutBtn from "../../components/logoutBtn";
+import StarField from "../../components/starField";
+import { use, useEffect, useState } from "react";
+import Skeleton from "@/app/components/profile/skeleton";
 
 interface Params {
   id: string;
@@ -64,61 +70,63 @@ export default function Page({ params }: { params: Promise<Params> }) {
         <meta name="twitter:image" content={seoData.image} />
       </head>
 
-      <div className="h-screen flex justify-center items-center p-2">
-        {loading ? (
-          <ProfileSkeleton />
-        ) : user ? (
-          <div>
-            <div className="shadow-xl border-4 border-black">
-              <img
-                src={user.profileUrl}
-                className="w-64 m-3 border-2 border-black"
-                alt={user.username}
-              />
-              <div className="m-3">
-                <div className="flex items-center gap-2">
-                  <p className="uppercase text-[#B01018] text-xl font-black">
+      <div className="h-screen p-5 overflow-hidden relative w-full flex flex-col items-center">
+        <StarField />
+        <div className="w-full z-20 space-y-5">
+          {user ? (
+            <>
+              <div className="flex justify-end">
+                <LogoutBtn />
+              </div>
+              <div className="relative ">
+                <img
+                  className="w-full aspect-square h-full rounded-xl object-cover"
+                  src={user.profileUrl}
+                  alt="Profile Pic"
+                />
+                <div className="absolute left-2 bottom-2 flex items-center justify-center">
+                  <span className="font-['spring'] light-text text-xl font-bold">
                     {user.username}
-                  </p>
+                  </span>
+                </div>
+                <div className="absolute right-2 top-2 flex items-center justify-center">
                   {user.gender === "Male" ? (
                     <Male />
                   ) : user.gender === "Female" ? (
                     <Female />
                   ) : null}
-                  {/* <p>{user.gender}</p> */}
                 </div>
-                <p>{user.bio}</p>
               </div>
 
-              <div className="flex text-xs items-center gap-3 m-3">
-                {user.isverified ? (
-                  <div className=" py-1 px-2 text-[#f3f7de] rounded bg-emerald-600">
-                    <p>Verified</p>
-                  </div>
-                ) : (
-                  <div className=" py-1 px-2 rounded bg-green-100">
-                    <p>Not Verified</p>
-                  </div>
-                )}
-                <p>
-                  {user.isAdmin ? (
-                    <div className=" py-1 px-2 rounded text-yellow-600 bg-yellow-100">
-                      <p>Admin</p>
-                    </div>
-                  ) : null}
+              <div className="relative py-2 px-3 flex flex-col gap-2 z-10 backdrop-blur rounded-xl border border-[#F2F0E4]/30 overflow-hidden light-text">
+                <div className="grain"></div>
+                <div className="flex items-center justify-between">
+                  <h1 className="text-2xl font-['spring'] rounded-t-xl">
+                    Full Name
+                  </h1>
+                  <p className="p-1 rounded-xl border border-[#F2F0E4]/30">
+                    connection
+                  </p>
+                </div>
+                <p className="">
+                  This is the bio of the user, They can write any thing here.
                 </p>
+
+                <div className="flex justify-between items-center">
+                  <p className="font-['Big']">1 9 / 0 3 / 0 3</p>
+                  <p className="bg-black font-['spring'] px-1">{user.city}</p>
+                </div>
               </div>
-              <div className="w-full flex justify-between items-baseline">
-                <p className="text-xs px-1">{user.email}</p>
-                <p className="bg-black text-white w-fit text-sm font-mono px-1">
-                  {user.city}
-                </p>
+              <div className="border-t-2 border-[#f2f0e4]">
+                <h1 className="font-['spring'] light-text border-b w-fit">
+                  POSTS:
+                </h1>
               </div>
-            </div>
-          </div>
-        ) : (
-          <p>No user found.</p>
-        )}
+            </>
+          ) : (
+            <Skeleton />
+          )}
+        </div>
       </div>
     </>
   );

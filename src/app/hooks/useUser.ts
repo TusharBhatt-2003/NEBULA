@@ -10,6 +10,7 @@ interface User {
   isverified: boolean;
   gender: string;
   city: string;
+  posts: { content: string }[];
 }
 
 export default function useUser() {
