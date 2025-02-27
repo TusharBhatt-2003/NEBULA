@@ -33,7 +33,7 @@ export default function UserProfile() {
             <ProfileDetails
               fullName={user?.fullName}
               bio={user?.bio}
-              birthDate="1 9 / 0 3 / 0 3"
+              birthDate={user?.birthday}
               city={user.city}
             />
 

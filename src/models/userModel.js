@@ -4,6 +4,7 @@ const userSchema = new mongoose.Schema({
   fullName: {
     type: String,
     required: true,
+    trim: true,
     index: true,
   },
   username: {
@@ -21,14 +22,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter an email address"],
     unique: true,
-    lowecase: true,
+    lowercase: true,
+    match: [/^\S+@\S+\.\S+$/, "Please enter a valid email address"],
   },
-  fullName: {
-    type: String,
-    required: true,
-    trim: true,
-    index: true,
-  },
+
   profileUrl: {
     type: String,
     default:
@@ -51,17 +48,21 @@ const userSchema = new mongoose.Schema({
   // Adding new fields
   gender: {
     type: String,
-    enum: ["Male", "Female", "Other"], // You can modify or add more options if needed
+    enum: ["Male", "Female", "Other"],
     required: false,
   },
   bio: {
     type: String,
-    default: "", // Default to an empty string if bio is not provided
+    default: "",
     required: false,
   },
   city: {
     type: String,
     required: false,
+  },
+  birthday: {
+    type: Date,
+    required: true,
   },
 });
 

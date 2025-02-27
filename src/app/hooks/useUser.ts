@@ -13,6 +13,7 @@ interface User {
   gender: string;
   city: string;
   posts: { content: string }[];
+  birthday: string;
 }
 
 export default function useUser() {

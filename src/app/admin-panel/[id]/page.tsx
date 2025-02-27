@@ -82,7 +82,7 @@ export default function Page({ params }: { params: Promise<Params> }) {
               <ProfileDetails
                 fullName={user.fullName}
                 bio={user.bio}
-                birthDate="1 9 / 0 3 / 0 3"
+                birthDate={user.birthday}
                 city={user.city}
               />
               <Button>

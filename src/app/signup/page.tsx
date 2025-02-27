@@ -23,6 +23,7 @@ export default function SignUp() {
     bio: "",
     city: "",
     fullName: "",
+    birthday: "",
   });
 
   const [buttonDisabled, setButtonDisabled] = useState(true);
@@ -40,7 +41,13 @@ export default function SignUp() {
           "https://i.pinimg.com/736x/1a/bb/12/1abb12125ce51b432f17fda64def85e5.jpg"; // Default URL
       }
 
-      const response = await axios.post("/api/users/signup", user);
+      // Convert birthday to ISO 8601 format (YYYY-MM-DD)
+      const formattedDate = new Date(user.birthday).toISOString().split("T")[0];
+
+      const response = await axios.post("/api/users/signup", {
+        ...user,
+        birthday: formattedDate, // Use the correctly formatted date
+      });
 
       toast.success("Signup successful!", { id: toastId });
       console.log("Signup successful", response.data);
@@ -90,7 +97,15 @@ export default function SignUp() {
             onChange={(e) => setUser({ ...user, fullName: e.target.value })}
             placeholder="Full Name"
           />
-
+          <Input
+            className="border border-[#F2F0E4]/30"
+            id="birthday"
+            type="date"
+            required
+            value={user.birthday}
+            onChange={(e) => setUser({ ...user, birthday: e.target.value })}
+            placeholder="Birthday"
+          />
           <Input
             className="border border-[#F2F0E4]/30"
             id="username"

@@ -18,6 +18,7 @@ export async function POST(request: NextRequest) {
       gender,
       bio,
       city,
+      birthday,
     } = reqBody;
 
     console.log("Body", reqBody);
@@ -31,14 +32,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Hash password
     const salt = await bcryptjs.genSalt(10);
     const hashedPassword = await bcryptjs.hash(password, salt);
 
-    // Set isAdmin to true if email matches the specified one
     const isAdmin = email === "tu8700475433@gmail.com";
 
-    // Create a new user with additional fields (gender, bio, city)
     const newUser = new User({
       fullName,
       username,
@@ -48,13 +46,13 @@ export async function POST(request: NextRequest) {
       gender,
       bio,
       city,
+      birthday: new Date(birthday), // Ensure birthday is stored as a Date object
       isAdmin,
     });
 
     const savedUser = await newUser.save();
     console.log("Saved user", savedUser);
 
-    // Send verification email
     await sendEmail({ email, emailType: "VERIFY", userId: savedUser._id });
 
     return NextResponse.json({
