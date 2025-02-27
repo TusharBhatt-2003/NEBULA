@@ -1,11 +1,6 @@
 "use client";
 import Link from "next/link";
-import Female from "../../../../public/female";
-import Male from "../../../../public/male";
-import Loading from "../../components/loading";
-import useUser from "../../hooks/useUser";
 import { Button } from "../../components/ui/button";
-import LogoutBtn from "../../components/logoutBtn";
 import StarField from "../../components/starField";
 import { use, useEffect, useState } from "react";
 import Skeleton from "@/app/components/profile/skeleton";
