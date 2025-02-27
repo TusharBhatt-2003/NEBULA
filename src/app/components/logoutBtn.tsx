@@ -3,6 +3,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import React from "react";
 import toast from "react-hot-toast";
+import { Button } from "./ui/button";
 
 export default function LogoutBtn() {
   const router = useRouter();
@@ -20,8 +21,8 @@ export default function LogoutBtn() {
   };
 
   return (
-    <button onClick={logout} className="btnBgColor text-[#f3f7de] px-2 py-1">
+    <Button onClick={logout} className=" px-2 py-1">
       Logout
-    </button>
+    </Button>
   );
 }

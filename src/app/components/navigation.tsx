@@ -35,7 +35,7 @@ export default function Navigation() {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>; // Show loading state until the user is fetched
+    return <div></div>; // Show loading state until the user is fetched
   }
 
   if (!user) {
@@ -43,12 +43,12 @@ export default function Navigation() {
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 flex justify-between items-center border-t-2 border-black h-20 bg-[#dbe2da]">
-      <div className="w-1/4 flex justify-center items-center">
+    <div className="fixed bottom-0 left-0 right-0 flex justify-between items-center">
+      {/* <div className="w-1/4 flex justify-center items-center">
         <LogoutBtn />
-      </div>
+      </div> */}
 
-      <Link href="/" className="w-1/4 text-2xl font-bold">
+      <Link href="/" className="w-1/4  cursor-pointer text-2xl font-bold">
         <svg
           fill="#000000"
           width="78px"
