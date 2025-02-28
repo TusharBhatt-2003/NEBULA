@@ -13,6 +13,15 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const metadata: Metadata = {
+  title: "NEBULA",
+  description:
+    "A space where ideas, connections, and creativity come together.",
+  icons: {
+    icon: "/NEBULA_Logo.svg", // Path to your favicon in the public folder
+  },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -20,6 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
