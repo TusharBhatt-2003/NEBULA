@@ -51,11 +51,14 @@ export default function Home() {
         />
         <meta
           property="og:image"
-          content="https://i.pinimg.com/736x/53/1c/ca/531cca19c089b7f17d7ad31ebfb664bd.jpg"
+          content="https://i.pinimg.com/736x/f4/f6/a5/f4f6a522432e0b2ebe90964808c5610c.jpg"
         />
 
         {/* Twitter */}
-        <meta property="twitter:card" content="summary_large_image" />
+        <meta
+          property="twitter:card"
+          content="https://i.pinimg.com/736x/f4/f6/a5/f4f6a522432e0b2ebe90964808c5610c.jpg"
+        />
         <meta
           property="twitter:url"
           content="https://nebula-three-dun.vercel.app/"
