@@ -47,7 +47,7 @@ export default function Feed() {
         <div className="hidden lg:block">
           <UserProfile />
         </div>
-        <div className="lg:w-[50%] w-full lg:ml-[25vw] text-lg p-5 mb-24 flex flex-col justify-center items-center gap-5 overflow-hidden">
+        <div className="lg:w-[50%] w-full lg:ml-[25vw] text-lg p-5 mb-24 flex flex-col-reverse justify-center items-center gap-5 overflow-hidden">
           {loading ? (
             Array.from({ length: 6 }).map((_, index) => (
               <Skeleton key={index} />
