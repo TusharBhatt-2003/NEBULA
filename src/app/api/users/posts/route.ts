@@ -29,8 +29,8 @@ export async function POST(request: NextRequest) {
 
     // Create a new post
     const newPost = new Post({
-      user: userId,
-      content: text.trim(), // Trimmed for safety
+      userId: userId,
+      text: text.trim(), // Trimmed for safety
     });
 
     console.log("New Post Object:", newPost);
