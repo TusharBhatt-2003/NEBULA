@@ -36,13 +36,18 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if the user has already liked the post
-    const hasLiked = post.likes.includes(userId);
+    const hasLiked = post.likes.some(
+      (like: { _id: string }) => like._id === userId,
+    );
+
     if (hasLiked) {
       // Unlike the post
-      post.likes = post.likes.filter((id: string) => id.toString() !== userId);
+      post.likes = post.likes.filter(
+        (like: { _id: string }) => like._id !== userId,
+      );
     } else {
       // Like the post
-      post.likes.push(userId);
+      post.likes.push({ _id: userId }); // Ensure it's an object
     }
 
     await post.save();

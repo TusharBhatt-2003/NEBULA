@@ -6,11 +6,10 @@ interface Post {
   _id: string;
   userId: string;
   text: string;
-  likes: string[]; // Array of user IDs who liked the post
-  comments: string[]; // Array of comment IDs
+  likes: { _id: string }[]; // Array of objects containing user IDs
+  comments: string[];
   createdAt: string;
   updatedAt: string;
-  __v: number;
 }
 
 interface Author {
@@ -28,15 +27,7 @@ export default function PostCard({ postId, currentUserId }: PostCardProps) {
   const [post, setPost] = useState<Post | null>(null);
   const [author, setAuthor] = useState<Author | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [isLiked, setIsLiked] = useState<boolean>(() => {
-    if (typeof window !== "undefined") {
-      const savedIsLiked = localStorage.getItem(
-        `isLiked_${postId}_${currentUserId}`,
-      );
-      return savedIsLiked ? JSON.parse(savedIsLiked) : false;
-    }
-    return false;
-  });
+  const [isLiked, setIsLiked] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -48,7 +39,9 @@ export default function PostCard({ postId, currentUserId }: PostCardProps) {
         const foundPost = data.find((p) => p._id === postId);
         if (foundPost) {
           setPost(foundPost);
-          setIsLiked(foundPost.likes.includes(currentUserId));
+          setIsLiked(
+            foundPost.likes.some((like) => like._id === currentUserId),
+          );
         }
       } catch (error) {
         console.error("Error fetching post:", error);
@@ -81,30 +74,37 @@ export default function PostCard({ postId, currentUserId }: PostCardProps) {
     fetchAuthor();
   }, [post]);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem(
-        `isLiked_${postId}_${currentUserId}`,
-        JSON.stringify(isLiked),
-      );
-    }
-  }, [isLiked, postId, currentUserId]);
-
   const handleLike = async () => {
+    if (!post) return;
+
     try {
       const response = await fetch("/api/posts/like", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ postId }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ postId: post._id }),
       });
 
-      if (!response.ok) throw new Error("Error liking post");
+      if (!response.ok) {
+        throw new Error("Failed to like/unlike post");
+      }
 
-      const data: { likes: string[] } = await response.json();
-      setIsLiked(data.likes.includes(currentUserId));
-      setPost((prevPost) =>
-        prevPost ? { ...prevPost, likes: data.likes } : prevPost,
+      const data = await response.json();
+
+      // Update the post's likes and toggle the like state
+      setPost((prev) =>
+        prev
+          ? {
+              ...prev,
+              likes: isLiked
+                ? prev.likes.filter((like) => like._id !== currentUserId)
+                : [...prev.likes, { _id: currentUserId }],
+            }
+          : prev,
       );
+
+      setIsLiked(!isLiked);
     } catch (error) {
       console.error("Error liking post:", error);
     }
@@ -143,9 +143,9 @@ export default function PostCard({ postId, currentUserId }: PostCardProps) {
               <button onClick={handleLike} className="flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className={`h-5 w-5 transition-colors ${isLiked ? "text-red-500" : "text-gray-500"}`}
                   viewBox="0 0 20 20"
-                  fill="currentColor"
+                  fill={isLiked ? "red" : "gray"}
+                  className="w-6 h-6"
                 >
                   <path
                     fillRule="evenodd"
