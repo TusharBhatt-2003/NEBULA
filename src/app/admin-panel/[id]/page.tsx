@@ -88,7 +88,7 @@ export default function Page({ params }: { params: Promise<Params> }) {
               <Button>
                 <Link href="/update-profile">Update Profile</Link>
               </Button>
-              <Post posts={user?.posts || []} />
+              <Post />
             </>
           ) : (
             <Skeleton />
