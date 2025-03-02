@@ -1,12 +1,12 @@
 "use client";
-import Link from "next/link";
-import { Button } from "../../components/ui/button";
+
 import StarField from "../../components/starField";
 import { use, useEffect, useState } from "react";
 import Skeleton from "@/app/components/profile/skeleton";
 import { ProfileImage } from "@/app/components/profile/profileImage";
 import { ProfileDetails } from "@/app/components/profile/profileDetails";
 import { Post } from "@/app/components/profile/posts";
+import { PublicPost } from "@/app/components/profile/publicPost";
 
 interface Params {
   id: string;
@@ -68,9 +68,9 @@ export default function Page({ params }: { params: Promise<Params> }) {
         <meta name="twitter:image" content={seoData.image} />
       </head>
 
-      <div className="h-screen p-5 overflow-hidden relative w-full flex flex-col items-center">
+      <div className=" p-5 overflow-hidden relative w-full flex flex-col items-center">
         <StarField />
-        <div className="w-full z-20 space-y-5">
+        <div className="mb-20 w-full z-20 space-y-5">
           {user ? (
             <>
               <ProfileImage
@@ -85,10 +85,7 @@ export default function Page({ params }: { params: Promise<Params> }) {
                 birthDate={user.birthday}
                 city={user.city}
               />
-              <Button>
-                <Link href="/update-profile">Update Profile</Link>
-              </Button>
-              <Post posts={user?.posts || []} />
+              <PublicPost userId={user._id} />
             </>
           ) : (
             <Skeleton />

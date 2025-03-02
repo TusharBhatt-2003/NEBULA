@@ -17,7 +17,7 @@ export const ProfileImage = ({
   return (
     <div className="relative">
       <img
-        className="w-full aspect-square h-full rounded-xl object-cover"
+        className="w-full  aspect-square h-full rounded-xl object-cover"
         src={profileUrl}
         alt="Profile Pic"
       />

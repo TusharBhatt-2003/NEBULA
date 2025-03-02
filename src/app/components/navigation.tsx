@@ -70,9 +70,9 @@ export default function Navigation() {
       </Link>
 
       <Link
-        href="/addpost"
+        href="/add-post"
         className={`w-1/4 flex justify-center rounded-xl p-2 items-center cursor-pointer font-bold ${
-          pathname === "/addpost" ? "animate-gradient-bg" : ""
+          pathname === "/add-post" ? "animate-gradient-bg" : ""
         }`}
       >
         <AddPost />

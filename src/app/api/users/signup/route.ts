@@ -16,7 +16,6 @@ export async function POST(request: NextRequest) {
       password,
       profileUrl,
       gender,
-      bio,
       city,
       birthday,
     } = reqBody;
@@ -44,7 +43,6 @@ export async function POST(request: NextRequest) {
       password: hashedPassword,
       profileUrl,
       gender,
-      bio,
       city,
       birthday: new Date(birthday), // Ensure birthday is stored as a Date object
       isAdmin,
