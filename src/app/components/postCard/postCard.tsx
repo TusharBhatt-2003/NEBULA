@@ -4,8 +4,8 @@ import Link from "next/link";
 
 interface Post {
   _id: string;
-  user: string;
-  content: string;
+  userId: string;
+  text: string;
   likes: string[]; // Array of user IDs who liked the post
   comments: string[]; // Array of comment IDs
   createdAt: string;
@@ -61,7 +61,7 @@ export default function PostCard({ postId, currentUserId }: PostCardProps) {
   }, [postId, currentUserId]);
 
   useEffect(() => {
-    if (!post?.user) return;
+    if (!post?.userId) return;
 
     const fetchAuthor = async () => {
       try {
@@ -69,7 +69,7 @@ export default function PostCard({ postId, currentUserId }: PostCardProps) {
         if (!response.ok) throw new Error("Failed to fetch users");
 
         const data: Author[] = await response.json();
-        const foundAuthor = data.find((u) => u._id === post.user);
+        const foundAuthor = data.find((u) => u._id === post.userId);
         if (foundAuthor) {
           setAuthor(foundAuthor);
         }
@@ -134,7 +134,7 @@ export default function PostCard({ postId, currentUserId }: PostCardProps) {
               </p>
             </div>
           </Link>
-          <p className="mb-4">{post.content}</p>
+          <p className="mb-4">{post.text}</p>
           <div className="flex justify-between">
             <p className="text-sm">
               {new Date(post.createdAt).toLocaleString()}

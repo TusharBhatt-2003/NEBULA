@@ -82,6 +82,7 @@ export default function AddPost() {
         <Button type="submit" disabled={loading || !post.text}>
           {loading ? "Posting..." : "Post"}
         </Button>
+        {message && <p className="mt-4 text-center text-red-500">{message}</p>}
       </form>
 
       {/* Pop-up */}
@@ -93,7 +94,6 @@ export default function AddPost() {
       )}
 
       {/* Error message */}
-      {message && <p className="mt-4 text-center text-red-500">{message}</p>}
     </div>
   );
 }

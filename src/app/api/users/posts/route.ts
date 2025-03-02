@@ -4,7 +4,7 @@ import Post from "@/models/postsModel";
 import { NextRequest, NextResponse } from "next/server";
 
 // Establish database connection
-connect();
+await connect();
 
 export async function POST(request: NextRequest) {
   try {
@@ -27,19 +27,16 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Text is required" }, { status: 400 });
     }
 
-    // Map `text` to `content` and `userId` to `user`
+    // Create a new post
     const newPost = new Post({
-      user: userId, // Map userId to user
-      content: text, // Map text to content
+      user: userId,
+      content: text.trim(), // Trimmed for safety
     });
+
     console.log("New Post Object:", newPost);
 
     const savedPost = await newPost.save();
     console.log("Saved Post:", savedPost);
-
-    if (!savedPost) {
-      throw new Error("Failed to save post");
-    }
 
     return NextResponse.json(
       {
@@ -51,11 +48,6 @@ export async function POST(request: NextRequest) {
     );
   } catch (error: any) {
     console.error("Post creation error:", error);
-
-    if (error.name === "ValidationError") {
-      console.error("Validation Errors:", error.errors);
-    }
-
     return NextResponse.json(
       { error: error.message || "Internal server error" },
       { status: 500 },
