@@ -37,7 +37,10 @@ export default function Home() {
 
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://yourwebsite.com" />
+        <meta
+          property="og:url"
+          content="https://nebula-three-dun.vercel.app/"
+        />
         <meta
           property="og:title"
           content="NEBULA | Ideas, Connections, Creativity"
@@ -48,12 +51,15 @@ export default function Home() {
         />
         <meta
           property="og:image"
-          content="https://yourwebsite.com/og-image.jpg"
+          content="https://i.pinimg.com/736x/53/1c/ca/531cca19c089b7f17d7ad31ebfb664bd.jpg"
         />
 
         {/* Twitter */}
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://yourwebsite.com" />
+        <meta
+          property="twitter:url"
+          content="https://nebula-three-dun.vercel.app/"
+        />
         <meta
           property="twitter:title"
           content="NEBULA | Ideas, Connections, Creativity"
@@ -64,7 +70,7 @@ export default function Home() {
         />
         <meta
           property="twitter:image"
-          content="https://yourwebsite.com/twitter-image.jpg"
+          content="https://i.pinimg.com/736x/53/1c/ca/531cca19c089b7f17d7ad31ebfb664bd.jpg"
         />
       </Head>
 
