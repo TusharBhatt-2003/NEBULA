@@ -1,15 +1,20 @@
+import Female from "../../../../public/female";
+import Male from "../../../../public/male";
+
 interface ProfileDetailsProps {
   fullName: string;
-  bio: string;
+  username: string;
   birthDate: string;
   city: string;
+  gender: string;
 }
 
 export const ProfileDetails = ({
   fullName,
-  bio,
+  username,
   birthDate,
   city,
+  gender,
 }: ProfileDetailsProps) => {
   // Format the birthday date to dd/mm/yy format
   const formattedDate = new Date(birthDate).toLocaleDateString("en-GB", {
@@ -26,12 +31,18 @@ export const ProfileDetails = ({
           <h1 className="lg:text-lg leading-snug font-['spring'] rounded-t-xl">
             {fullName}
           </h1>
-          <p className="p-1 rounded-xl border border-[#F2F0E4]/30">
+          {gender === "Male" ? (
+            <Male />
+          ) : gender === "Female" ? (
+            <Female />
+          ) : null}
+
+          {/* <p className="p-1 rounded-xl border border-[#F2F0E4]/30">
             connection
-          </p>
+          </p> */}
         </div>
         <div className="h-full">
-          <p>{bio}</p>
+          <p>@{username}</p>
         </div>
         <div className="flex justify-between items-center">
           <p className="font-['Big'] text-sm">{formattedDate}</p>

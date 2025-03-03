@@ -9,6 +9,7 @@ import { ProfileImage } from "../components/profile/profileImage";
 import { ProfileDetails } from "../components/profile/profileDetails";
 import { useEffect, useState } from "react";
 import PostCard from "../components/postCard/postCard";
+import Bio from "../components/profile/bio";
 
 interface Post {
   _id: string;
@@ -56,22 +57,21 @@ export default function UserProfile() {
           <>
             <div className="flex gap-2">
               <div className="w-1/3">
-                <ProfileImage
-                  profileUrl={user.profileUrl}
-                  username={user.username}
-                  gender={user.gender}
-                />
+                <ProfileImage profileUrl={user.profileUrl} />
               </div>
 
               <div className="w-2/3">
                 <ProfileDetails
                   fullName={user.fullName}
-                  bio={user.bio}
+                  username={user.username}
                   birthDate={user.birthday}
                   city={user.city}
+                  gender={user.gender}
                 />
               </div>
             </div>
+
+            {user.bio ? <Bio bio={user.bio} /> : null}
 
             <div className="flex justify-between">
               <LogoutBtn />

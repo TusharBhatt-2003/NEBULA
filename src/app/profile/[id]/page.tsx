@@ -7,6 +7,7 @@ import { ProfileImage } from "@/app/components/profile/profileImage";
 import { ProfileDetails } from "@/app/components/profile/profileDetails";
 
 import PostCard from "@/app/components/postCard/postCard";
+import Bio from "@/app/components/profile/bio";
 
 interface Post {
   _id: string;
@@ -107,22 +108,21 @@ export default function Page({ params }: { params: Promise<Params> }) {
             <>
               <div className="flex gap-2">
                 <div className="w-1/3">
-                  <ProfileImage
-                    profileUrl={user.profileUrl}
-                    username={user.username}
-                    gender={user.gender}
-                  />
+                  <ProfileImage profileUrl={user.profileUrl} />
                 </div>
 
                 <div className="w-2/3">
                   <ProfileDetails
                     fullName={user.fullName}
-                    bio={user.bio}
+                    username={user.username}
                     birthDate={user.birthday}
                     city={user.city}
+                    gender={user.gender}
                   />
                 </div>
               </div>
+
+              {user.bio ? <Bio bio={user.bio} /> : null}
 
               <div className="border-t-2 light-text border-[#f2f0e4]">
                 <h1 className="font-['spring'] light-text border-b w-fit">

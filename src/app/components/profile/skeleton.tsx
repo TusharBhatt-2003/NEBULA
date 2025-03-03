@@ -19,10 +19,13 @@ export default function Skeleton() {
               connection
             </p>
           </div>
-          <p className="light-bg opacity-25 rounded-3xl animate-pulse text-transparent">
-            This is the bio of the user, They can write any thing here.
-          </p>
         </div>
+      </div>
+      <div className="backdrop-blur border border-[#F2F0E4]/30 overflow-hidden light-text py-5 px-3 rounded-xl">
+        <div className="grain"></div>
+        <p className="light-bg opacity-10 rounded-3xl animate-pulse text-transparent">
+          This is the bio of the user, They can write any thing here.
+        </p>
       </div>
       <div className="flex  justify-between">
         <div className="flex animate-pulse justify-between items-center">
