@@ -101,8 +101,10 @@ export default function Page({ params }: { params: Promise<Params> }) {
         <meta name="twitter:image" content={seoData.image} />
       </head>
 
-      <div className=" p-5 overflow-hidden relative w-full flex flex-col items-center">
-        <StarField />
+      <div className="overflow-hidden relative w-full p-5">
+        <div className="fixed">
+          <StarField />
+        </div>
         <div className="mb-20 w-full z-20 space-y-5">
           {user ? (
             <>
