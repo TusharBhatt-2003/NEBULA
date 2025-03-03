@@ -53,8 +53,7 @@ export default function Feed() {
           <UserProfile />
         </div>
         <div className="lg:w-[50%] w-full lg:ml-[25vw] text-lg p-5 mb-24 flex flex-col justify-center items-center gap-5 overflow-hidden">
-          {loading ? //   <Skeleton key={index} /> // Array.from({ length: 6 }).map((_, index) => (
-          // ))
+          {loading ? // )) //   <Skeleton key={index} /> // Array.from({ length: 6 }).map((_, index) => (
           null : posts.length > 0 ? (
             posts.map((post) => (
               <PostCard

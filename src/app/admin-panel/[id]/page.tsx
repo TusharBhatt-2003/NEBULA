@@ -1,13 +1,18 @@
 "use client";
-import Link from "next/link";
-import { Button } from "../../components/ui/button";
+
 import StarField from "../../components/starField";
 import { use, useEffect, useState } from "react";
 import Skeleton from "@/app/components/profile/skeleton";
 import { ProfileImage } from "@/app/components/profile/profileImage";
 import { ProfileDetails } from "@/app/components/profile/profileDetails";
-import { Post } from "@/app/components/profile/posts";
 
+import PostCard from "@/app/components/postCard/postCard";
+
+interface Post {
+  _id: string;
+  createdAt: number;
+  // Add other properties of a post if needed
+}
 interface Params {
   id: string;
 }
@@ -50,6 +55,33 @@ export default function Page({ params }: { params: Promise<Params> }) {
       : "No user found",
     image: user ? user.profileUrl : "/default-profile.png", // Fallback to a default image if no user is found
   };
+  const [posts, setPosts] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch("/api/posts");
+        const data: Post[] = await response.json();
+        if (response.ok) {
+          const sortedPosts = data.sort(
+            (a, b) =>
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+          );
+          setPosts(sortedPosts);
+        } else {
+          console.error("Error fetching posts.");
+        }
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+  // Filter posts to only include those that match the current user's ID
+  const filteredPosts = posts.filter((post) => post.userId === id);
 
   return (
     <>
@@ -68,27 +100,50 @@ export default function Page({ params }: { params: Promise<Params> }) {
         <meta name="twitter:image" content={seoData.image} />
       </head>
 
-      <div className="h-screen p-5 overflow-hidden relative w-full flex flex-col items-center">
+      <div className=" p-5 overflow-hidden relative w-full flex flex-col items-center">
         <StarField />
-        <div className="w-full z-20 space-y-5">
+        <div className="mb-20 w-full z-20 space-y-5">
           {user ? (
             <>
-              <ProfileImage
-                profileUrl={user.profileUrl}
-                username={user.username}
-                gender={user.gender}
-              />
+              <div className="flex gap-2">
+                <div className="w-1/3">
+                  <ProfileImage
+                    profileUrl={user.profileUrl}
+                    username={user.username}
+                    gender={user.gender}
+                  />
+                </div>
 
-              <ProfileDetails
-                fullName={user.fullName}
-                bio={user.bio}
-                birthDate={user.birthday}
-                city={user.city}
-              />
-              <Button>
-                <Link href="/update-profile">Update Profile</Link>
-              </Button>
-              <Post />
+                <div className="w-2/3">
+                  <ProfileDetails
+                    fullName={user.fullName}
+                    bio={user.bio}
+                    birthDate={user.birthday}
+                    city={user.city}
+                  />
+                </div>
+              </div>
+
+              <div className="border-t-2 light-text border-[#f2f0e4]">
+                <h1 className="font-['spring'] light-text border-b w-fit">
+                  POSTS:
+                </h1>
+                <div className="flex flex-col gap-2 py-2">
+                  {loading ? (
+                    <p>Loading...</p>
+                  ) : filteredPosts.length > 0 ? (
+                    filteredPosts.map((post, index) => (
+                      <PostCard
+                        key={post._id}
+                        currentUserId={id ?? ""}
+                        postId={post._id}
+                      />
+                    ))
+                  ) : (
+                    <p>No posts found for this user.</p>
+                  )}
+                </div>
+              </div>
             </>
           ) : (
             <Skeleton />

@@ -23,7 +23,7 @@ export const ProfileDetails = ({
       <div className="grain"></div>
       <div className="flex flex-col justify-between h-full">
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl lg:text-lg leading-snug font-['spring'] rounded-t-xl">
+          <h1 className="lg:text-lg leading-snug font-['spring'] rounded-t-xl">
             {fullName}
           </h1>
           <p className="p-1 rounded-xl border border-[#F2F0E4]/30">
@@ -34,8 +34,8 @@ export const ProfileDetails = ({
           <p>{bio}</p>
         </div>
         <div className="flex justify-between items-center">
-          <p className="font-['Big']">{formattedDate}</p>
-          <p className="bg-black font-['spring'] px-1">{city}</p>
+          <p className="font-['Big'] text-sm">{formattedDate}</p>
+          <p className="bg-black text-sm font-['spring'] px-1">{city}</p>
         </div>
       </div>
     </div>
