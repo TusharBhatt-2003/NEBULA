@@ -21,7 +21,7 @@ export default function LogoutBtn() {
   };
 
   return (
-    <Button onClick={logout} variant="outline" className="">
+    <Button onClick={logout} variant="outline" className="z-[99]">
       Logout
     </Button>
   );
