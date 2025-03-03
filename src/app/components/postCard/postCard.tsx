@@ -138,9 +138,7 @@ export default function PostCard({ postId, currentUserId }: PostCardProps) {
               <div className="w-8 h-8 rounded-full bg-gray-300 opacity-20"></div>
             )}
             <div>
-              <p className="font-semibold">
-                {author?.username || "Unknown Author"}
-              </p>
+              <p className="font-semibold">{author?.username || null}</p>
             </div>
           </Link>
           <Link href={`/post/${post?._id}`}>
