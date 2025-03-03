@@ -75,7 +75,7 @@ export default function UserProfile() {
 
             {user.bio ? <Bio bio={user.bio} /> : null}
 
-            <div className="flex z-[999]  justify-between">
+            <div className="flex justify-between">
               <LogoutBtn />
               <Button>
                 <Link href="/update-profile">Update Profile</Link>
