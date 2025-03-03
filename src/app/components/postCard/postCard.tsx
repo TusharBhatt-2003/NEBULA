@@ -164,7 +164,7 @@ export default function PostCard({ postId, currentUserId }: PostCardProps) {
                 </svg>
                 <span className="ml-1">{post.likes.length}</span>
               </button>
-              <p>💬 {post.comments.length}</p>
+              {/* <p>💬 {post.comments.length}</p> */}
             </div>
           </div>
         </div>
