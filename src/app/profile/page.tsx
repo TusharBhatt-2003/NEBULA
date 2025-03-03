@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import useUser from "../hooks/useUser";
 import { Button } from "../components/ui/button";
 import LogoutBtn from "../components/logoutBtn";
@@ -8,11 +7,46 @@ import StarField from "../components/starField";
 import Skeleton from "../components/profile/skeleton";
 import { ProfileImage } from "../components/profile/profileImage";
 import { ProfileDetails } from "../components/profile/profileDetails";
-import { Post } from "../components/profile/posts";
+import { useEffect, useState } from "react";
+import PostCard from "../components/postCard/postCard";
+
+interface Post {
+  _id: string;
+  createdAt: number;
+  // Add other properties of a post if needed
+}
 
 export default function UserProfile() {
   const { user } = useUser();
-  const [colors, setColors] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [posts, setPosts] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch("/api/posts");
+        const data: Post[] = await response.json();
+        if (response.ok) {
+          const sortedPosts = data.sort(
+            (a, b) =>
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+          );
+          setPosts(sortedPosts);
+        } else {
+          console.error("Error fetching posts.");
+        }
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
+  // Filter posts to only include those that match the current user's ID
+  const filteredPosts = posts.filter((post) => post.userId === user?._id);
 
   return (
     <div className="p-5 lg:w-[25%] lg:fixed overflow-hidden relative w-full flex flex-col items-center">
@@ -41,21 +75,26 @@ export default function UserProfile() {
               <Link href="/update-profile">Update Profile</Link>
             </Button>
 
-            <Post />
-
-            {/* Display Extracted Color Palette */}
-            {colors.length > 0 && (
-              <div className="flex gap-2 mt-4">
-                {colors.map((color, index) => (
-                  <div
-                    key={index}
-                    className="w-10 h-10 rounded border border-gray-300"
-                    style={{ backgroundColor: color }}
-                    title={color}
-                  ></div>
-                ))}
+            <div className="border-t-2 light-text border-[#f2f0e4]">
+              <h1 className="font-['spring'] light-text border-b w-fit">
+                POSTS:
+              </h1>
+              <div className="flex flex-col gap-2 py-2">
+                {loading ? (
+                  <p>Loading...</p>
+                ) : filteredPosts.length > 0 ? (
+                  filteredPosts.map((post, index) => (
+                    <PostCard
+                      key={post._id}
+                      currentUserId={user._id ?? ""}
+                      postId={post._id}
+                    />
+                  ))
+                ) : (
+                  <p>No posts found for this user.</p>
+                )}
               </div>
-            )}
+            </div>
           </>
         ) : (
           <Skeleton />

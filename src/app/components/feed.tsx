@@ -9,6 +9,7 @@ import AddPost from "../add-post/page";
 
 interface Post {
   _id: string;
+  createdAt: number;
   // Add other properties of a post if needed
 }
 
@@ -24,7 +25,11 @@ export default function Feed() {
         const response = await fetch("/api/posts");
         const data: Post[] = await response.json();
         if (response.ok) {
-          setPosts(data);
+          const sortedPosts = data.sort(
+            (a, b) =>
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+          );
+          setPosts(sortedPosts);
         } else {
           console.error("Error fetching posts.");
         }
@@ -47,12 +52,11 @@ export default function Feed() {
         <div className="hidden lg:block">
           <UserProfile />
         </div>
-        <div className="lg:w-[50%] w-full lg:ml-[25vw] text-lg p-5 mb-24 flex flex-col-reverse justify-center items-center gap-5 overflow-hidden">
-          {loading ? (
-            Array.from({ length: 6 }).map((_, index) => (
-              <Skeleton key={index} />
-            ))
-          ) : posts.length > 0 ? (
+        <div className="lg:w-[50%] w-full lg:ml-[25vw] text-lg p-5 mb-24 flex flex-col justify-center items-center gap-5 overflow-hidden">
+          {loading ? // Array.from({ length: 6 }).map((_, index) => (
+          //   <Skeleton key={index} />
+          // ))
+          null : posts.length > 0 ? (
             posts.map((post) => (
               <PostCard
                 key={post._id}

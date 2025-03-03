@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Skeleton from "./skeleton";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface Post {
   _id: string;
@@ -28,6 +29,7 @@ export default function PostCard({ postId, currentUserId }: PostCardProps) {
   const [author, setAuthor] = useState<Author | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [isLiked, setIsLiked] = useState<boolean>(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -110,6 +112,13 @@ export default function PostCard({ postId, currentUserId }: PostCardProps) {
     }
   };
 
+  const isFeedPage =
+    pathname === "/feed" || "/profile" || `/profile/${author?._id}`;
+  const postText =
+    isFeedPage && post?.text && post.text.length > 100
+      ? `${post.text.substring(0, 100)}...`
+      : post?.text || "";
+
   return (
     <>
       {post ? (
@@ -126,7 +135,7 @@ export default function PostCard({ postId, currentUserId }: PostCardProps) {
                 className="w-8 h-8 rounded-full border"
               />
             ) : (
-              <div className="w-12 h-12 rounded-full bg-gray-300"></div>
+              <div className="w-8 h-8 rounded-full bg-gray-300 opacity-20"></div>
             )}
             <div>
               <p className="font-semibold">
@@ -134,7 +143,9 @@ export default function PostCard({ postId, currentUserId }: PostCardProps) {
               </p>
             </div>
           </Link>
-          <p className="mb-4">{post.text}</p>
+          <Link href={`/post/${post?._id}`}>
+            <p className="mb-4">{postText}</p>
+          </Link>
           <div className="flex justify-between">
             <p className="text-sm">
               {new Date(post.createdAt).toLocaleString()}

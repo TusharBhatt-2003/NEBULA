@@ -5,9 +5,14 @@ import { use, useEffect, useState } from "react";
 import Skeleton from "@/app/components/profile/skeleton";
 import { ProfileImage } from "@/app/components/profile/profileImage";
 import { ProfileDetails } from "@/app/components/profile/profileDetails";
-import { Post } from "@/app/components/profile/posts";
-import { PublicPost } from "@/app/components/profile/publicPost";
 
+import PostCard from "@/app/components/postCard/postCard";
+
+interface Post {
+  _id: string;
+  createdAt: number;
+  // Add other properties of a post if needed
+}
 interface Params {
   id: string;
 }
@@ -50,6 +55,33 @@ export default function Page({ params }: { params: Promise<Params> }) {
       : "No user found",
     image: user ? user.profileUrl : "/default-profile.png", // Fallback to a default image if no user is found
   };
+  const [posts, setPosts] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch("/api/posts");
+        const data: Post[] = await response.json();
+        if (response.ok) {
+          const sortedPosts = data.sort(
+            (a, b) =>
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+          );
+          setPosts(sortedPosts);
+        } else {
+          console.error("Error fetching posts.");
+        }
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+  // Filter posts to only include those that match the current user's ID
+  const filteredPosts = posts.filter((post) => post.userId === id);
 
   return (
     <>
@@ -85,7 +117,27 @@ export default function Page({ params }: { params: Promise<Params> }) {
                 birthDate={user.birthday}
                 city={user.city}
               />
-              <PublicPost userId={user._id} />
+
+              <div className="border-t-2 light-text border-[#f2f0e4]">
+                <h1 className="font-['spring'] light-text border-b w-fit">
+                  POSTS:
+                </h1>
+                <div className="flex flex-col gap-2 py-2">
+                  {loading ? (
+                    <p>Loading...</p>
+                  ) : filteredPosts.length > 0 ? (
+                    filteredPosts.map((post, index) => (
+                      <PostCard
+                        key={post._id}
+                        currentUserId={id ?? ""}
+                        postId={post._id}
+                      />
+                    ))
+                  ) : (
+                    <p>No posts found for this user.</p>
+                  )}
+                </div>
+              </div>
             </>
           ) : (
             <Skeleton />
