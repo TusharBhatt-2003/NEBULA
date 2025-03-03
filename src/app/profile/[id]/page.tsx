@@ -105,18 +105,24 @@ export default function Page({ params }: { params: Promise<Params> }) {
         <div className="mb-20 w-full z-20 space-y-5">
           {user ? (
             <>
-              <ProfileImage
-                profileUrl={user.profileUrl}
-                username={user.username}
-                gender={user.gender}
-              />
+              <div className="flex gap-2">
+                <div className="w-1/3">
+                  <ProfileImage
+                    profileUrl={user.profileUrl}
+                    username={user.username}
+                    gender={user.gender}
+                  />
+                </div>
 
-              <ProfileDetails
-                fullName={user.fullName}
-                bio={user.bio}
-                birthDate={user.birthday}
-                city={user.city}
-              />
+                <div className="w-2/3">
+                  <ProfileDetails
+                    fullName={user.fullName}
+                    bio={user.bio}
+                    birthDate={user.birthday}
+                    city={user.city}
+                  />
+                </div>
+              </div>
 
               <div className="border-t-2 light-text border-[#f2f0e4]">
                 <h1 className="font-['spring'] light-text border-b w-fit">

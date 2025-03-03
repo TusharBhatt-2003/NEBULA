@@ -22,8 +22,8 @@ export const ProfileImage = ({
         alt="Profile Pic"
       />
       <div className="absolute left-2 bottom-2 flex items-center justify-center">
-        <span className="font-['spring'] light-text text-xl font-bold">
-          {username}
+        <span className="lowercase light-text text-xl lg:text-sm font-bold">
+          @{username}
         </span>
       </div>
       <div className="absolute right-2 top-2 flex items-center justify-center">

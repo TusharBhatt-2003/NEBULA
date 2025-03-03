@@ -19,16 +19,24 @@ export const ProfileDetails = ({
   });
 
   return (
-    <div className="relative py-2 px-3 flex flex-col gap-2 z-10 backdrop-blur rounded-xl border border-[#F2F0E4]/30 overflow-hidden light-text">
+    <div className="relative w-full h-full py-2 px-3 flex flex-col gap-2 z-10 backdrop-blur rounded-xl border border-[#F2F0E4]/30 overflow-hidden light-text">
       <div className="grain"></div>
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-['spring'] rounded-t-xl">{fullName}</h1>
-        <p className="p-1 rounded-xl border border-[#F2F0E4]/30">connection</p>
-      </div>
-      <p>{bio}</p>
-      <div className="flex justify-between items-center">
-        <p className="font-['Big']">{formattedDate}</p>
-        <p className="bg-black font-['spring'] px-1">{city}</p>
+      <div className="flex flex-col justify-between h-full">
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl lg:text-lg leading-snug font-['spring'] rounded-t-xl">
+            {fullName}
+          </h1>
+          <p className="p-1 rounded-xl border border-[#F2F0E4]/30">
+            connection
+          </p>
+        </div>
+        <div className="h-full">
+          <p>{bio}</p>
+        </div>
+        <div className="flex justify-between items-center">
+          <p className="font-['Big']">{formattedDate}</p>
+          <p className="bg-black font-['spring'] px-1">{city}</p>
+        </div>
       </div>
     </div>
   );

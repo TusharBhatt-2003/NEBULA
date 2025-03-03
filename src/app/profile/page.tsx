@@ -54,35 +54,38 @@ export default function UserProfile() {
       <div className="mb-20 w-full z-20 space-y-5">
         {user ? (
           <>
-            <div className="flex justify-end">
-              <LogoutBtn />
+            <div className="flex gap-2">
+              <div className="w-1/3">
+                <ProfileImage
+                  profileUrl={user.profileUrl}
+                  username={user.username}
+                  gender={user.gender}
+                />
+              </div>
+
+              <div className="w-2/3">
+                <ProfileDetails
+                  fullName={user.fullName}
+                  bio={user.bio}
+                  birthDate={user.birthday}
+                  city={user.city}
+                />
+              </div>
             </div>
 
-            <ProfileImage
-              profileUrl={user.profileUrl}
-              username={user.username}
-              gender={user.gender}
-            />
-
-            <ProfileDetails
-              fullName={user?.fullName}
-              bio={user?.bio}
-              birthDate={user?.birthday}
-              city={user.city}
-            />
-
-            <Button>
-              <Link href="/update-profile">Update Profile</Link>
-            </Button>
+            <div className="flex justify-between">
+              <LogoutBtn />
+              <Button>
+                <Link href="/update-profile">Update Profile</Link>
+              </Button>
+            </div>
 
             <div className="border-t-2 light-text border-[#f2f0e4]">
               <h1 className="font-['spring'] light-text border-b w-fit">
                 POSTS:
               </h1>
-              <div className="flex flex-col gap-2 py-2">
-                {loading ? (
-                  <p>Loading...</p>
-                ) : filteredPosts.length > 0 ? (
+              <div className="flex overflow-auto flex-col gap-2 py-2">
+                {loading ? null : filteredPosts.length > 0 ? (
                   filteredPosts.map((post, index) => (
                     <PostCard
                       key={post._id}
