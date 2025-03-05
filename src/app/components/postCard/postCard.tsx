@@ -122,7 +122,7 @@ export default function PostCard({ postId, currentUserId }: PostCardProps) {
   return (
     <>
       {post ? (
-        <div className="overflow-hidden relative border-[#F2F0E4]/30 z-10 w-full backdrop-blur-[2px] p-3 light-text border rounded-3xl shadow-md">
+        <div className="overflow-hidden relative border-[#F2F0E4]/30 z-10 w-full backdrop-blur-[2px] p-3 light-text border rounded-3xl">
           <div className="grain"></div>
           <Link
             href={`/profile/${author?._id}`}

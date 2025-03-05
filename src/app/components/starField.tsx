@@ -38,7 +38,10 @@ const StarField: React.FC<StarFieldProps> = ({ count = 150 }) => {
   }, [count]);
 
   return (
-    <div ref={containerRef} className="absolute w-[150vw] h-[150vh] "></div>
+    <div
+      ref={containerRef}
+      className="absolute w-[150vw] h-[150vh] -z-50 "
+    ></div>
   );
 };
 
