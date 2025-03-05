@@ -6,6 +6,7 @@ import useUser from "../hooks/useUser";
 import { Input } from "../components/ui/input";
 import Link from "next/link";
 import StarField from "../components/starField";
+import Loading from "../components/loading";
 
 interface User {
   _id: string;
@@ -66,17 +67,22 @@ export default function SearchPage() {
 
   return (
     <div className="min-h-screen relative light-text p-5 pb-20 overflow-hidden">
-      {/* <div className="fixed">
+      <div className="fixed -z-50">
         <StarField />
-      </div> */}
-      <div className="max-w-2xl z-[99] mx-auto p-4 rounded-lg shadow-lg">
+      </div>
+      <div className="">
+        <p className="text-4xl mb-5 text-center text-transparent bg-clip-text animate-gradient-para z-50 font-['LogoFont'] font-semibold">
+          SEARCH
+        </p>
         <Input
+          className="z-[99999999]"
           type="text"
           placeholder="Search users and posts..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-        {loading && <p className="text-gray-500 mt-2">Loading...</p>}
+
+        {loading && <Loading />}
 
         {/* Users Section */}
         <div className="mt-4">
