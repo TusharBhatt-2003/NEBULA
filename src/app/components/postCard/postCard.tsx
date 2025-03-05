@@ -112,12 +112,10 @@ export default function PostCard({ postId, currentUserId }: PostCardProps) {
     }
   };
 
-  const isFeedPage =
-    pathname === "/feed" || "/profile" || `/profile/${author?._id}`;
-  const postText =
-    isFeedPage && post?.text && post.text.length > 100
-      ? `${post.text.substring(0, 100)}...`
-      : post?.text || "";
+  const isFeedPage = pathname === `/post/${post?._id}`;
+  const postText = isFeedPage
+    ? post?.text
+    : `${post?.text?.substring(0, 100)} . . .`;
 
   return (
     <>

@@ -88,7 +88,7 @@ export default function SearchPage() {
         <div className="mt-4">
           {users.length > 0 ? (
             <ul className="space-y-3">
-              <h2 className="text-lg font-semibold font-['spring']">Users</h2>
+              <h2 className="text-lg font-semibold font-['spring']">Users :</h2>
               {users.map((user) => (
                 <Link
                   href={`/profile/${user._id}`}
@@ -110,9 +110,9 @@ export default function SearchPage() {
         {/* Posts Section */}
         <div className="mt-4">
           {posts.length > 0 ? (
-            <div className="">
+            <div className="space-y-3">
               <h2 className="text-lg font-semibold font-['spring'] mb-2">
-                Posts
+                Posts :
               </h2>
               {posts.map((post) => (
                 <PostCard
