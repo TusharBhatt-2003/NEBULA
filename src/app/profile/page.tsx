@@ -50,7 +50,7 @@ export default function UserProfile() {
   const filteredPosts = posts.filter((post) => post.userId === user?._id);
 
   return (
-    <div className="p-5 lg:w-[25%] lg:fixed overflow-hidden relative w-full ">
+    <div className="p-5 lg:w-[20%] lg:fixed overflow-hidden relative w-full ">
       <div className="fixed">
         <StarField />
       </div>

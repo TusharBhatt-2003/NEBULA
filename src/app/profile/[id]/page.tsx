@@ -105,10 +105,10 @@ export default function Page({ params }: { params: Promise<Params> }) {
         <div className="fixed">
           <StarField />
         </div>
-        <div className="mb-20 w-full z-20 space-y-5">
+        <div className="container mx-auto mb-20 w-full z-20 space-y-5">
           {user ? (
             <>
-              <div className="flex gap-2">
+              <div className="flex gap-2 ">
                 <div className="w-1/3">
                   <ProfileImage profileUrl={user.profileUrl} />
                 </div>

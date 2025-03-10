@@ -1,13 +1,17 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
+import { FaTrash } from "react-icons/fa"; // Import trash icon
 import Skeleton from "./skeleton";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import ConfirmationModal from "../confirmationModal";
 
 interface Post {
   _id: string;
   userId: string;
   text: string;
-  likes: { _id: string }[]; // Array of objects containing user IDs
+  likes: { _id: string }[];
   comments: string[];
   createdAt: string;
   updatedAt: string;
@@ -22,13 +26,19 @@ interface Author {
 interface PostCardProps {
   postId: string;
   currentUserId: string;
+  onDelete?: (postId: string) => void;
 }
 
-export default function PostCard({ postId, currentUserId }: PostCardProps) {
+export default function PostCard({
+  postId,
+  currentUserId,
+  onDelete,
+}: PostCardProps) {
   const [post, setPost] = useState<Post | null>(null);
   const [author, setAuthor] = useState<Author | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -82,19 +92,12 @@ export default function PostCard({ postId, currentUserId }: PostCardProps) {
     try {
       const response = await fetch("/api/posts/like", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ postId: post._id }),
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to like/unlike post");
-      }
+      if (!response.ok) throw new Error("Failed to like/unlike post");
 
-      const data = await response.json();
-
-      // Update the post's likes and toggle the like state
       setPost((prev) =>
         prev
           ? {
@@ -112,10 +115,31 @@ export default function PostCard({ postId, currentUserId }: PostCardProps) {
     }
   };
 
+  const handleDelete = async () => {
+    if (!post) return;
+
+    try {
+      const response = await fetch("/api/posts/delete-post", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ postId: post._id }),
+      });
+
+      if (!response.ok) throw new Error("Failed to delete post");
+
+      if (onDelete) onDelete(post._id);
+    } catch (error) {
+      console.error("Error deleting post:", error);
+    } finally {
+      setShowModal(false);
+    }
+  };
+
   const isFeedPage = pathname === `/post/${post?._id}`;
-  const postText = isFeedPage
-    ? post?.text
-    : `${post?.text?.substring(0, 100)} . . .`;
+  const postText =
+    isFeedPage && post?.text && post.text.length > 100
+      ? post?.text || ""
+      : `${post?.text.substring(0, 100)}...`;
 
   return (
     <>
@@ -135,9 +159,7 @@ export default function PostCard({ postId, currentUserId }: PostCardProps) {
             ) : (
               <div className="w-8 h-8 rounded-full bg-gray-300 opacity-20"></div>
             )}
-            <div>
-              <p className="font-semibold">{author?.username || null}</p>
-            </div>
+            <p className="font-semibold">{author?.username || null}</p>
           </Link>
           <Link href={`/post/${post?._id}`}>
             <p className="mb-4">{postText}</p>
@@ -146,7 +168,7 @@ export default function PostCard({ postId, currentUserId }: PostCardProps) {
             <p className="text-sm">
               {new Date(post.createdAt).toLocaleString()}
             </p>
-            <div className="flex justify-end gap-5 text-sm">
+            <div className="flex gap-5 text-sm">
               <button onClick={handleLike} className="flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -162,12 +184,28 @@ export default function PostCard({ postId, currentUserId }: PostCardProps) {
                 </svg>
                 <span className="ml-1">{post.likes.length}</span>
               </button>
-              {/* <p>💬 {post.comments.length}</p> */}
+              {post.userId === currentUserId && (
+                <button
+                  onClick={() => setShowModal(true)}
+                  className="text-red-500 flex items-center gap-1"
+                >
+                  <FaTrash className="w-5 h-5" />
+                </button>
+              )}
             </div>
           </div>
         </div>
       ) : (
         <Skeleton />
+      )}
+
+      {/* Confirmation Modal for Deletion */}
+      {showModal && (
+        <ConfirmationModal
+          sentence="Are you sure you want to delete this post?"
+          onConfirm={handleDelete}
+          onCancel={() => setShowModal(false)}
+        />
       )}
     </>
   );

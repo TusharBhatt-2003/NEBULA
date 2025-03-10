@@ -63,7 +63,7 @@ export default function AddPost() {
   };
 
   return (
-    <div className="relative lg:w-[25vw] lg:fixed  w-full h-screen flex flex-col justify-start items-center overflow-hidden lg:p-5 p-10">
+    <div className="relative lg:w-[25vw] lg:h-fit w-full h-screen flex flex-col justify-start items-center overflow-hidden lg:p-5 p-10">
       <StarField />
       <h1 className="text-4xl text-center text-transparent bg-clip-text animate-gradient-para z-50 font-['LogoFont'] font-semibold">
         Create Post

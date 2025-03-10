@@ -15,7 +15,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   onCancel,
 }) => {
   return (
-    <div className="fixed backdrop-blur rounded-xl  overflow-hidden inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50 z-50">
+    <div className="fixed backdrop-blur rounded-xl  overflow-hidden inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50 z-[999]">
       <div className="relative overflow-hidden border-2 border-[#F2F0E4]/30 light-text p-5 rounded-3xl shadow-lg w-2/3 md:w-1/3">
         <div className="grain"></div>
         <h3 className="text-xl mb-4">{sentence}</h3>

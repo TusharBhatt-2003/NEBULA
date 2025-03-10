@@ -66,7 +66,7 @@ export default function SearchPage() {
   }, [query]);
 
   return (
-    <div className="min-h-screen relative light-text p-5 pb-20 overflow-hidden">
+    <div className="lg:w-[25vw]  relative light-text p-5 pb-20 overflow-hidden">
       <div className="fixed -z-50">
         <StarField />
       </div>
@@ -84,45 +84,49 @@ export default function SearchPage() {
 
         {loading && <Loading />}
 
-        {/* Users Section */}
-        <div className="mt-4">
-          {users.length > 0 ? (
-            <ul className="space-y-3">
-              <h2 className="text-lg font-semibold font-['spring']">Users :</h2>
-              {users.map((user) => (
-                <Link
-                  href={`/profile/${user._id}`}
-                  key={user._id}
-                  className="flex gap-2 items-center overflow-hidden relative border-[#F2F0E4]/30 z-10 w-full backdrop-blur-[2px] p-3 light-text border rounded-3xl"
-                >
-                  <div className="grain"></div>
-                  <img
-                    src={user.profileUrl}
-                    className="w-12 h-12 aspect-square rounded-xl"
-                  />
-                  <p>{user.username}</p>
-                </Link>
-              ))}
-            </ul>
-          ) : null}
-        </div>
+        <div className="overflow-hidden">
+          {/* Users Section */}
+          <div className="mt-4">
+            {users.length > 0 ? (
+              <ul className="space-y-3">
+                <h2 className="text-lg font-semibold font-['spring']">
+                  Users :
+                </h2>
+                {users.map((user) => (
+                  <Link
+                    href={`/profile/${user._id}`}
+                    key={user._id}
+                    className="flex gap-2 items-center overflow-hidden relative border-[#F2F0E4]/30 z-10 w-full backdrop-blur-[2px] p-3 light-text border rounded-3xl"
+                  >
+                    <div className="grain"></div>
+                    <img
+                      src={user.profileUrl}
+                      className="w-12 h-12 aspect-square rounded-xl"
+                    />
+                    <p>{user.username}</p>
+                  </Link>
+                ))}
+              </ul>
+            ) : null}
+          </div>
 
-        {/* Posts Section */}
-        <div className="mt-4">
-          {posts.length > 0 ? (
-            <div className="space-y-3">
-              <h2 className="text-lg font-semibold font-['spring'] mb-2">
-                Posts :
-              </h2>
-              {posts.map((post) => (
-                <PostCard
-                  key={post._id}
-                  currentUserId={currentUserId}
-                  postId={post._id}
-                />
-              ))}
-            </div>
-          ) : null}
+          {/* Posts Section */}
+          <div className="mt-4">
+            {posts.length > 0 ? (
+              <div className="space-y-3">
+                <h2 className="text-lg font-semibold font-['spring'] mb-2">
+                  Posts :
+                </h2>
+                {posts.map((post) => (
+                  <PostCard
+                    key={post._id}
+                    currentUserId={currentUserId}
+                    postId={post._id}
+                  />
+                ))}
+              </div>
+            ) : null}
+          </div>
         </div>
       </div>
     </div>

@@ -11,7 +11,7 @@ export default function page() {
   const currentUserId = loggedUserData?.user?._id;
 
   return (
-    <div className="p-10">
+    <div className="p-10 container mx-auto">
       <PostCard currentUserId={currentUserId ?? ""} postId={postId as string} />
     </div>
   );

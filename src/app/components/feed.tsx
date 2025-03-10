@@ -6,6 +6,7 @@ import useUser from "../hooks/useUser";
 import Skeleton from "./postCard/skeleton";
 import UserProfile from "../profile/page";
 import AddPost from "../add-post/page";
+import SearchPage from "../search/page";
 
 interface Post {
   _id: string;
@@ -48,11 +49,11 @@ export default function Feed() {
       <div className="fixed">
         <StarField />
       </div>
-      <div className="flex">
+      <div className="flex justify-center it relative container mx-auto">
         <div className="hidden lg:block">
           <UserProfile />
         </div>
-        <div className="lg:w-[50%] w-full lg:ml-[25vw] text-lg p-5 mb-24 flex flex-col justify-center items-center gap-5 overflow-hidden">
+        <div className="lg:w-[55%] w-full lg:ml-[20vw] text-lg p-5 mb-24 flex flex-col justify-center items-center gap-5 overflow-hidden">
           {loading ? null : posts.length > 0 ? ( // )) //   <Skeleton key={index} /> // Array.from({ length: 6 }).map((_, index) => (
             posts.map((post) => (
               <PostCard
@@ -65,8 +66,9 @@ export default function Feed() {
             <p className="text-[#fe3b01]">No users found.</p>
           )}
         </div>
-        <div className="hidden lg:block">
+        <div className="hidden lg:block lg:w-[30%] ">
           <AddPost />
+          <SearchPage />
         </div>
       </div>
     </div>
