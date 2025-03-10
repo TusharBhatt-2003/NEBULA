@@ -137,9 +137,11 @@ export default function PostCard({
 
   const isFeedPage = pathname === `/post/${post?._id}`;
   const postText =
-    isFeedPage && post?.text && post.text.length > 100
-      ? post?.text || ""
-      : `${post?.text.substring(0, 100)}...`;
+    post?.text && post.text.length > 100
+      ? isFeedPage
+        ? post.text
+        : `${post.text.substring(0, 100)}...`
+      : post?.text || "";
 
   return (
     <>
