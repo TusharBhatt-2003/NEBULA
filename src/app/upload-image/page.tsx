@@ -1,5 +1,5 @@
 import React from "react";
-import ImagekitUploud from "../components/imagekit/profilePictureUpdate";
+import ProfilePictureUpdate from "../components/imagekit/profilePictureUpdate";
 
 export default function page() {
   return (
@@ -7,7 +7,7 @@ export default function page() {
       <h1 className="text-3xl font-bold mb-1">Wildlife Video</h1>
       <p>Upload your wildlife video here!</p>
       {/* <input type='file' accept='video/*' /> */}
-      <ImagekitUploud />
+      {/* <ProfilePictureUpdate /> */}
 
       <img src="https://ik.imagekit.io/i8ts8emc3/hype____LfwTaCKLvG.png?tr=w-600" />
     </div>
