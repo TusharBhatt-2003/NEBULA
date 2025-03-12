@@ -78,7 +78,7 @@ export default function Home() {
       </Head>
 
       {!user ? (
-        <div className="relative font-['spring'] gap-10 flex flex-col bg-black h-screen items-center justify-around overflow-hidden">
+        <div className="relative font-['spring'] gap-10 flex flex-col h-screen items-center justify-around overflow-hidden">
           <div className="absolute w-screen h-screen">
             <NEBULA />
           </div>
