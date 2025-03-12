@@ -105,7 +105,7 @@ export default function Page() {
             dateModified: post?.updatedAt || new Date().toISOString(),
             mainEntityOfPage: {
               "@type": "WebPage",
-              "@id": `https://yoursite.com/post/${postId}`,
+              "@id": `https://nebula-socialmedia.vercel.app/post/${postId}`,
             },
           })}
         </script>
