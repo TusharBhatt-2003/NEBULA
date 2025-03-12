@@ -1,21 +1,17 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
-import StarField from "../components/starField";
+import { useRouter } from "next/navigation";
 import { Button } from "../components/ui/button";
-
-interface PostData {
-  text: string;
-  [key: string]: string | undefined;
-}
+import ProfilePictureUpdate from "../components/imagekit/profilePictureUpdate";
 
 export default function AddPost() {
-  const [post, setPost] = useState<PostData>({ text: "" });
+  const [post, setPost] = useState<{ text: string; image?: string }>({
+    text: "",
+    image: "",
+  });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const [showPopup, setShowPopup] = useState(false); // State to control pop-up visibility
-  const [popupMessage, setPopupMessage] = useState(""); // State to store pop-up message
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -30,28 +26,20 @@ export default function AddPost() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify({ text: post.text }), // Only send `text`
+        body: JSON.stringify(post),
       });
 
-      if (!response.ok) {
+      if (!response.ok)
         throw new Error(
           `Server returned ${response.status}: ${response.statusText}`,
         );
-      }
 
       const data = await response.json();
-
       if (data.success) {
-        setPopupMessage("Post uploaded successfully!"); // Set success message
-        setShowPopup(true); // Show pop-up
-        setTimeout(() => {
-          setShowPopup(false); // Hide pop-up after 1.5 seconds
-          router.push("/feed"); // Redirect to feed
-        }, 1500);
+        alert("Post uploaded successfully!");
+        router.push("/feed");
       } else {
-        setPopupMessage(data.error || "Failed to upload post"); // Set error message
-        setShowPopup(true); // Show pop-up
-        setTimeout(() => setShowPopup(false), 1500); // Hide pop-up after 1.5 seconds
+        setMessage(data.error || "Failed to upload post");
       }
     } catch (error: any) {
       setMessage(
@@ -63,37 +51,24 @@ export default function AddPost() {
   };
 
   return (
-    <div className="relative lg:w-[25vw] lg:h-fit w-full h-screen flex flex-col justify-start items-center overflow-hidden lg:p-5 p-10">
-      <StarField />
-      <h1 className="text-4xl text-center text-transparent bg-clip-text animate-gradient-para z-50 font-['LogoFont'] font-semibold">
-        Create Post
-      </h1>
-      <form
-        onSubmit={handleSubmit}
-        className="flex w-full flex-col z-20 h-full items-center gap-5"
-      >
+    <div className="p-5">
+      <h1 className="text-xl font-bold">Create Post</h1>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <textarea
-          className="flex light-text w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-[#f2f0e4]/70 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+          className="border p-2 rounded"
           placeholder="Enter your text..."
           value={post.text}
           onChange={(e) => setPost({ ...post, text: e.target.value })}
           rows={4}
         />
+        <ProfilePictureUpdate
+          onUploadSuccess={(url) => setPost({ ...post, image: url })}
+        />
         <Button type="submit" disabled={loading || !post.text}>
           {loading ? "Posting..." : "Post"}
         </Button>
-        {message && <p className="mt-4 text-center text-red-500">{message}</p>}
+        {message && <p className="text-red-500">{message}</p>}
       </form>
-
-      {/* Pop-up */}
-      {showPopup && (
-        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 light-text flex backdrop-blur gap-5 py-5 px-10 rounded-xl border border-[#F2F0E4]/30 flex-col items-center justify-center overflow-hidden">
-          <div className="grain"></div>
-          {popupMessage}
-        </div>
-      )}
-
-      {/* Error message */}
     </div>
   );
 }

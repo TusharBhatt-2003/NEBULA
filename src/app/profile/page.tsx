@@ -10,6 +10,8 @@ import { ProfileDetails } from "../components/profile/profileDetails";
 import { useEffect, useState } from "react";
 import PostCard from "../components/postCard/postCard";
 import Bio from "../components/profile/bio";
+import ConfirmationModal from "../components/confirmationModal";
+import { useRouter } from "next/navigation";
 
 interface Post {
   _id: string;
@@ -21,6 +23,26 @@ export default function UserProfile() {
   const { user } = useUser();
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState<any[]>([]);
+  const router = useRouter();
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const requiredFields = [
+    "fullName",
+    "profileUrl",
+    "email",
+    "bio",
+    "username",
+    "gender",
+    "city",
+    "birthday",
+  ];
+
+  const isProfileIncomplete =
+    user &&
+    requiredFields.some((field) => {
+      const value = user[field as keyof typeof user];
+      return typeof value === "string" ? !value.trim() : !value;
+    });
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -104,6 +126,16 @@ export default function UserProfile() {
         ) : (
           <Skeleton />
         )}
+
+        <>
+          {isProfileIncomplete && (
+            <ConfirmationModal
+              sentence="Your profile is incomplete. Please update your information."
+              onConfirm={() => router.push("/update-profile")}
+              onCancel={() => setModalOpen(false)}
+            />
+          )}
+        </>
       </div>
     </div>
   );

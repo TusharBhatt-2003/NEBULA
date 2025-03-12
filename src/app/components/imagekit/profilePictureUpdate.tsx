@@ -1,7 +1,6 @@
 "use client";
 
 import { IKUpload } from "imagekitio-next";
-import { Button } from "../ui/button";
 import { useRef, useState } from "react";
 
 interface ProfileUpdateProps {

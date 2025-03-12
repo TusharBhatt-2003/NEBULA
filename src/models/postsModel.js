@@ -12,6 +12,9 @@ const postSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    image: {
+      type: String,
+    },
     likes: [
       {
         userId: {
@@ -57,7 +60,7 @@ const postSchema = new mongoose.Schema(
       },
     ],
   },
-  { timestamps: true },
+  { timestamps: true, strict: false },
 );
 
 const Post = mongoose.models.posts || mongoose.model("posts", postSchema);

@@ -26,8 +26,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: "NEBULA | Unleashing Creativity & Connections",
     description:
-      "Join NEBULA, a community-driven space where ideas flourish, collaborations happen, and creativity thrives.",
-    url: "https://nebula-three-dun.vercel.app",
+      "Join NEBULA, a digital space where ideas, connections, and creativity come together to inspire and innovate.",
+    url: "https://nebula-socialmedia.vercel.app/",
     type: "website",
     images: [
       {

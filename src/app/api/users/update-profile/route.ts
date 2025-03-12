@@ -42,7 +42,7 @@ export async function PUT(request: NextRequest) {
     if (gender) user.gender = gender;
     if (bio) user.bio = bio;
     if (city) user.city = city;
-    if (fullName) user.fullname = fullName;
+    if (fullName) user.fullName = fullName;
 
     // Hash new password if provided
     if (password) {

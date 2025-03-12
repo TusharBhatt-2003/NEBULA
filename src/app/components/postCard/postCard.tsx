@@ -10,6 +10,7 @@ import ConfirmationModal from "../confirmationModal";
 interface Post {
   _id: string;
   userId: string;
+  image?: string;
   text: string;
   likes: { _id: string }[];
   comments: string[];
@@ -164,6 +165,13 @@ export default function PostCard({
             <p className="font-semibold">{author?.username || null}</p>
           </Link>
           <Link href={`/post/${post?._id}`}>
+            {post.image && (
+              <img
+                src={post.image}
+                alt="Post Image"
+                className="w-full rounded-xl my-4"
+              />
+            )}
             <p className="mb-4">{postText}</p>
           </Link>
           <div className="flex justify-between">

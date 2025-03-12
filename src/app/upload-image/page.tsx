@@ -8,8 +8,6 @@ export default function page() {
       <p>Upload your wildlife video here!</p>
       {/* <input type='file' accept='video/*' /> */}
       {/* <ProfilePictureUpdate /> */}
-
-      <img src="https://ik.imagekit.io/i8ts8emc3/hype____LfwTaCKLvG.png?tr=w-600" />
     </div>
   );
 }
