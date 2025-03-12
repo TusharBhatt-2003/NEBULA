@@ -61,7 +61,7 @@ export default function ProfilePictureUpdate({
         Upload
       </div>
       {progress > 0 && (
-        <div className="relative mt-4 w-[250px]">
+        <div className="relative mt-4 w-full">
           <div className="absolute top-0 left-0 bg-black border border-[#f2f0e4] h-2 w-full rounded-full z-[1]">
             <div
               className="absolute top-0 left-0 bg-[#f2f0e4] h-2 rounded-full z-[1]"
