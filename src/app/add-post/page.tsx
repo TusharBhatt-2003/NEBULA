@@ -65,7 +65,10 @@ export default function AddPost() {
       >
         <div className="grain"></div>
         {!post.image && (
-          <div className="">
+          <div className="flex flex-col gap-2">
+            <p className="text-lg text-center">
+              Choose an image to attach to your post.
+            </p>
             <ProfilePictureUpdate
               onUploadSuccess={(url) => setPost({ ...post, image: url })}
             />

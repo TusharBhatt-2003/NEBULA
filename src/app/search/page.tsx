@@ -66,11 +66,11 @@ export default function SearchPage() {
   }, [query]);
 
   return (
-    <div className="lg:w-[25vw]  relative light-text p-5 pb-20 overflow-hidden">
+    <div className="lg:w-[25vw] relative light-text p-5 pb-20 overflow-hidden">
       <div className="fixed -z-50">
         <StarField />
       </div>
-      <div className="">
+      <div>
         <p className="text-4xl mb-5 text-center text-transparent bg-clip-text animate-gradient-para z-50 font-['LogoFont'] font-semibold">
           SEARCH
         </p>
@@ -127,6 +127,16 @@ export default function SearchPage() {
               </div>
             ) : null}
           </div>
+
+          {/* No Results Found */}
+          {!loading &&
+            query.trim() &&
+            users.length === 0 &&
+            posts.length === 0 && (
+              <p className="text-center font-['spring'] text-5xl font-bold mt-6 light-text opacity-30">
+                No results found
+              </p>
+            )}
         </div>
       </div>
     </div>
