@@ -19,7 +19,7 @@ export default function ProfilePictureUpdate({
     token: string;
   }> => {
     try {
-      const response = await fetch("http://localhost:3000/api/auth");
+      const response = await fetch("api/auth");
       if (!response.ok) {
         throw new Error(`Request failed with status ${response.status}`);
       }
