@@ -96,8 +96,7 @@ const UpdateProfilePage = () => {
 
           {(Object.keys(formData) as Array<keyof FormData>).map(
             (key) =>
-              key !== "userId" &&
-              key !== "profileUrl" && (
+              key !== "userId" && (
                 <div key={key}>
                   <label className="text-lg">
                     {key.charAt(0).toUpperCase() + key.slice(1)}:

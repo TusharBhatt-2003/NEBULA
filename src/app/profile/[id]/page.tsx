@@ -109,7 +109,7 @@ export default function Page({ params }: { params: Promise<Params> }) {
           {user ? (
             <>
               <div className="flex gap-2 ">
-                <div className="w-1/3">
+                <div className="w-1/3 z-[99]">
                   <ProfileImage profileUrl={user.profileUrl} />
                 </div>
 

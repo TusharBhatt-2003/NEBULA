@@ -18,7 +18,7 @@ export default function SignUp() {
     username: "",
     email: "",
     password: "",
-    profileUrl: "",
+    // profileUrl: "",
     gender: "",
     bio: "",
     city: "",
@@ -34,12 +34,6 @@ export default function SignUp() {
     const toastId = toast.loading("Signing up...");
     try {
       setLoading(true);
-
-      // Check if profileUrl is empty and assign the default value
-      if (!user.profileUrl) {
-        user.profileUrl =
-          "https://i.pinimg.com/736x/1a/bb/12/1abb12125ce51b432f17fda64def85e5.jpg"; // Default URL
-      }
 
       // Convert birthday to ISO 8601 format (YYYY-MM-DD)
       const formattedDate = new Date(user.birthday).toISOString().split("T")[0];
@@ -136,14 +130,14 @@ export default function SignUp() {
             placeholder="Password"
           />
 
-          <Input
+          {/* <Input
             className="border border-[#F2F0E4]/30"
             id="profileUrl"
             type="text"
             value={user.profileUrl}
             onChange={(e) => setUser({ ...user, profileUrl: e.target.value })}
             placeholder="Profile Image Url"
-          />
+          /> */}
 
           <RadioGroup
             className="flex justify-center items-center"
@@ -168,14 +162,14 @@ export default function SignUp() {
             </div>
           </RadioGroup>
 
-          <Input
+          {/* <Input
             className="border border-[#F2F0E4]/30"
             id="city"
             type="text"
             value={user.city}
             onChange={(e) => setUser({ ...user, city: e.target.value })}
             placeholder="City"
-          />
+          /> */}
 
           {!buttonDisabled && (
             <Button
