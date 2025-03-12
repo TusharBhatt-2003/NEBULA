@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { FaTrash } from "react-icons/fa"; // Import trash icon
+import { FaTrash } from "react-icons/fa";
 import Skeleton from "./skeleton";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -147,37 +147,48 @@ export default function PostCard({
   return (
     <>
       {post ? (
-        <div className="overflow-hidden relative border-[#F2F0E4]/30 z-10 w-full backdrop-blur-[2px] p-3 light-text border rounded-3xl">
+        <article
+          className="relative border-[#F2F0E4]/30 z-10 w-full backdrop-blur-[2px] p-3 light-text border rounded-3xl"
+          itemScope
+          itemType="https://schema.org/SocialMediaPosting"
+        >
+          <meta itemProp="datePublished" content={post.createdAt} />
+          <meta itemProp="author" content={author?.username} />
+
           <div className="grain"></div>
           <Link
             href={`/profile/${author?._id}`}
+            aria-label={`Visit ${author?.username}'s profile`}
             className="flex items-center space-x-4 mb-4"
           >
             {author?.profileUrl ? (
               <img
                 src={author.profileUrl}
-                alt={author.username}
+                alt={`${author.username}'s profile picture`}
                 className="w-8 h-8 rounded-full border"
               />
             ) : (
               <div className="w-8 h-8 rounded-full bg-gray-300 opacity-20"></div>
             )}
-            <p className="font-semibold">{author?.username || null}</p>
+            <p className="font-semibold">{author?.username || "Unknown"}</p>
           </Link>
-          <Link href={`/post/${post?._id}`}>
+          <h2 className="text-lg font-bold mb-2">
+            {postText.substring(0, 30)}...
+          </h2>
+          <Link href={`/post/${post?._id}`} aria-label="View full post">
             {post.image && (
               <img
                 src={post.image}
-                alt="Post Image"
-                className="w-full rounded-xl my-4"
+                alt="Post content"
+                className="w-full rounded-xl z-[999] my-4"
               />
             )}
             <p className="mb-4">{postText}</p>
           </Link>
           <div className="flex justify-between">
-            <p className="text-sm">
+            <time dateTime={post.createdAt} className="text-sm">
               {new Date(post.createdAt).toLocaleString()}
-            </p>
+            </time>
             <div className="flex gap-5 text-sm">
               <button onClick={handleLike} className="flex items-center">
                 <svg
@@ -204,15 +215,14 @@ export default function PostCard({
               )}
             </div>
           </div>
-        </div>
+        </article>
       ) : (
         <Skeleton />
       )}
 
-      {/* Confirmation Modal for Deletion */}
       {showModal && (
         <ConfirmationModal
-          sentence="Are you sure you want to delete this post?"
+          sentence="Are you sure?"
           onConfirm={handleDelete}
           onCancel={() => setShowModal(false)}
         />
