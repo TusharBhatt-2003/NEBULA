@@ -5,6 +5,7 @@ import ConfirmationModal from "../components/confirmationModal";
 import UsersCardForAdminPanel from "../components/usersCardForAdminPanel";
 import NEBULA from "../components/NEBULA";
 import StarField from "../components/starField";
+import Loading from "../components/loading";
 
 const SkeletonUserCard = () => {
   return (
@@ -83,19 +84,19 @@ export default function Page() {
       </div>
 
       <div className="text-lg space-y-2 my-5 overflow-hidden">
-        {loading
-          ? Array(15)
-              .fill(0)
-              .map((_, index) => <SkeletonUserCard key={index} />)
-          : users.length > 0
-            ? users.map((user) => (
-                <UsersCardForAdminPanel
-                  key={user._id}
-                  user={user}
-                  onDelete={openModal}
-                />
-              ))
-            : !loading && <p className="text-[#fe3b01]">No users found.</p>}
+        {loading ? (
+          <Loading />
+        ) : users.length > 0 ? (
+          users.map((user) => (
+            <UsersCardForAdminPanel
+              key={user._id}
+              user={user}
+              onDelete={openModal}
+            />
+          ))
+        ) : (
+          !loading && <p className="text-[#fe3b01]">No users found.</p>
+        )}
       </div>
 
       {/* Reusable Confirmation Modal */}
