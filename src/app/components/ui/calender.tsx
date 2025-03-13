@@ -20,8 +20,8 @@ function Calendar({
       showOutsideDays={showOutsideDays}
       className={cn("px-2 p-1 bg-black rounded-xl shadow-md", className)}
       captionLayout="dropdown" // Enables dropdown for month & year selection
-      fromYear={2000} // Starting year
-      toYear={2030} // Ending year
+      fromYear={1950} // Starting year
+      toYear={2025} // Ending year
       classNames={{
         months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
         month: "space-y-4 ",
