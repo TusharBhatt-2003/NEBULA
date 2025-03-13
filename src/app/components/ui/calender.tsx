@@ -49,13 +49,10 @@ function Calendar({
           buttonVariants({ variant: "ghost" }),
           "h-10 w-10 p-0 font-normal transition",
         ),
-        day_range_start: "day-range-start",
-        day_range_end: "day-range-end",
         day_selected: "light-bg text-black",
         day_today: "light-bg text-black font-semibold opacity-60",
         day_outside: "text-light opacity-40 cursor-default",
         day_disabled: "text-black opacity-50",
-        day_range_middle: "bg-blue-500 text-white opacity-80",
         day_hidden: "invisible",
         dropdown:
           "px-2 py-1 border rounded-xl text-black shadow-sm outline-none",

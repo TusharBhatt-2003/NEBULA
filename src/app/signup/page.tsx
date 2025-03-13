@@ -93,13 +93,15 @@ export default function SignUp() {
             placeholder="Full Name"
           />
           <DatePickerDemo
-            id="birthday"
-            type="date"
-            required
-            value={user.birthday}
-            onChange={(e) => setUser({ ...user, birthday: e.target.value })}
-            placeholder="Birthday"
+            value={user.birthday ? new Date(user.birthday) : undefined}
+            onChange={(date) =>
+              setUser({
+                ...user,
+                birthday: date?.toISOString().split("T")[0] || "",
+              })
+            }
           />
+
           <Input
             className="border border-[#F2F0E4]/30"
             id="username"

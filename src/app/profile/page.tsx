@@ -108,7 +108,7 @@ export default function UserProfile() {
               <h1 className="font-['spring'] light-text border-b w-fit">
                 POSTS:
               </h1>
-              <div className="flex overflow-auto flex-col gap-2 py-2">
+              <div className="columns-2 space-y-5 overflow-auto flex-col gap-2 py-2">
                 {loading ? null : filteredPosts.length > 0 ? (
                   filteredPosts.map((post, index) => (
                     <PostCard
