@@ -10,6 +10,7 @@ import { Input } from "../components/ui/input";
 import { RadioGroup, RadioGroupItem } from "../components/ui/radio-group";
 import { Label } from "../components/ui/label";
 import { Button } from "../components/ui/button";
+import { DatePickerDemo } from "../components/ui/datePicker";
 
 export default function SignUp() {
   const router = useRouter();
@@ -69,7 +70,7 @@ export default function SignUp() {
       </div>
       <Toaster position="top-right" reverseOrder={false} />
 
-      <div className="z-10 light-text">
+      <div className="z-10">
         <form
           className="relative flex backdrop-blur gap-5 py-5 px-10 rounded-xl border border-[#F2F0E4]/30 z-10 flex-col items-center justify-center overflow-hidden"
           onSubmit={onSignup}
@@ -91,8 +92,7 @@ export default function SignUp() {
             onChange={(e) => setUser({ ...user, fullName: e.target.value })}
             placeholder="Full Name"
           />
-          <Input
-            className="border border-[#F2F0E4]/30"
+          <DatePickerDemo
             id="birthday"
             type="date"
             required
