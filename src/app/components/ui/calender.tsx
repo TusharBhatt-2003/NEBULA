@@ -18,7 +18,7 @@ function Calendar({
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
-      className={cn("p-4 bg-black rounded-xl shadow-md", className)}
+      className={cn("px-2 p-1 bg-black rounded-xl shadow-md", className)}
       captionLayout="dropdown" // Enables dropdown for month & year selection
       fromYear={2000} // Starting year
       toYear={2030} // Ending year
@@ -40,10 +40,6 @@ function Calendar({
         row: "flex w-full",
         cell: cn(
           "relative w-10 h-10 text-center text-sm flex items-center justify-center cursor-pointer rounded-xl transition",
-          "[&:has([aria-selected])]:bg-primary [&:has([aria-selected])]:text-light",
-          props.mode === "range"
-            ? "[&:has(>.day-range-end)]:rounded-r-xl [&:has(>.day-range-start)]:rounded-l-xl"
-            : "[&:has([aria-selected])]:rounded-xl",
         ),
         day: cn(
           buttonVariants({ variant: "ghost" }),
