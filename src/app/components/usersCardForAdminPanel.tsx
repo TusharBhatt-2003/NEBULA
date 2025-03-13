@@ -40,10 +40,13 @@ const UsersCardForAdminPanel: React.FC<UserProps> = ({ user, onDelete }) => {
         href={`/admin-panel/${user._id}`}
         className="flex items-center w-full h-full"
       >
-        <img
-          src={user.profileUrl}
-          className="w-10 h-10 aspect-square m-2 rounded-xl"
-        />
+        {user.profileUrl ? (
+          <img
+            className="w-10 m-2 aspect-square h-10 rounded-xl"
+            src={user.profileUrl}
+            alt={user.username}
+          />
+        ) : null}
         <div className="px-2 flex flex-col  h-full">
           <p className="font-thin text-sm">@{user.username}</p>
           <p className="font-bold text-sm">{user.fullName}</p>
