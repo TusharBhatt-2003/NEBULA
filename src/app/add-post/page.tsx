@@ -52,7 +52,7 @@ export default function AddPost() {
   };
 
   return (
-    <div className="p-5 overflow-hidden relative">
+    <div className="p-5 h-full overflow-hidden relative">
       <div className="fixed">
         <StarField />
       </div>
@@ -80,7 +80,7 @@ export default function AddPost() {
           <img
             src={post.image}
             alt="Chosen Image"
-            className="w-60 z-[999] border border-[#F2F0E4]/30 rounded-xl shadow-md"
+            className="w-48 z-[999] border border-[#F2F0E4]/30 rounded-xl shadow-md"
           />
         )}
 
