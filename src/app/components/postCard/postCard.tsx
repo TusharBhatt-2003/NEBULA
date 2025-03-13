@@ -144,32 +144,37 @@ export default function PostCard({
         : `${post.text.substring(0, 100)}...`
       : post?.text || "";
 
+  const hideAuthorInfo =
+    pathname === "/profile" || pathname === `/profile/${author?._id}`;
+
   return (
     <>
       {post ? (
-        <div className="overflow-hidden relative border-[#F2F0E4]/30 z-10 w-full backdrop-blur-[2px] p-3 light-text border rounded-3xl">
+        <div className="overflow-hidden flex flex-col justify-center relative border-[#F2F0E4]/30 z-10 w-full backdrop-blur-[2px] p-3 light-text border rounded-3xl">
           <div className="grain"></div>
-          <Link
-            href={`/profile/${author?._id}`}
-            className="flex items-center space-x-4 mb-4"
-          >
-            {author?.profileUrl ? (
-              <img
-                src={author.profileUrl}
-                alt={author.username}
-                className="w-8 h-8 rounded-full border"
-              />
-            ) : (
-              <div className="w-8 h-8 rounded-full bg-gray-300 opacity-20"></div>
-            )}
-            <p className="font-semibold">{author?.username || null}</p>
-          </Link>
+          {!hideAuthorInfo && author && (
+            <Link
+              href={`/profile/${author._id}`}
+              className="flex items-center gap-2 mb-2"
+            >
+              {author.profileUrl ? (
+                <img
+                  src={author.profileUrl}
+                  alt={author.username}
+                  className="w-8 h-8 rounded-xl"
+                />
+              ) : (
+                <div className="w-8 h-8 rounded-full bg-gray-300 opacity-20"></div>
+              )}
+              <p className="font-semibold">{author.username}</p>
+            </Link>
+          )}
           <Link href={`/post/${post?._id}`}>
             {post.image && (
               <img
                 src={post.image}
                 alt="Post Image"
-                className="w-full rounded-xl my-4"
+                className="w-full rounded-2xl mb-2"
               />
             )}
             <p className="mb-4">{postText}</p>

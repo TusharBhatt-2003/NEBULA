@@ -10,6 +10,7 @@ interface UserProps {
     profileUrl: string;
     isverified: boolean;
     isAdmin: boolean;
+    fullName: string;
   };
   onDelete: (userId: string) => void;
 }
@@ -32,16 +33,26 @@ const UsersCardForAdminPanel: React.FC<UserProps> = ({ user, onDelete }) => {
 
   return (
     <div
-      className="border z-20  light-text flex justify-between items-center overflow-hidden rounded-xl"
+      className="border z-20 light-text flex justify-between items-center overflow-hidden rounded-xl"
       style={{ backgroundColor, color: textColor, borderColor }}
     >
-      <Link href={`/admin-panel/${user._id}`} className="flex w-full h-full">
-        <img src={user.profileUrl} className="w-20 h-20 m-2 rounded-xl" />
-        <div className="px-2 flex flex-col justify-center items-center h-full">
-          <p className="capitalize font-bold text-lg">{user.username}</p>
+      <Link
+        href={`/admin-panel/${user._id}`}
+        className="flex items-center w-full h-full"
+      >
+        <img
+          src={user.profileUrl}
+          className="w-10 h-10 aspect-square m-2 rounded-xl"
+        />
+        <div className="px-2 flex flex-col  h-full">
+          <p className="font-thin text-sm">@{user.username}</p>
+          <p className="font-bold text-sm">{user.fullName}</p>
         </div>
       </Link>
-      <button onClick={() => onDelete(user._id)} className="m-2">
+      <button
+        onClick={() => onDelete(user._id)}
+        className="m-2 bg-white/50 p-1 rounded-xl "
+      >
         <Delete />
       </button>
     </div>

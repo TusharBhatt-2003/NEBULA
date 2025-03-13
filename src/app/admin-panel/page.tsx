@@ -77,13 +77,12 @@ export default function Page() {
   };
 
   return (
-    <div className="relative overflow-hidden pb-24">
-      <StarField />
+    <div className="relative overflow-hidden pb-24 px-4">
       <div className="flex z-10  light-text justify-between items-center">
         <h2 className="text-2xl p-2 font-bold">All Users:</h2>
       </div>
 
-      <div className="text-lg grid z-10  grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 my-5 mx-2 overflow-hidden">
+      <div className="text-lg space-y-2 my-5 overflow-hidden">
         {loading
           ? Array(15)
               .fill(0)
