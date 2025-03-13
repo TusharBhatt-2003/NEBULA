@@ -95,10 +95,7 @@ export default function SignUp() {
           <DatePickerDemo
             value={user.birthday ? new Date(user.birthday) : undefined}
             onChange={(date) =>
-              setUser({
-                ...user,
-                birthday: date?.toISOString().split("T")[0] || "",
-              })
+              setUser({ ...user, birthday: date?.toISOString() || "" })
             }
           />
 
