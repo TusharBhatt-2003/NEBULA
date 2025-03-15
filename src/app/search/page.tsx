@@ -181,9 +181,7 @@ export default function SearchPage() {
                   />
                 ))}
               </div>
-            ) : (
-              <>No posts found</>
-            )}
+            ) : null}
           </div>
 
           {/* No Results Found */}
