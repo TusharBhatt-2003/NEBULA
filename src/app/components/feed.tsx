@@ -8,6 +8,9 @@ import Skeleton from "./postCard/skeleton";
 import UserProfile from "../profile/page";
 import AddPost from "../add-post/page";
 import SearchPage from "../search/page";
+import PopupAlert from "./PopupAlert"; // Import the popup component
+import { Button } from "./ui/button";
+import Link from "next/link";
 
 interface Post {
   _id: string;
@@ -22,6 +25,9 @@ export default function Feed() {
 
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [showPopup, setShowPopup] = useState<boolean>(
+    followingTags.length === 0,
+  );
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -48,8 +54,10 @@ export default function Feed() {
 
     if (followingTags.length > 0) {
       fetchPosts();
+      setShowPopup(false);
     } else {
       setLoading(false);
+      setShowPopup(true);
     }
   }, [followingTags]);
 
@@ -58,6 +66,12 @@ export default function Feed() {
       <div className="fixed">
         <StarField />
       </div>
+
+      {/* Show Follow Tags Popup */}
+      {showPopup && (
+        <PopupAlert alertMessage="You haven't followed any tags yet! Follow some to see relevant posts." />
+      )}
+
       <div className="flex justify-center relative container mx-auto">
         <div className="hidden lg:block">
           <UserProfile />
@@ -74,6 +88,20 @@ export default function Feed() {
             : Array.from({ length: 6 }).map((_, index) => (
                 <Skeleton key={index} />
               ))}
+          {showPopup && (
+            <>
+              <div className="flex h-screen justify-center items-center gap-5">
+                <Link
+                  href="/search"
+                  className="border-2 border-[#F2F0E4]/30 p-10 backdrop-blur-[1px] rounded-xl"
+                >
+                  <div className="p-2 light-bg text-black rounded-xl ">
+                    Follow Tags
+                  </div>
+                </Link>
+              </div>
+            </>
+          )}
         </div>
         <div className="hidden lg:block lg:w-[30%] ">
           <AddPost />

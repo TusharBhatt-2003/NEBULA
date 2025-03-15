@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "../components/ui/button";
 import ProfilePictureUpdate from "../components/imagekit/profilePictureUpdate";
 import StarField from "../components/starField";
+import PopupAlert from "../components/PopupAlert"; // Import the popup
 
 export default function AddPost() {
   const [post, setPost] = useState<{
@@ -18,6 +19,7 @@ export default function AddPost() {
   });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [showPopup, setShowPopup] = useState(false); // State for popup visibility
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -42,8 +44,11 @@ export default function AddPost() {
 
       const data = await response.json();
       if (data.success) {
-        alert("Post uploaded successfully!");
-        router.push("/feed");
+        setShowPopup(true); // Show popup
+        setTimeout(() => {
+          setShowPopup(false);
+          router.push("/feed");
+        }, 2000); // Auto-dismiss after 2 seconds
       } else {
         setMessage(data.error || "Failed to upload post");
       }
@@ -54,14 +59,6 @@ export default function AddPost() {
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleTagInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const tags = e.target.value
-      .split(",")
-      .map((tag) => tag.trim())
-      .filter((tag) => tag);
-    setPost({ ...post, tags });
   };
 
   return (
@@ -104,15 +101,21 @@ export default function AddPost() {
           rows={4}
         />
 
-        {/* New Tags Input */}
         <input
           type="text"
           className="border border-[#F2F0E4]/30 backdrop-blur-lg p-2 w-full bg-transparent text-light rounded-xl outline-none placeholder:text-[#F2F0E4]/30"
           placeholder="Enter tags (comma-separated)..."
-          onChange={handleTagInput}
+          onChange={(e) =>
+            setPost({
+              ...post,
+              tags: e.target.value
+                .split(",")
+                .map((tag) => tag.trim())
+                .filter((tag) => tag),
+            })
+          }
         />
 
-        {/* Display Tags */}
         <div className="flex flex-wrap gap-2">
           {post.tags.map((tag, index) => (
             <span
@@ -129,6 +132,9 @@ export default function AddPost() {
         </Button>
         {message && <p className="text-red-500">{message}</p>}
       </form>
+
+      {/* Popup Alert when post is uploaded */}
+      {showPopup && <PopupAlert alertMessage="Post uploaded successfully!" />}
     </div>
   );
 }
