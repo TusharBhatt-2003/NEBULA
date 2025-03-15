@@ -17,7 +17,7 @@ interface User {
 
 interface Post {
   _id: string;
-  likes: { _id: string }[];
+  likes: { _id: string }[]; // Assuming likes are an array of objects with an `_id` field
   createdAt: number;
   tags: string[];
   image: string;
@@ -88,7 +88,10 @@ export default function SearchPage() {
     return () => clearTimeout(delayDebounce);
   }, [query]);
 
-  console.log(posts);
+  // Sort posts by likes and get the top 5
+  const topPosts = posts
+    .sort((a, b) => b.likes.length - a.likes.length) // Sort by number of likes in descending order
+    .slice(0, 5); // Get top 5 posts
 
   return (
     <div className="lg:w-[25vw] relative light-text p-5 pb-24 overflow-hidden">
@@ -154,14 +157,14 @@ export default function SearchPage() {
             )}
           </div>
 
-          {/* Posts Section */}
+          {/* Top 5 Posts Section */}
           <div className="mt-4">
-            {posts.length > 0 ? (
+            {topPosts.length > 0 ? (
               <div className="columns-2 space-y-2">
                 <h2 className="text-lg  font-semibold font-['spring'] mb-2">
-                  Posts :
+                  Top 5 Posts:
                 </h2>
-                {posts.map((post) => (
+                {topPosts.map((post) => (
                   <PostCard
                     key={post._id}
                     image={post.image}
@@ -187,7 +190,7 @@ export default function SearchPage() {
           {!loading &&
             query.trim() &&
             users.length === 0 &&
-            posts.length === 0 && (
+            topPosts.length === 0 && (
               <p className="text-center font-['spring'] text-5xl font-bold mt-6 light-text opacity-30">
                 No results found
               </p>
