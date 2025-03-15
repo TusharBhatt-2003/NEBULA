@@ -120,11 +120,19 @@ export default function UserProfile() {
               <h1 className="font-['spring'] light-text w-fit">POSTS:</h1>
               <div className="columns-2 space-y-5 overflow-auto flex-col gap-2 py-2">
                 {loading ? null : filteredPosts.length > 0 ? (
-                  filteredPosts.map((post, index) => (
+                  filteredPosts.map((post) => (
                     <PostCard
                       key={post._id}
-                      currentUserId={user._id ?? ""}
+                      image={post.image}
+                      text={post.text}
+                      tags={post.tags}
+                      currentUserId={user._id}
                       postId={post._id}
+                      authorId={post.userId}
+                      username={post.author?.username || "Unknown User"}
+                      profileUrl={
+                        post.author?.profileUrl || "/default-profile.png"
+                      }
                     />
                   ))
                 ) : (

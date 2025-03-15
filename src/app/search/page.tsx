@@ -159,8 +159,16 @@ export default function SearchPage() {
                 {posts.map((post) => (
                   <PostCard
                     key={post._id}
-                    currentUserId={currentUserId}
+                    image={post.image}
+                    text={post.text}
+                    tags={post.tags}
+                    currentUserId={user._id}
                     postId={post._id}
+                    authorId={post.userId}
+                    username={post.author?.username || "Unknown User"}
+                    profileUrl={
+                      post.author?.profileUrl || "/default-profile.png"
+                    }
                   />
                 ))}
               </div>

@@ -8,20 +8,26 @@ import Head from "next/head";
 interface Post {
   _id: string;
   userId: string;
-  image?: string;
+  image: string;
   text: string;
+  tags: string[];
   likes: { _id: string }[];
   comments: string[];
   createdAt: string;
   updatedAt: string;
+  author: {
+    username: string;
+    profileUrl: string;
+  };
 }
 
 export default function Page() {
-  const { id: postId } = useParams();
+  const params = useParams();
+  const postId = typeof params.id === "string" ? params.id : "";
   const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const loggedUserData = useUser();
-  const currentUserId = loggedUserData?.user?._id;
+  const currentUserId = loggedUserData?.user?._id || "";
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -41,7 +47,7 @@ export default function Page() {
       }
     };
 
-    fetchPost();
+    if (postId) fetchPost();
   }, [postId, currentUserId]);
 
   return (
@@ -84,7 +90,10 @@ export default function Page() {
             post ? post.text.slice(0, 150) : "Read this amazing post now!"
           }
         />
-        <meta name="twitter:image" content={post?.image} />
+        <meta
+          name="twitter:image"
+          content={post?.image || "/default-image.jpg"}
+        />
         <link
           rel="canonical"
           href={`https://nebula-socialmedia.vercel.app/post/${postId}`}
@@ -112,10 +121,20 @@ export default function Page() {
       </Head>
 
       <div className="p-10 container mx-auto">
-        <PostCard
-          currentUserId={currentUserId ?? ""}
-          postId={postId as string}
-        />
+        {!loading && post ? (
+          <PostCard
+            image={post.image}
+            text={post.text}
+            tags={post.tags || ""} // Ensure a valid value is passed
+            currentUserId={currentUserId}
+            postId={post._id}
+            authorId={post.userId}
+            username={post.author?.username}
+            profileUrl={post.author?.profileUrl}
+          />
+        ) : (
+          <p className="text-center text-gray-500">Loading...</p>
+        )}
       </div>
     </>
   );

@@ -135,8 +135,16 @@ export default function Page({ params }: { params: Promise<Params> }) {
                     filteredPosts.map((post, index) => (
                       <PostCard
                         key={post._id}
-                        currentUserId={id ?? ""}
+                        image={post.image}
+                        text={post.text}
+                        tags={post.tags}
+                        currentUserId={user._id}
                         postId={post._id}
+                        authorId={post.userId}
+                        username={post.author?.username || "Unknown User"}
+                        profileUrl={
+                          post.author?.profileUrl || "/default-profile.png"
+                        }
                       />
                     ))
                   ) : (
