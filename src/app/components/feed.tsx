@@ -67,11 +67,6 @@ export default function Feed() {
         <StarField />
       </div>
 
-      {/* Show Follow Tags Popup */}
-      {showPopup && (
-        <PopupAlert alertMessage="You haven't followed any tags yet! Follow some to see relevant posts." />
-      )}
-
       <div className="flex justify-center relative container mx-auto">
         <div className="hidden lg:block">
           <UserProfile />
@@ -101,6 +96,10 @@ export default function Feed() {
                 </Link>
               </div>
             </>
+          )}
+          {/* Show Follow Tags Popup */}
+          {showPopup && (
+            <PopupAlert alertMessage="You haven't followed any tags yet! Follow some to see relevant posts." />
           )}
         </div>
         <div className="hidden lg:block lg:w-[30%] ">
