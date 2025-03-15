@@ -13,41 +13,41 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "NEBULA | Unleashing Creativity & Connections",
-  description:
-    "NEBULA is a digital space where ideas, connections, and creativity come together to inspire and innovate.",
-  keywords: "creativity, innovation, networking, digital space, community",
-  // author: "Tushar Bhatt",
-  robots: "index, follow",
-  icons: {
-    icon: "/NEBULA_Logo.svg", // Path to your favicon in the public folder
-  },
-  openGraph: {
-    title: "NEBULA | Unleashing Creativity & Connections",
-    description:
-      "Join NEBULA, a digital space where ideas, connections, and creativity come together to inspire and innovate.",
-    url: "https://nebula-socialmedia.vercel.app/",
-    type: "website",
-    images: [
-      {
-        url: "https://i.pinimg.com/736x/f4/f6/a5/f4f6a522432e0b2ebe90964808c5610c.jpg", // Replace with the actual OG image path
-        width: 1200,
-        height: 630,
-        alt: "NEBULA - A space for creativity and connections",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "NEBULA | Unleashing Creativity & Connections",
-    description:
-      "Discover NEBULA, the perfect place for creators and innovators to connect and thrive.",
-    images: [
-      "https://i.pinimg.com/736x/19/94/14/199414478cd55e3dbfb539e14dd60917.jpg",
-    ], // Ensure this path exists
-  },
-};
+// export const metadata: Metadata = {
+//   title: "NEBULA | Unleashing Creativity & Connections",
+//   description:
+//     "NEBULA is a digital space where ideas, connections, and creativity come together to inspire and innovate.",
+//   keywords: "creativity, innovation, networking, digital space, community",
+//   // author: "Tushar Bhatt",
+//   robots: "index, follow",
+//   icons: {
+//     icon: "/NEBULA_Logo.svg", // Path to your favicon in the public folder
+//   },
+//   openGraph: {
+//     title: "NEBULA | Unleashing Creativity & Connections",
+//     description:
+//       "Join NEBULA, a digital space where ideas, connections, and creativity come together to inspire and innovate.",
+//     url: "https://nebula-socialmedia.vercel.app/",
+//     type: "website",
+//     images: [
+//       {
+//         url: "https://i.pinimg.com/736x/f4/f6/a5/f4f6a522432e0b2ebe90964808c5610c.jpg", // Replace with the actual OG image path
+//         width: 1200,
+//         height: 630,
+//         alt: "NEBULA - A space for creativity and connections",
+//       },
+//     ],
+//   },
+//   twitter: {
+//     card: "summary_large_image",
+//     title: "NEBULA | Unleashing Creativity & Connections",
+//     description:
+//       "Discover NEBULA, the perfect place for creators and innovators to connect and thrive.",
+//     images: [
+//       "https://i.pinimg.com/736x/19/94/14/199414478cd55e3dbfb539e14dd60917.jpg",
+//     ], // Ensure this path exists
+//   },
+// };
 
 export default function RootLayout({
   children,
