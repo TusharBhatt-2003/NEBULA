@@ -1,6 +1,5 @@
 "use client";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "../components/ui/button";
 import ProfilePictureUpdate from "../components/imagekit/profilePictureUpdate";
@@ -20,7 +19,26 @@ export default function AddPost() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [showPopup, setShowPopup] = useState(false); // State for popup visibility
+  const [tagInput, setTagInput] = useState(""); // For tracking tag input
+  const [filteredTags, setFilteredTags] = useState<string[]>([]); // For storing filtered tags based on input
+  const [existingTags, setExistingTags] = useState<string[]>([]); // State for fetched tags from API
   const router = useRouter();
+
+  // Fetch tags from the API when the component mounts
+  useEffect(() => {
+    const fetchTags = async () => {
+      try {
+        const response = await fetch("/api/tags");
+        if (!response.ok) throw new Error("Failed to fetch tags");
+        const data = await response.json();
+        setExistingTags(data); // Assuming the API returns an array of tags
+      } catch (error) {
+        setMessage("Failed to load tags");
+      }
+    };
+
+    fetchTags();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -59,6 +77,33 @@ export default function AddPost() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleTagChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const input = e.target.value;
+    setTagInput(input);
+
+    // Filter existing tags based on user input
+    const filtered = existingTags.filter((tag) =>
+      tag.toLowerCase().includes(input.toLowerCase()),
+    );
+    setFilteredTags(filtered);
+  };
+
+  const addTag = (tag: string) => {
+    setPost({
+      ...post,
+      tags: [...post.tags, tag],
+    });
+    setTagInput(""); // Reset input field
+    setFilteredTags([]); // Clear suggestions
+  };
+
+  const removeTag = (tag: string) => {
+    setPost({
+      ...post,
+      tags: post.tags.filter((t) => t !== tag),
+    });
   };
 
   return (
@@ -104,25 +149,39 @@ export default function AddPost() {
         <input
           type="text"
           className="border border-[#F2F0E4]/30 backdrop-blur-lg p-2 w-full bg-transparent text-light rounded-xl outline-none placeholder:text-[#F2F0E4]/30"
-          placeholder="Enter tags (comma-separated)..."
-          onChange={(e) =>
-            setPost({
-              ...post,
-              tags: e.target.value
-                .split(",")
-                .map((tag) => tag.trim())
-                .filter((tag) => tag),
-            })
-          }
+          placeholder="Enter tags (space-separated)"
+          value={tagInput}
+          onChange={handleTagChange}
         />
+
+        {filteredTags.length > 0 && (
+          <ul className="absolute flex flex-col-reverse border border-[#F2F0E4]/30 rounded-3xl w-fit mt-1 max-h-48 overflow-y-auto">
+            {filteredTags.map((tag, index) => (
+              <li
+                key={index}
+                className="px-3 py-1 text-lg font-bold cursor-pointer"
+                onClick={() => addTag(tag)}
+              >
+                {tag}
+              </li>
+            ))}
+          </ul>
+        )}
 
         <div className="flex flex-wrap gap-2">
           {post.tags.map((tag, index) => (
             <span
               key={index}
-              className="light-bg text-black font-bold px-3 py-1 rounded-xl text-sm"
+              className="light-bg text-black font-bold px-3 py-1 rounded-xl text-sm flex items-center gap-2"
             >
               {tag}
+              <button
+                type="button"
+                className="text-lg"
+                onClick={() => removeTag(tag)}
+              >
+                &times;
+              </button>
             </span>
           ))}
         </div>
