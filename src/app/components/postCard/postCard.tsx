@@ -53,7 +53,10 @@ export default function PostCard({
   const [post, setPost] = useState<Post | null>(null);
   const [author, setAuthor] = useState<Author | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [likeCount, setLikeCount] = useState<number>(likes?.length);
+  const [isLiked, setIsLiked] = useState<boolean>(
+    likes?.some((like) => like._id === currentUserId),
+  );
   const [showModal, setShowModal] = useState<boolean>(false);
   const pathname = usePathname();
 
@@ -79,11 +82,11 @@ export default function PostCard({
   //   fetchPost();
   // }, [postId, currentUserId]);
 
-  useEffect(() => {
-    if (likes) {
-      setIsLiked(likes?.some((like) => like._id === currentUserId));
-    }
-  }, [likes, currentUserId]);
+  // useEffect(() => {
+  //   if (likes) {
+  //     setIsLiked(likes?.some((like) => like._id === currentUserId));
+  //   }
+  // }, [likes, currentUserId]);
 
   useEffect(() => {
     if (!authorId) return;
@@ -109,29 +112,27 @@ export default function PostCard({
   const handleLike = async () => {
     if (!postId) return;
 
+    // Optimistically update UI
+    const updatedLikeCount = isLiked ? likeCount - 1 : likeCount + 1;
+    setLikeCount(updatedLikeCount);
+    setIsLiked(!isLiked);
+
     try {
       const response = await fetch("/api/posts/like", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ postId: postId }),
+        body: JSON.stringify({ postId }),
       });
 
-      if (!response.ok) throw new Error("Failed to like/unlike post");
-
-      setPost((prev) =>
-        prev
-          ? {
-              ...prev,
-              likes: isLiked
-                ? prev.likes.filter((like) => like._id !== currentUserId)
-                : [...prev.likes, { _id: currentUserId }],
-            }
-          : prev,
-      );
-
-      setIsLiked(!isLiked);
+      if (!response.ok) {
+        throw new Error("Failed to like/unlike post");
+      }
     } catch (error) {
       console.error("Error liking post:", error);
+
+      // Revert UI changes if request fails
+      setLikeCount(likeCount);
+      setIsLiked(isLiked);
     }
   };
 
@@ -239,7 +240,7 @@ export default function PostCard({
                       clipRule="evenodd"
                     />
                   </motion.svg>
-                  <span className="ml-1">{likes?.length}</span>
+                  <span className="ml-1">{likeCount}</span>
                 </motion.button>
 
                 {authorId === currentUserId && (
