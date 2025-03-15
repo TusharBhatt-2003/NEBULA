@@ -8,6 +8,7 @@ import AddPost from "../add-post/page";
 import SearchPage from "../search/page";
 import PopupAlert from "./PopupAlert";
 import Link from "next/link";
+import { fetchAndStorePosts } from "../utils/fetchPosts";
 
 interface Post {
   _id: string;
@@ -38,35 +39,14 @@ export default function Feed() {
       return;
     }
 
-    const savedPosts = localStorage.getItem("feedPosts");
-    if (savedPosts) {
-      setPosts(JSON.parse(savedPosts));
+    fetchAndStorePosts().then((data) => {
+      const filteredPosts = data
+        .filter((post) => post.tags.some((tag) => followingTags.includes(tag)))
+        .sort((a, b) => b.createdAt - a.createdAt);
+
+      setPosts(filteredPosts);
       setLoading(false);
-      return;
-    }
-
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch("/api/posts");
-        if (!response.ok) throw new Error("Failed to fetch posts");
-
-        const data: Post[] = await response.json();
-        const filteredPosts = data
-          .filter((post) =>
-            post.tags.some((tag) => followingTags.includes(tag)),
-          )
-          .sort((a, b) => b.createdAt - a.createdAt);
-
-        setPosts(filteredPosts);
-        localStorage.setItem("feedPosts", JSON.stringify(filteredPosts));
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPosts();
+    });
   }, [followingTags]);
 
   return (
