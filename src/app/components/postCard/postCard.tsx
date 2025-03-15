@@ -35,6 +35,7 @@ interface PostCardProps {
   authorId: string;
   username: string;
   profileUrl: string;
+  likes: { _id: string }[];
 }
 
 export default function PostCard({
@@ -46,6 +47,7 @@ export default function PostCard({
   authorId,
   profileUrl,
   username,
+  likes,
   onDelete,
 }: PostCardProps) {
   const [post, setPost] = useState<Post | null>(null);
@@ -55,32 +57,36 @@ export default function PostCard({
   const [showModal, setShowModal] = useState<boolean>(false);
   const pathname = usePathname();
 
-  useEffect(() => {
-    const fetchPost = async () => {
-      try {
-        const response = await fetch("/api/posts");
-        if (!response.ok) throw new Error("Failed to fetch posts");
+  // useEffect(() => {
+  //   const fetchPost = async () => {
+  //     try {
+  //       const response = await fetch("/api/posts");
+  //       if (!response.ok) throw new Error("Failed to fetch posts");
 
-        const data: Post[] = await response.json();
-        const foundPost = data.find((p) => p._id === postId);
-        if (foundPost) {
-          setPost(foundPost);
-          setIsLiked(
-            foundPost.likes.some((like) => like._id === currentUserId),
-          );
-        }
-      } catch (error) {
-        console.error("Error fetching post:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  //       const data: Post[] = await response.json();
+  //       const foundPost = data.find((p) => p._id === postId);
+  //       if (foundPost) {
+  //         setPost(foundPost);
 
-    fetchPost();
-  }, [postId, currentUserId]);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching post:", error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchPost();
+  // }, [postId, currentUserId]);
 
   useEffect(() => {
-    if (!post?.userId) return;
+    if (likes) {
+      setIsLiked(likes?.some((like) => like._id === currentUserId));
+    }
+  }, [likes, currentUserId]);
+
+  useEffect(() => {
+    if (!authorId) return;
 
     const fetchAuthor = async () => {
       try {
@@ -88,7 +94,7 @@ export default function PostCard({
         if (!response.ok) throw new Error("Failed to fetch users");
 
         const data: Author[] = await response.json();
-        const foundAuthor = data.find((u) => u._id === post.userId);
+        const foundAuthor = data.find((u) => u._id === authorId);
         if (foundAuthor) {
           setAuthor(foundAuthor);
         }
@@ -98,10 +104,10 @@ export default function PostCard({
     };
 
     fetchAuthor();
-  }, [post]);
+  }, [postId]);
 
   const handleLike = async () => {
-    if (!post) return;
+    if (!postId) return;
 
     try {
       const response = await fetch("/api/posts/like", {
@@ -130,18 +136,18 @@ export default function PostCard({
   };
 
   const handleDelete = async () => {
-    if (!post) return;
+    if (!postId) return;
 
     try {
       const response = await fetch("/api/posts/delete-post", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ postId: post._id }),
+        body: JSON.stringify({ postId: postId }),
       });
 
       if (!response.ok) throw new Error("Failed to delete post");
 
-      if (onDelete) onDelete(post._id);
+      if (onDelete) onDelete(postId);
     } catch (error) {
       console.error("Error deleting post:", error);
     } finally {
@@ -162,7 +168,7 @@ export default function PostCard({
 
   return (
     <>
-      {post ? (
+      {postId ? (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -189,7 +195,7 @@ export default function PostCard({
             </Link>
           )}
           <Link href={`/post/${postId}`}>
-            {post.image && (
+            {image && (
               <img
                 src={image}
                 alt="Post Image"
@@ -233,7 +239,7 @@ export default function PostCard({
                       clipRule="evenodd"
                     />
                   </motion.svg>
-                  <span className="ml-1">{post.likes.length}</span>
+                  <span className="ml-1">{likes?.length}</span>
                 </motion.button>
 
                 {authorId === currentUserId && (

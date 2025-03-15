@@ -20,6 +20,7 @@ interface Post {
     username: string;
     profileUrl: string;
   };
+  likes: { _id: string }[];
 }
 
 export default function Feed() {
@@ -90,6 +91,7 @@ export default function Feed() {
                 authorId={post.userId}
                 username={post.author.username}
                 profileUrl={post.author.profileUrl}
+                likes={post.likes}
               />
             ))}
 
