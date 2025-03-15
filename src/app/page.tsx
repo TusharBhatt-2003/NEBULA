@@ -77,7 +77,9 @@ export default function Home() {
         />
       </Head>
 
-      {!user ? (
+      {user ? (
+        <Feed />
+      ) : (
         <div className="relative font-['spring'] gap-10 flex flex-col h-screen items-center justify-around overflow-hidden">
           <div className="absolute w-screen h-screen">
             <NEBULA />
@@ -115,8 +117,6 @@ export default function Home() {
             </Link>
           </div>
         </div>
-      ) : (
-        <Feed />
         // todo: make a about NEBULA page
       )}
     </div>
