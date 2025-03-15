@@ -11,6 +11,13 @@ interface Post {
   _id: string;
   createdAt: number;
   tags: string[];
+  image: string;
+  text: string;
+  userId: string;
+  author: {
+    username: string;
+    profileUrl: string;
+  };
 }
 
 export default function TagPage() {
@@ -133,8 +140,14 @@ export default function TagPage() {
             posts.map((post) => (
               <PostCard
                 key={post._id}
-                currentUserId={currentUserId ?? ""}
+                image={post.image}
+                text={post.text}
+                tags={post.tags}
+                currentUserId={currentUserId || ""}
                 postId={post._id}
+                authorId={post.userId}
+                username={post.author?.username || "Unknown User"}
+                profileUrl={post.author?.profileUrl || "/default-profile.png"}
               />
             ))
           ) : (
