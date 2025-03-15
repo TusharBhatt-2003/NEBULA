@@ -8,7 +8,11 @@ interface TagLinkProps {
 
 const TagLink: React.FC<TagLinkProps> = ({ tag, index }) => {
   return (
-    <Link key={index} href={`/tag/${tag}`}>
+    <Link
+      key={index}
+      href={`/tag/${tag}`}
+      className="flex justify-center items-center"
+    >
       <p className="light-bg text-black font-bold px-2 pb-1 rounded-xl text-sm">
         {tag}
       </p>
