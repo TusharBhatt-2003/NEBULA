@@ -59,6 +59,10 @@ const postSchema = new mongoose.Schema(
         },
       },
     ],
+    tags: {
+      type: [String], // Array of strings for tags
+      default: [], // Default to an empty array
+    },
   },
   { timestamps: true, strict: false },
 );

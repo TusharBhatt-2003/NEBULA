@@ -15,26 +15,34 @@ interface User {
   city: string;
   posts: { content: string }[];
   birthday: string;
+  followingTags: string[];
 }
 
 export default function useUser() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
-  useEffect(() => {
-    const fetchUserDetails = async () => {
-      try {
-        const res = await axios.get<{ data: User }>("/api/users/me");
-        setUser(res.data.data);
-      } catch (error) {
-        console.error("Failed to fetch user details:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // Function to fetch user details
+  const fetchUserDetails = async () => {
+    try {
+      const res = await axios.get<{ data: User }>("/api/users/me");
+      setUser(res.data.data);
+    } catch (error) {
+      console.error("Failed to fetch user details:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  // Function to refresh user data
+  const refreshUser = async () => {
+    setLoading(true);
+    await fetchUserDetails(); // Re-fetch user details
+  };
+
+  useEffect(() => {
     fetchUserDetails();
   }, []);
 
-  return { user, loading };
+  return { user, loading, refreshUser };
 }

@@ -11,6 +11,7 @@ interface Post {
   _id: string;
   userId: string;
   image?: string;
+  tags?: string[];
   text: string;
   likes: { _id: string }[];
   comments: string[];
@@ -177,41 +178,51 @@ export default function PostCard({
                 className="w-full rounded-2xl mb-2"
               />
             )}
-            <p className="mb-4">{postText}</p>
+            <p className="">{postText}</p>
           </Link>
-          <div className="flex justify-between">
-            {/* <p className="text-sm">
-              {new Date(post.createdAt).toLocaleString()}
-            </p> */}
-            <div className="flex items-end justify-end w-full gap-5 text-sm">
-              <button
-                onClick={handleLike}
-                className="flex bg-black rounded-xl px-4 py-2  items-center"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill={isLiked ? "red" : "gray"}
-                  className="w-5 h-5"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 18.35l-1.45-1.32C5.4 13.92 2 11.28 2 8.5 2 6.5 3.5 5 5.5 5c1.54 0 3.04.99 3.57 2.36h1.87C11.46 5.99 12.96 5 14.5 5c2 0 3.5 1.5 3.5 3.5 0 2.78-3.4 5.42-6.55 8.54L10 18.35z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                <span className="ml-1">{post.likes.length}</span>
-              </button>
-              {post.userId === currentUserId && (
+
+          {!hideAuthorInfo && author && (
+            <div className="flex justify-between items-center">
+              {/* <p className="text-sm">
+               {new Date(post.createdAt).toLocaleString()}
+             </p> */}
+              {post.tags?.map((tag, index) => (
+                <Link key={index} href={`/tag/${tag}`}>
+                  <p className="light-bg text-black font-bold px-2 pb-1 rounded-xl text-sm">
+                    {tag}
+                  </p>
+                </Link>
+              ))}
+              <div className="flex items-end justify-end w-full gap-5 text-sm">
                 <button
-                  onClick={() => setShowModal(true)}
-                  className="text-light opacity-50 bg-black rounded-xl px-4 py-2 flex items-center gap-1"
+                  onClick={handleLike}
+                  className="flex bg-black rounded-xl px-4 py-2  items-center"
                 >
-                  <FaTrash className="w-5 h-5" />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill={isLiked ? "red" : "gray"}
+                    className="w-5 h-5"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18.35l-1.45-1.32C5.4 13.92 2 11.28 2 8.5 2 6.5 3.5 5 5.5 5c1.54 0 3.04.99 3.57 2.36h1.87C11.46 5.99 12.96 5 14.5 5c2 0 3.5 1.5 3.5 3.5 0 2.78-3.4 5.42-6.55 8.54L10 18.35z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  <span className="ml-1">{post.likes.length}</span>
                 </button>
-              )}
+                {post.userId === currentUserId && (
+                  <button
+                    onClick={() => setShowModal(true)}
+                    className="text-light opacity-50 bg-black rounded-xl px-4 py-2 flex items-center gap-1"
+                  >
+                    <FaTrash className="w-5 h-5" />
+                  </button>
+                )}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       ) : (
         <Skeleton />

@@ -96,6 +96,18 @@ export default function UserProfile() {
             </div>
 
             {user.bio ? <Bio bio={user.bio} /> : null}
+            <div className="space-y-2 flex flex-wrap items-baseline">
+              <h1 className="font-['spring'] light-text w-fit">
+                Following Tags :
+              </h1>
+              {user.followingTags.map((tag, index) => (
+                <Link key={index} href={`/tag/${tag}`}>
+                  <p className="light-bg w-fit m-1 text-black font-bold px-2 pb-1 rounded-xl text-sm">
+                    {tag}
+                  </p>
+                </Link>
+              ))}
+            </div>
 
             <div className="flex justify-between">
               <LogoutBtn />

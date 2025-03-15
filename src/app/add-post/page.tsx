@@ -7,9 +7,14 @@ import ProfilePictureUpdate from "../components/imagekit/profilePictureUpdate";
 import StarField from "../components/starField";
 
 export default function AddPost() {
-  const [post, setPost] = useState<{ text: string; image?: string }>({
+  const [post, setPost] = useState<{
+    text: string;
+    image?: string;
+    tags: string[];
+  }>({
     text: "",
     image: "",
+    tags: [],
   });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
@@ -51,6 +56,14 @@ export default function AddPost() {
     }
   };
 
+  const handleTagInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const tags = e.target.value
+      .split(",")
+      .map((tag) => tag.trim())
+      .filter((tag) => tag);
+    setPost({ ...post, tags });
+  };
+
   return (
     <div className="p-5 h-full overflow-hidden relative">
       <div className="fixed">
@@ -61,7 +74,7 @@ export default function AddPost() {
       </h1>
       <form
         onSubmit={handleSubmit}
-        className=" overflow-hidden relative border-[#F2F0E4]/30 z-10 w-full backdrop-blur-[2px] p-3 light-text border rounded-3xl flex flex-col items-center justify-center  gap-4"
+        className="overflow-hidden relative border-[#F2F0E4]/30 z-10 w-full backdrop-blur-[2px] p-3 light-text border rounded-3xl flex flex-col items-center justify-center gap-4"
       >
         <div className="grain"></div>
         {!post.image && (
@@ -75,7 +88,6 @@ export default function AddPost() {
           </div>
         )}
 
-        {/* Display the chosen image */}
         {post.image && (
           <img
             src={post.image}
@@ -91,6 +103,27 @@ export default function AddPost() {
           onChange={(e) => setPost({ ...post, text: e.target.value })}
           rows={4}
         />
+
+        {/* New Tags Input */}
+        <input
+          type="text"
+          className="border border-[#F2F0E4]/30 backdrop-blur-lg p-2 w-full bg-transparent text-light rounded-xl outline-none placeholder:text-[#F2F0E4]/30"
+          placeholder="Enter tags (comma-separated)..."
+          onChange={handleTagInput}
+        />
+
+        {/* Display Tags */}
+        <div className="flex flex-wrap gap-2">
+          {post.tags.map((tag, index) => (
+            <span
+              key={index}
+              className="light-bg text-black font-bold px-3 py-1 rounded-xl text-sm"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+
         <Button type="submit" disabled={loading || !post.text}>
           {loading ? "Posting..." : "Post"}
         </Button>

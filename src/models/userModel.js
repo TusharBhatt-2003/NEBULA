@@ -24,12 +24,10 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
     match: [/^\S+@\S+\.\S+$/, "Please enter a valid email address"],
   },
-
   profileUrl: {
     type: String,
     default:
       "https://i.pinimg.com/736x/1a/bb/12/1abb12125ce51b432f17fda64def85e5.jpg",
-    required: false,
   },
   isverified: {
     type: Boolean,
@@ -44,24 +42,27 @@ const userSchema = new mongoose.Schema({
   verifyToken: String,
   verifyTokenExpiry: Date,
 
-  // Adding new fields
+  // New fields
   gender: {
     type: String,
     enum: ["Male", "Female", "Other"],
-    required: false,
   },
   bio: {
     type: String,
     default: "",
-    required: false,
   },
   city: {
     type: String,
-    required: false,
   },
   birthday: {
     type: Date,
     required: true,
+  },
+
+  // New field for following tags
+  followingTags: {
+    type: [String], // Array of tag names
+    default: [], // Empty array by default
   },
 });
 
