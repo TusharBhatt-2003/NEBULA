@@ -22,8 +22,17 @@ export default function Feed() {
 
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showPopup, setShowPopup] = useState(false);
 
-  const showPopup = useMemo(() => followingTags.length === 0, [followingTags]);
+  useEffect(() => {
+    if (followingTags.length === 0) {
+      const timeout = setTimeout(() => {
+        setShowPopup(true);
+      }, 2500); // 2.5 seconds delay
+
+      return () => clearTimeout(timeout);
+    }
+  }, [followingTags]);
 
   useEffect(() => {
     if (!followingTags.length) {
