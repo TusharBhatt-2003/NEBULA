@@ -16,8 +16,15 @@ interface User {
 
 interface Post {
   _id: string;
-  text: string;
   createdAt: number;
+  tags: string[];
+  image: string;
+  text: string;
+  userId: string;
+  author: {
+    username: string;
+    profileUrl: string;
+  };
 }
 
 export default function SearchPage() {
@@ -162,7 +169,7 @@ export default function SearchPage() {
                     image={post.image}
                     text={post.text}
                     tags={post.tags}
-                    currentUserId={user._id}
+                    currentUserId={currentUserId}
                     postId={post._id}
                     authorId={post.userId}
                     username={post.author?.username || "Unknown User"}
