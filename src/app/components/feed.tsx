@@ -1,9 +1,8 @@
 "use client";
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import StarField from "./starField";
 import PostCard from "./postCard/postCard";
 import useUser from "../hooks/useUser";
-import Skeleton from "./postCard/skeleton";
 import UserProfile from "../profile/page";
 import AddPost from "../add-post/page";
 import SearchPage from "../search/page";
@@ -28,8 +27,7 @@ export default function Feed() {
     if (followingTags.length === 0) {
       const timeout = setTimeout(() => {
         setShowPopup(true);
-      }, 2500); // 2.5 seconds delay
-
+      }, 2500);
       return () => clearTimeout(timeout);
     }
   }, [followingTags]);
@@ -40,19 +38,27 @@ export default function Feed() {
       return;
     }
 
+    const savedPosts = localStorage.getItem("feedPosts");
+    if (savedPosts) {
+      setPosts(JSON.parse(savedPosts));
+      setLoading(false);
+      return;
+    }
+
     const fetchPosts = async () => {
       try {
         const response = await fetch("/api/posts");
         if (!response.ok) throw new Error("Failed to fetch posts");
 
         const data: Post[] = await response.json();
-        setPosts(
-          data
-            .filter((post) =>
-              post.tags.some((tag) => followingTags.includes(tag)),
-            )
-            .sort((a, b) => b.createdAt - a.createdAt),
-        );
+        const filteredPosts = data
+          .filter((post) =>
+            post.tags.some((tag) => followingTags.includes(tag)),
+          )
+          .sort((a, b) => b.createdAt - a.createdAt);
+
+        setPosts(filteredPosts);
+        localStorage.setItem("feedPosts", JSON.stringify(filteredPosts));
       } catch (error) {
         console.error(error);
       } finally {
@@ -68,12 +74,10 @@ export default function Feed() {
       <div className="fixed">
         <StarField />
       </div>
-
       <div className="flex justify-center relative container mx-auto">
         <div className="hidden lg:block">
           <UserProfile />
         </div>
-
         <div className="lg:w-[55%] w-full lg:ml-[20vw] text-lg p-5 mb-24 flex flex-col justify-center items-center gap-5 overflow-hidden">
           {showPopup && !loading
             ? null
@@ -84,7 +88,6 @@ export default function Feed() {
                   postId={post._id}
                 />
               ))}
-
           {!showPopup ? null : (
             <div className="flex h-screen justify-center items-center gap-5">
               <Link
@@ -97,12 +100,10 @@ export default function Feed() {
               </Link>
             </div>
           )}
-
           {!showPopup ? null : (
             <PopupAlert alertMessage="You haven't followed any tags yet! Follow some to see relevant posts." />
           )}
         </div>
-
         <div className="hidden lg:block lg:w-[30%]">
           <AddPost />
           <SearchPage />
