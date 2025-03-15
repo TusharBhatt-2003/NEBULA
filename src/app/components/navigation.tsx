@@ -7,6 +7,7 @@ import Search from "../../../public/search";
 import Notification from "../../../public/notification";
 import AddPost from "../../../public/addPost";
 import { usePathname } from "next/navigation";
+import { motion } from "motion/react";
 
 // Define the user type
 interface User {
@@ -49,68 +50,68 @@ export default function Navigation() {
   }
 
   return (
-    <div className="fixed z-[99] p-2 py-2 lg:hidden  bg-white/10 backdrop-blur-sm bottom-2 left-2 right-2 rounded-xl flex justify-between items-center overflow-hidden">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="fixed z-[99] p-2 py-2 lg:hidden bg-white/10 backdrop-blur-sm bottom-2 left-2 right-2 rounded-xl flex justify-between items-center overflow-hidden"
+    >
       <div className="grain"></div>
-      <Link
-        href="/feed"
-        className={`w-1/4 flex justify-center rounded-xl p-2  items-center cursor-pointer font-bold ${
-          pathname === "/feed" ? "animate-gradient-bg" : ""
-        }`}
-      >
-        <Galaxy />
-      </Link>
 
-      <Link
-        href="/search"
-        className={`w-1/4 flex justify-center rounded-xl p-2 items-center cursor-pointer font-bold ${
-          pathname === "/search" ? "animate-gradient-bg" : ""
-        }`}
-      >
-        <Search />
-      </Link>
+      {[
+        { href: "/feed", icon: <Galaxy /> },
+        { href: "/search", icon: <Search /> },
+        { href: "/add-post", icon: <AddPost /> },
+        { href: "/notifications", icon: <Notification /> },
+      ].map(({ href, icon }) => (
+        <motion.div
+          key={href}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          className="w-1/4 flex justify-center rounded-xl p-2 items-center cursor-pointer"
+        >
+          <Link
+            href={href}
+            className={`font-bold ${
+              pathname === href ? "animate-gradient-bg scale-110" : ""
+            }`}
+          >
+            {icon}
+          </Link>
+        </motion.div>
+      ))}
 
-      <Link
-        href="/add-post"
-        className={`w-1/4 flex justify-center rounded-xl p-2 items-center cursor-pointer font-bold ${
-          pathname === "/add-post" ? "animate-gradient-bg" : ""
-        }`}
+      <motion.div
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        className="w-1/4 flex justify-center rounded-xl p-2 items-center"
       >
-        <AddPost />
-      </Link>
-
-      <Link
-        href="/notifications"
-        className={`w-1/4 flex justify-center rounded-xl p-2 items-center cursor-pointer  font-bold ${
-          pathname === "/notifications" ? "animate-gradient-bg" : ""
-        }`}
-      >
-        <Notification />
-      </Link>
-
-      <Link
-        href={`/profile`}
-        className={`w-1/4 flex justify-center rounded-xl p-2 items-center ${
-          pathname === `/profile}` ? "animate-gradient-bg" : ""
-        }`}
-      >
-        <div
-          className="w-12 h-12 bg-cover rounded-xl bg-center"
-          style={{
-            backgroundImage: `url(${user.profileUrl || "/default-profile.jpg"})`,
-          }}
-        ></div>
-      </Link>
+        <Link href={`/profile`}>
+          <div
+            className="w-12 h-12 bg-cover rounded-xl bg-center"
+            style={{
+              backgroundImage: `url(${user.profileUrl || "/default-profile.jpg"})`,
+            }}
+          ></div>
+        </Link>
+      </motion.div>
 
       {user.isAdmin && (
-        <Link
-          href="/admin-panel"
-          className={`flex justify-center rounded-xl items-center cursor-pointer w-1/4 p-2 font-bold ${
-            pathname === "/admin-panel" ? "animate-gradient-bg" : ""
-          }`}
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          className="w-1/4 flex justify-center rounded-xl p-2 items-center cursor-pointer"
         >
-          <Admin />
-        </Link>
+          <Link
+            href="/admin-panel"
+            className={`font-bold ${
+              pathname === "/admin-panel" ? "animate-gradient-bg scale-110" : ""
+            }`}
+          >
+            <Admin />
+          </Link>
+        </motion.div>
       )}
-    </div>
+    </motion.div>
   );
 }
