@@ -13,6 +13,7 @@ interface Post {
   tags: string[];
   image: string;
   text: string;
+  likes: { _id: string }[];
   userId: string;
   author: {
     username: string;
@@ -139,6 +140,7 @@ export default function TagPage() {
           ) : posts.length > 0 ? (
             posts.map((post) => (
               <PostCard
+                likes={post.likes}
                 key={post._id}
                 image={post.image}
                 text={post.text}

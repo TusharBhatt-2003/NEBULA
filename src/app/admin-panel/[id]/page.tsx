@@ -142,6 +142,7 @@ export default function Page({ params }: { params: Promise<Params> }) {
                         authorId={post.userId}
                         username={post.author.username}
                         profileUrl={post.author.profileUrl}
+                        likes={post.likes}
                       />
                     ))
                   ) : (

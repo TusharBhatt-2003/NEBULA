@@ -16,6 +16,7 @@ interface User {
 
 interface Post {
   _id: string;
+  likes: { _id: string }[];
   createdAt: number;
   tags: string[];
   image: string;
@@ -176,6 +177,7 @@ export default function SearchPage() {
                     profileUrl={
                       post.author?.profileUrl || "/default-profile.png"
                     }
+                    likes={post.likes}
                   />
                 ))}
               </div>
