@@ -39,7 +39,7 @@ export default function Home() {
         <meta property="og:type" content="website" />
         <meta
           property="og:url"
-          content="https://nebula-three-dun.vercel.app/"
+          content="https://nebula-socialmedia.vercel.app/"
         />
         <meta
           property="og:title"
@@ -61,7 +61,7 @@ export default function Home() {
         />
         <meta
           property="twitter:url"
-          content="https://nebula-three-dun.vercel.app/"
+          content="https://nebula-socialmedia.vercel.app/"
         />
         <meta
           property="twitter:title"
