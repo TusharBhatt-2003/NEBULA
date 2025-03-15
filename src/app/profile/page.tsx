@@ -96,13 +96,13 @@ export default function UserProfile() {
             </div>
 
             {user.bio ? <Bio bio={user.bio} /> : null}
-            <div className="space-y-2 flex flex-wrap items-baseline">
+            <div className="gap-2 flex flex-wrap items-center">
               <h1 className="font-['spring'] light-text w-fit">
                 Following Tags :
               </h1>
               {user.followingTags.map((tag, index) => (
                 <Link key={index} href={`/tag/${tag}`}>
-                  <p className="light-bg w-fit m-1 text-black font-bold px-2 pb-1 rounded-xl text-sm">
+                  <p className="light-bg w-fit text-black font-bold px-2 pb-1 rounded-xl text-sm opacity-70">
                     {tag}
                   </p>
                 </Link>
@@ -117,9 +117,7 @@ export default function UserProfile() {
             </div>
 
             <div className="border-t-2 light-text border-[#f2f0e4]">
-              <h1 className="font-['spring'] light-text border-b w-fit">
-                POSTS:
-              </h1>
+              <h1 className="font-['spring'] light-text w-fit">POSTS:</h1>
               <div className="columns-2 space-y-5 overflow-auto flex-col gap-2 py-2">
                 {loading ? null : filteredPosts.length > 0 ? (
                   filteredPosts.map((post, index) => (

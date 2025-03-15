@@ -1,11 +1,11 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa"; // Import trash icon
 import Skeleton from "./skeleton";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ConfirmationModal from "../confirmationModal";
+import { motion } from "motion/react";
 
 interface Post {
   _id: string;
@@ -151,7 +151,13 @@ export default function PostCard({
   return (
     <>
       {post ? (
-        <div className="overflow-hidden flex flex-col justify-center relative border-[#F2F0E4]/30 z-10 w-full backdrop-blur-[2px] p-3 light-text border rounded-3xl">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+          className="overflow-hidden flex flex-col justify-center relative border-[#F2F0E4]/30 z-10 w-full backdrop-blur-[2px] p-3 light-text border rounded-3xl"
+        >
           <div className="grain"></div>
           {!hideAuthorInfo && author && (
             <Link
@@ -194,24 +200,30 @@ export default function PostCard({
                 </Link>
               ))}
               <div className="flex items-end justify-end w-full gap-5 text-sm">
-                <button
+                <motion.button
                   onClick={handleLike}
-                  className="flex bg-black rounded-xl px-4 py-2  items-center"
+                  whileTap={{ scale: 0.8 }}
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                  className="flex bg-black rounded-xl px-4 py-2 items-center"
                 >
-                  <svg
+                  <motion.svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                     fill={isLiked ? "red" : "gray"}
                     className="w-5 h-5"
+                    animate={{ scale: isLiked ? [1, 1.4, 1] : 1 }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
                   >
                     <path
                       fillRule="evenodd"
                       d="M10 18.35l-1.45-1.32C5.4 13.92 2 11.28 2 8.5 2 6.5 3.5 5 5.5 5c1.54 0 3.04.99 3.57 2.36h1.87C11.46 5.99 12.96 5 14.5 5c2 0 3.5 1.5 3.5 3.5 0 2.78-3.4 5.42-6.55 8.54L10 18.35z"
                       clipRule="evenodd"
                     />
-                  </svg>
+                  </motion.svg>
                   <span className="ml-1">{post.likes.length}</span>
-                </button>
+                </motion.button>
+
                 {post.userId === currentUserId && (
                   <button
                     onClick={() => setShowModal(true)}
@@ -223,7 +235,7 @@ export default function PostCard({
               </div>
             </div>
           )}
-        </div>
+        </motion.div>
       ) : (
         <Skeleton />
       )}
