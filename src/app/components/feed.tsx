@@ -1,6 +1,5 @@
 "use client";
-
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import StarField from "./starField";
 import PostCard from "./postCard/postCard";
 import useUser from "../hooks/useUser";
@@ -8,8 +7,7 @@ import Skeleton from "./postCard/skeleton";
 import UserProfile from "../profile/page";
 import AddPost from "../add-post/page";
 import SearchPage from "../search/page";
-import PopupAlert from "./PopupAlert"; // Import the popup component
-import { Button } from "./ui/button";
+import PopupAlert from "./PopupAlert";
 import Link from "next/link";
 
 interface Post {
@@ -20,45 +18,40 @@ interface Post {
 
 export default function Feed() {
   const { user } = useUser();
-  const currentUserId = user?._id;
-  const followingTags = user?.followingTags || [];
+  const { _id: currentUserId, followingTags = [] } = user || {};
 
   const [posts, setPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [showPopup, setShowPopup] = useState<boolean>(
-    followingTags.length === 0,
-  );
+  const [loading, setLoading] = useState(true);
+
+  const showPopup = useMemo(() => followingTags.length === 0, [followingTags]);
 
   useEffect(() => {
+    if (!followingTags.length) {
+      setLoading(false);
+      return;
+    }
+
     const fetchPosts = async () => {
       try {
         const response = await fetch("/api/posts");
+        if (!response.ok) throw new Error("Failed to fetch posts");
+
         const data: Post[] = await response.json();
-        if (response.ok) {
-          const filteredPosts = data
+        setPosts(
+          data
             .filter((post) =>
               post.tags.some((tag) => followingTags.includes(tag)),
             )
-            .sort((a, b) => b.createdAt - a.createdAt);
-
-          setPosts(filteredPosts);
-        } else {
-          console.error("Error fetching posts.");
-        }
+            .sort((a, b) => b.createdAt - a.createdAt),
+        );
       } catch (error) {
-        console.error("Error fetching posts:", error);
+        console.error(error);
       } finally {
         setLoading(false);
       }
     };
 
-    if (followingTags.length > 0) {
-      fetchPosts();
-      setShowPopup(false);
-    } else {
-      setLoading(false);
-      setShowPopup(true);
-    }
+    fetchPosts();
   }, [followingTags]);
 
   return (
@@ -71,38 +64,39 @@ export default function Feed() {
         <div className="hidden lg:block">
           <UserProfile />
         </div>
+
         <div className="lg:w-[55%] w-full lg:ml-[20vw] text-lg p-5 mb-24 flex flex-col justify-center items-center gap-5 overflow-hidden">
-          {!loading
-            ? posts.map((post) => (
+          {loading
+            ? Array.from({ length: 6 }).map((_, index) => (
+                <Skeleton key={index} />
+              ))
+            : posts.map((post) => (
                 <PostCard
                   key={post._id}
-                  currentUserId={currentUserId ?? ""}
+                  currentUserId={currentUserId || ""}
                   postId={post._id}
                 />
-              ))
-            : Array.from({ length: 6 }).map((_, index) => (
-                <Skeleton key={index} />
               ))}
+
           {showPopup && (
-            <>
-              <div className="flex h-screen justify-center items-center gap-5">
-                <Link
-                  href="/search"
-                  className="border-2 border-[#F2F0E4]/30 p-10 backdrop-blur-[1px] rounded-xl"
-                >
-                  <div className="p-2 light-bg text-black rounded-xl ">
-                    Follow Tags
-                  </div>
-                </Link>
-              </div>
-            </>
+            <div className="flex h-screen justify-center items-center gap-5">
+              <Link
+                href="/search"
+                className="border-2 border-[#F2F0E4]/30 p-10 backdrop-blur-[1px] rounded-xl"
+              >
+                <div className="p-2 light-bg text-black rounded-xl">
+                  Follow Tags
+                </div>
+              </Link>
+            </div>
           )}
-          {/* Show Follow Tags Popup */}
+
           {showPopup && (
             <PopupAlert alertMessage="You haven't followed any tags yet! Follow some to see relevant posts." />
           )}
         </div>
-        <div className="hidden lg:block lg:w-[30%] ">
+
+        <div className="hidden lg:block lg:w-[30%]">
           <AddPost />
           <SearchPage />
         </div>
