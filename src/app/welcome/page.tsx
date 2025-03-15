@@ -43,7 +43,7 @@ export default function welcome() {
                 {user.isAdmin ? "See Admin Panel" : "See Your Profile"}
               </Button>
             </div>
-            <Button variant="outline" onClick={() => handleLinkClick("/")}>
+            <Button variant="outline" onClick={() => handleLinkClick("/feed")}>
               Home
             </Button>
           </div>

@@ -91,10 +91,13 @@ export default function AddPost() {
   };
 
   const addTag = (tag: string) => {
-    setPost({
-      ...post,
-      tags: [...post.tags, tag],
-    });
+    // Only add the tag if it doesn't already exist
+    if (!post.tags.includes(tag)) {
+      setPost({
+        ...post,
+        tags: [...post.tags, tag],
+      });
+    }
     setTagInput(""); // Reset input field
     setFilteredTags([]); // Clear suggestions
   };
@@ -104,6 +107,20 @@ export default function AddPost() {
       ...post,
       tags: post.tags.filter((t) => t !== tag),
     });
+  };
+
+  const handleTagKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && tagInput.trim() !== "") {
+      // Add the tag when the user presses Enter
+      addTag(tagInput.trim());
+    } else if (e.key === " " && tagInput.trim() !== "") {
+      // Add the tag when the user presses Space (if there's text in the input)
+      addTag(tagInput.trim());
+    } else if (e.key === "Backspace" && tagInput === "") {
+      // Optional: If backspace is pressed and input is empty, remove the last tag
+      const lastTag = post.tags[post.tags.length - 1];
+      if (lastTag) removeTag(lastTag);
+    }
   };
 
   return (
@@ -152,6 +169,7 @@ export default function AddPost() {
           placeholder="Enter tags (space-separated)"
           value={tagInput}
           onChange={handleTagChange}
+          onKeyDown={handleTagKeyDown} // Trigger adding tag on Enter key press
         />
 
         {filteredTags.length > 0 && (
