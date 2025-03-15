@@ -167,6 +167,7 @@ export default function PostCard({
 
   const hideAuthorInfo =
     pathname === "/profile" || pathname === `/profile/${authorId}`;
+  const isTagPage = pathname.startsWith("/tag/");
 
   return (
     <>
@@ -212,19 +213,23 @@ export default function PostCard({
               {/* <p className="text-sm">
            {new Date(post.createdAt).toLocaleString()}
          </p> */}
-              <div className="flex flex-wrap w-3/4 gap-2">
-                {tags.map((tag, index) => (
-                  <TagLink key={index} tag={tag} index={index} />
-                ))}
-              </div>
+              {!isTagPage && (
+                <div className="flex flex-wrap w-3/4 gap-2">
+                  {tags.map((tag, index) => (
+                    <TagLink key={index} tag={tag} index={index} />
+                  ))}
+                </div>
+              )}
 
-              <div className="flex items-end w-1/4 justify-end  gap-1 text-sm">
+              <div
+                className={`flex items-end ${isTagPage ? "w-full" : "w-1/4"} justify-end  gap-1 text-sm`}
+              >
                 <motion.button
                   onClick={handleLike}
                   whileTap={{ scale: 0.8 }}
                   whileHover={{ scale: 1.1 }}
                   transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                  className="flex bg-black rounded-xl px-4 py-2 items-center"
+                  className="flex bg-black opacity-70 rounded-xl px-4 py-2 items-center"
                 >
                   <motion.svg
                     xmlns="http://www.w3.org/2000/svg"

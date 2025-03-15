@@ -6,6 +6,7 @@ import { Button } from "@/app/components/ui/button";
 import useUser from "@/app/hooks/useUser";
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import Loading from "@/app/components/loading";
 
 interface Post {
   _id: string;
@@ -153,7 +154,7 @@ export default function TagPage() {
               />
             ))
           ) : (
-            <p className="text-[#fe3b01]">No posts found with this tag.</p>
+            <Loading />
           )}
         </div>
       </div>
