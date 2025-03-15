@@ -218,7 +218,7 @@ export default function PostCard({
                 ))}
               </div>
 
-              <div className="flex items-end w-1/4 justify-end  gap-5 text-sm">
+              <div className="flex items-end w-1/4 justify-end  gap-1 text-sm">
                 <motion.button
                   onClick={handleLike}
                   whileTap={{ scale: 0.8 }}
