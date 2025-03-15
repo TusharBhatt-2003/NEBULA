@@ -116,7 +116,7 @@ export default function UserProfile() {
 
             <div className="border-t-2 light-text border-[#f2f0e4]">
               <h1 className="font-['spring'] light-text w-fit">POSTS:</h1>
-              <div className="columns-2 space-y-5 overflow-auto flex-col gap-2 py-2">
+              <div className="columns-2 space-y-3 overflow-auto flex-col gap-2 py-2">
                 {loading ? null : filteredPosts.length > 0 ? (
                   filteredPosts.map((post) => (
                     <PostCard

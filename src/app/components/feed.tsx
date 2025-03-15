@@ -82,7 +82,7 @@ export default function Feed() {
         </div>
 
         <div className="lg:w-[55%] w-full lg:ml-[20vw] text-lg p-5 mb-24 flex flex-col justify-center items-center gap-5 overflow-hidden">
-          {!showPopup && !loading
+          {!loading
             ? posts.map((post) => (
                 <PostCard
                   key={post._id}

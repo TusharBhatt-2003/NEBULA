@@ -91,7 +91,7 @@ export default function SearchPage() {
   // Sort posts by likes and get the top 5
   const topPosts = posts
     .sort((a, b) => b.likes.length - a.likes.length) // Sort by number of likes in descending order
-    .slice(0, 5); // Get top 5 posts
+    .slice(0, 10); // Get top 5 posts
 
   return (
     <div className="lg:w-[25vw] relative light-text p-5 pb-24 overflow-hidden">
@@ -160,9 +160,9 @@ export default function SearchPage() {
           {/* Top 5 Posts Section */}
           <div className="mt-4">
             {topPosts.length > 0 ? (
-              <div className="columns-2 space-y-2">
+              <div className="columns-2 space-y-5">
                 <h2 className="text-lg  font-semibold font-['spring'] mb-2">
-                  Top 5 Posts:
+                  Top 10 Posts:
                 </h2>
                 {topPosts.map((post) => (
                   <PostCard
