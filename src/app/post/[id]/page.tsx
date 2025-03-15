@@ -121,23 +121,28 @@ export default function Page() {
         </script>
       </Head>
 
-      <div className="p-5 container mx-auto">
-        {!loading && post ? (
-          <PostCard
-            image={post.image}
-            text={post.text}
-            tags={post.tags || ""}
-            currentUserId={currentUserId}
-            postId={post._id}
-            authorId={post.userId}
-            username={post.author?.username}
-            profileUrl={post.author?.profileUrl}
-            likes={post.likes}
-          />
-        ) : (
-          <Skeleton />
-        )}
-      </div>
+      <main className="h-full space-y-5 container p-5  mx-auto pb-36">
+        <div className="">
+          {!loading && post ? (
+            <PostCard
+              image={post.image}
+              text={post.text}
+              tags={post.tags || ""}
+              currentUserId={currentUserId}
+              postId={post._id}
+              authorId={post.userId}
+              username={post.author?.username}
+              profileUrl={post.author?.profileUrl}
+              likes={post.likes}
+            />
+          ) : (
+            <Skeleton />
+          )}
+        </div>
+        <h1 className="overflow-hidden flex flex-col justify-center relative border-[#F2F0E4]/30 z-10 w-full backdrop-blur-[2px] p-3 light-text font-semibold border rounded-3xl  text-center font-['spring'] text-light text-4xl">
+          The Comments Section will be added soon.
+        </h1>
+      </main>
     </>
   );
 }
