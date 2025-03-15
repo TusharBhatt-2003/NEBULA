@@ -140,6 +140,7 @@ export default function Page() {
           )}
         </div>
         <h1 className="overflow-hidden flex flex-col justify-center relative border-[#F2F0E4]/30 z-10 w-full backdrop-blur-[2px] p-3 light-text font-semibold border rounded-3xl  text-center font-['spring'] text-light text-4xl">
+          <div className="grain"></div>
           The Comments Section will be added soon.
         </h1>
       </main>

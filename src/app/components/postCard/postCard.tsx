@@ -191,7 +191,7 @@ export default function PostCard({
                   className="w-8 h-8 rounded-xl"
                 />
               ) : (
-                <div className="w-8 h-8 rounded-full bg-gray-300 opacity-20"></div>
+                <div className="w-8 h-8 rounded-full light-bg opacity-20"></div>
               )}
               <p className="font-semibold">{username}</p>
             </Link>

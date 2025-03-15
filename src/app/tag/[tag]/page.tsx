@@ -118,7 +118,7 @@ export default function TagPage() {
         ) : (
           <div className="space-y-2">
             <div className="flex justify-between items-center">
-              <h1 className="text-4xl font-['spring'] text-black light-bg rounded-xl w-fit p-2">
+              <h1 className="text-4xl font-['spring'] text-light border rounded-3xl w-fit border-[#F2F0E4]/30 p-2 pb-3">
                 {tag}
               </h1>
 
