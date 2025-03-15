@@ -135,7 +135,7 @@ export default function SearchPage() {
                         {tags.map((tag, index) => (
                           <Link
                             key={index}
-                            href={`/tags/${tag}`}
+                            href={`/tag/${tag}`}
                             className="light-bg w-fit text-black font-bold px-2 pb-1 rounded-xl text-lg"
                           >
                             {tag}
