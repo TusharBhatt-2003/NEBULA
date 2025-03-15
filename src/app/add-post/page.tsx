@@ -134,12 +134,12 @@ export default function AddPost() {
           <img
             src={post.image}
             alt="Chosen Image"
-            className="w-48 z-[999] border border-[#F2F0E4]/30 rounded-xl shadow-md"
+            className="w-48 z-[999] border border-[#F2F0E4]/30 rounded-3xl shadow-md"
           />
         )}
 
         <textarea
-          className="border border-[#F2F0E4]/30 backdrop-blur-lg p-2 w-full bg-transparent text-light rounded-xl outline-none placeholder:text-[#F2F0E4]/30"
+          className="border border-[#F2F0E4]/30 backdrop-blur-lg p-2 w-full bg-transparent text-light rounded-3xl outline-none placeholder:text-[#F2F0E4]/30"
           placeholder="Enter your text..."
           value={post.text}
           onChange={(e) => setPost({ ...post, text: e.target.value })}
@@ -148,7 +148,7 @@ export default function AddPost() {
 
         <input
           type="text"
-          className="border border-[#F2F0E4]/30 backdrop-blur-lg p-2 w-full bg-transparent text-light rounded-xl outline-none placeholder:text-[#F2F0E4]/30"
+          className="border border-[#F2F0E4]/30 backdrop-blur-lg p-2 w-full bg-transparent text-light rounded-3xl outline-none placeholder:text-[#F2F0E4]/30"
           placeholder="Enter tags (space-separated)"
           value={tagInput}
           onChange={handleTagChange}
