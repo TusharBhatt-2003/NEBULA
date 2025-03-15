@@ -53,9 +53,7 @@ export default function Page() {
   return (
     <>
       <Head>
-        <title>
-          {post ? `${post.text.slice(0, 50)}... | Nebula` : "Loading Post..."}
-        </title>
+        <title>My page title</title>
         <meta
           name="description"
           content={post ? post.text.slice(0, 150) : "Viewing post details"}

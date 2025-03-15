@@ -33,16 +33,18 @@ export default function Feed() {
   const [loading, setLoading] = useState(true);
   const [showPopup, setShowPopup] = useState(false);
 
+  // Show popup alert only after 5 seconds delay if no tags are followed
   useEffect(() => {
     if (followingTags.length === 0) {
       const timeout = setTimeout(() => {
         setShowPopup(true);
-      }, 500);
+      }, 5000); // 5-second delay
 
-      return () => clearTimeout(timeout);
+      return () => clearTimeout(timeout); // Cleanup the timeout on unmount or dependency change
     }
-  }, [followingTags]);
+  }, [followingTags]); // Dependency on followingTags to trigger when it's empty
 
+  // Fetch posts when followingTags is not empty
   useEffect(() => {
     if (!followingTags.length) {
       setLoading(false);
