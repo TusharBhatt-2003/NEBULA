@@ -85,7 +85,7 @@ export default function SearchPage() {
         <StarField />
       </div>
       <div>
-        <div className="fixed right-0 top-0 px-5 pt-5 left-0 z-[99999999]">
+        <div className="fixed right-0 top-0 px-5 pt-5 left-0 backdrop-blur z-[99999999]">
           <p className="text-4xl mb-5 text-center text-transparent bg-clip-text animate-gradient-para z-50 font-['LogoFont'] font-semibold">
             SEARCH
           </p>
@@ -99,7 +99,7 @@ export default function SearchPage() {
         </div>
         {loading && <Loading />}
 
-        <div className="overflow-hidden py-2">
+        <div className="overflow-hidden py-2 pt-24">
           {/* Users Section */}
           <div className="mt-4">
             {users.length > 0 ? (
