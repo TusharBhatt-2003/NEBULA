@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 interface Post {
   _id: string;
   createdAt: number;
+  likes: { _id: string }[];
   // Add other properties of a post if needed
 }
 
@@ -133,6 +134,7 @@ export default function UserProfile() {
                       profileUrl={
                         post.author?.profileUrl || "/default-profile.png"
                       }
+                      likes={post.likes}
                     />
                   ))
                 ) : (

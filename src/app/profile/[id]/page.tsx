@@ -12,6 +12,7 @@ import Bio from "@/app/components/profile/bio";
 interface Post {
   _id: string;
   createdAt: number;
+  likes: { _id: string }[];
   // Add other properties of a post if needed
 }
 interface Params {
@@ -145,6 +146,7 @@ export default function Page({ params }: { params: Promise<Params> }) {
                         profileUrl={
                           post.author?.profileUrl || "/default-profile.png"
                         }
+                        likes={post.likes}
                       />
                     ))
                   ) : (
