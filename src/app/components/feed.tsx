@@ -75,10 +75,8 @@ export default function Feed() {
         </div>
 
         <div className="lg:w-[55%] w-full lg:ml-[20vw] text-lg p-5 mb-24 flex flex-col justify-center items-center gap-5 overflow-hidden">
-          {!showPopup && loading
-            ? Array.from({ length: 6 }).map((_, index) => (
-                <Skeleton key={index} />
-              ))
+          {showPopup && !loading
+            ? null
             : posts.map((post) => (
                 <PostCard
                   key={post._id}
