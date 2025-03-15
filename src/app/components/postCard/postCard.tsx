@@ -187,7 +187,7 @@ export default function PostCard({
             <p className="">{postText}</p>
           </Link>
 
-          {!hideAuthorInfo && author && (
+          {!hideAuthorInfo && author ? (
             <div className="flex justify-between items-center">
               {/* <p className="text-sm">
                {new Date(post.createdAt).toLocaleString()}
@@ -234,7 +234,7 @@ export default function PostCard({
                 )}
               </div>
             </div>
-          )}
+          ) : null}
         </motion.div>
       ) : (
         <Skeleton />
