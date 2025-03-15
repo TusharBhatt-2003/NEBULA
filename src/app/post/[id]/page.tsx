@@ -4,6 +4,7 @@ import useUser from "@/app/hooks/useUser";
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Head from "next/head";
+import Skeleton from "@/app/components/postCard/skeleton";
 
 interface Post {
   _id: string;
@@ -120,7 +121,7 @@ export default function Page() {
         </script>
       </Head>
 
-      <div className="p-10 container mx-auto">
+      <div className="p-5 container mx-auto">
         {!loading && post ? (
           <PostCard
             image={post.image}
@@ -134,7 +135,7 @@ export default function Page() {
             likes={post.likes}
           />
         ) : (
-          <p className="text-center text-gray-500">Loading...</p>
+          <Skeleton />
         )}
       </div>
     </>
