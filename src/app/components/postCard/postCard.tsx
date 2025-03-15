@@ -29,11 +29,23 @@ interface PostCardProps {
   postId: string;
   currentUserId: string;
   onDelete?: (postId: string) => void;
+  image: string;
+  tags: string[];
+  text: string;
+  authorId: string;
+  username: string;
+  profileUrl: string;
 }
 
 export default function PostCard({
   postId,
   currentUserId,
+  image,
+  text,
+  tags,
+  authorId,
+  profileUrl,
+  username,
   onDelete,
 }: PostCardProps) {
   const [post, setPost] = useState<Post | null>(null);
@@ -95,7 +107,7 @@ export default function PostCard({
       const response = await fetch("/api/posts/like", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ postId: post._id }),
+        body: JSON.stringify({ postId: postId }),
       });
 
       if (!response.ok) throw new Error("Failed to like/unlike post");
@@ -137,16 +149,16 @@ export default function PostCard({
     }
   };
 
-  const isFeedPage = pathname === `/post/${post?._id}`;
+  const isFeedPage = pathname === `/post/${postId}`;
   const postText =
-    post?.text && post.text.length > 100
+    text && text.length > 100
       ? isFeedPage
-        ? post.text
-        : `${post.text.substring(0, 100)}...`
-      : post?.text || "";
+        ? text
+        : `${text.substring(0, 100)}...`
+      : text || "";
 
   const hideAuthorInfo =
-    pathname === "/profile" || pathname === `/profile/${author?._id}`;
+    pathname === "/profile" || pathname === `/profile/${authorId}`;
 
   return (
     <>
@@ -159,27 +171,27 @@ export default function PostCard({
           className="overflow-hidden flex flex-col justify-center relative border-[#F2F0E4]/30 z-10 w-full backdrop-blur-[2px] p-3 light-text border rounded-3xl"
         >
           <div className="grain"></div>
-          {hideAuthorInfo && author ? null : (
+          {hideAuthorInfo && authorId ? null : (
             <Link
-              href={`/profile/${author?._id}`}
+              href={`/profile/${authorId}`}
               className="flex items-center gap-2 mb-2"
             >
-              {author?.profileUrl ? (
+              {profileUrl ? (
                 <img
-                  src={author.profileUrl}
-                  alt={author.username}
+                  src={profileUrl}
+                  alt={username}
                   className="w-8 h-8 rounded-xl"
                 />
               ) : (
                 <div className="w-8 h-8 rounded-full bg-gray-300 opacity-20"></div>
               )}
-              <p className="font-semibold">{author?.username}</p>
+              <p className="font-semibold">{username}</p>
             </Link>
           )}
-          <Link href={`/post/${post?._id}`}>
+          <Link href={`/post/${postId}`}>
             {post.image && (
               <img
-                src={post.image}
+                src={image}
                 alt="Post Image"
                 className="w-full rounded-2xl mb-2"
               />
@@ -187,12 +199,12 @@ export default function PostCard({
             <p className="">{postText}</p>
           </Link>
 
-          {hideAuthorInfo && author ? null : (
+          {hideAuthorInfo && authorId ? null : (
             <div className="flex justify-between items-center">
               {/* <p className="text-sm">
            {new Date(post.createdAt).toLocaleString()}
          </p> */}
-              {post.tags?.map((tag, index) => (
+              {tags?.map((tag, index) => (
                 <Link key={index} href={`/tag/${tag}`}>
                   <p className="light-bg text-black font-bold px-2 pb-1 rounded-xl text-sm">
                     {tag}
@@ -224,7 +236,7 @@ export default function PostCard({
                   <span className="ml-1">{post.likes.length}</span>
                 </motion.button>
 
-                {post.userId === currentUserId && (
+                {authorId === currentUserId && (
                   <button
                     onClick={() => setShowModal(true)}
                     className="text-light opacity-50 bg-black rounded-xl px-4 py-2 flex items-center gap-1"
