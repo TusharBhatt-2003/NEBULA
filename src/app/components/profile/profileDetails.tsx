@@ -24,7 +24,7 @@ export const ProfileDetails = ({
   });
 
   return (
-    <div className="relative w-full h-full py-2 px-3 flex flex-col gap-2 z-10 backdrop-blur rounded-xl border border-[#F2F0E4]/30 overflow-hidden light-text">
+    <div className="relative w-full h-full py-2 px-3 flex flex-col gap-2 z-10 backdrop-blur rounded-3xl border border-[#F2F0E4]/30 overflow-hidden light-text">
       <div className="grain"></div>
       <div className="flex flex-col justify-between h-full">
         <div className="flex items-center justify-between">
