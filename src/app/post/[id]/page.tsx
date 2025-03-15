@@ -54,7 +54,7 @@ export default function Page() {
     <>
       <Head>
         <title>
-          {post ? `${post.text.slice(0, 50)}... | YourSite` : "Loading Post..."}
+          {post ? `${post.text.slice(0, 50)}... | Nebula` : "Loading Post..."}
         </title>
         <meta
           name="description"
@@ -108,7 +108,7 @@ export default function Page() {
             image: post?.image || "/default-image.jpg",
             author: {
               "@type": "Person",
-              name: post?.author?.username || "Unknown",
+              name: post?.author?.username || "Unknown Author",
             },
             datePublished: post?.createdAt || new Date().toISOString(),
             dateModified: post?.updatedAt || new Date().toISOString(),
@@ -125,7 +125,7 @@ export default function Page() {
           <PostCard
             image={post.image}
             text={post.text}
-            tags={post.tags || ""} // Ensure a valid value is passed
+            tags={post.tags || ""}
             currentUserId={currentUserId}
             postId={post._id}
             authorId={post.userId}
