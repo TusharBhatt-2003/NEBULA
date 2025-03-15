@@ -212,11 +212,13 @@ export default function PostCard({
               {/* <p className="text-sm">
            {new Date(post.createdAt).toLocaleString()}
          </p> */}
-              {tags.map((tag, index) => (
-                <TagLink key={index} tag={tag} index={index} />
-              ))}
+              <div className="flex flex-wrap w-3/4 gap-2">
+                {tags.map((tag, index) => (
+                  <TagLink key={index} tag={tag} index={index} />
+                ))}
+              </div>
 
-              <div className="flex items-end justify-end w-full gap-5 text-sm">
+              <div className="flex items-end w-1/4 justify-end  gap-5 text-sm">
                 <motion.button
                   onClick={handleLike}
                   whileTap={{ scale: 0.8 }}
