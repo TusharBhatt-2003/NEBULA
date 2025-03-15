@@ -1,14 +1,15 @@
+"use client";
 import React from "react";
+import { motion } from "motion/react";
 import Feed from "../components/feed";
+import AnimatedText from "../components/animatedText";
 
-export default function page() {
+export default function Page() {
+  const text = "The posts from the tags you follow will appear here.";
+
   return (
     <div className="relative overflow-hidden">
-      <h1 className="overflow-hidden m-5 mb-0 flex flex-col justify-center relative border-[#F2F0E4]/30 z-10 backdrop-blur-[2px] p-3 light-text font-semibold border rounded-3xl text-center font-['spring'] text-light text-lg">
-        <div className="grain"></div>
-        The posts from the tags you follow will appear here.
-      </h1>
-
+      <AnimatedText text={text} />
       <Feed />
     </div>
   );
