@@ -38,7 +38,7 @@ export default function Feed() {
     if (followingTags.length === 0) {
       const timeout = setTimeout(() => {
         setShowPopup(true);
-      }, 5000); // 5-second delay
+      }, 10000);
 
       return () => clearTimeout(timeout); // Cleanup the timeout on unmount or dependency change
     }
