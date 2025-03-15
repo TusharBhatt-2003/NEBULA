@@ -108,7 +108,7 @@ export default function Page() {
             image: post?.image || "/default-image.jpg",
             author: {
               "@type": "Person",
-              name: "Author Name",
+              name: post?.author?.username || "Unknown",
             },
             datePublished: post?.createdAt || new Date().toISOString(),
             dateModified: post?.updatedAt || new Date().toISOString(),
