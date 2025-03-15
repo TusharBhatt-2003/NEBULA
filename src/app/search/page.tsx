@@ -7,6 +7,7 @@ import { Input } from "../components/ui/input";
 import Link from "next/link";
 import StarField from "../components/starField";
 import Loading from "../components/loading";
+import TagLink from "../components/tag";
 
 interface User {
   _id: string;
@@ -87,6 +88,8 @@ export default function SearchPage() {
     return () => clearTimeout(delayDebounce);
   }, [query]);
 
+  console.log(posts);
+
   return (
     <div className="lg:w-[25vw] relative light-text p-5 pb-24 overflow-hidden">
       <div className="fixed -z-50">
@@ -141,13 +144,7 @@ export default function SearchPage() {
                       </h2>
                       <div className="flex flex-wrap gap-2">
                         {tags.map((tag, index) => (
-                          <Link
-                            key={index}
-                            href={`/tag/${tag}`}
-                            className="light-bg w-fit text-black font-bold px-2 pb-1 rounded-xl text-lg"
-                          >
-                            {tag}
-                          </Link>
+                          <TagLink key={index} tag={tag} index={index} />
                         ))}
                       </div>
                     </div>

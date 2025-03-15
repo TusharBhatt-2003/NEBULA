@@ -12,6 +12,7 @@ import PostCard from "../components/postCard/postCard";
 import Bio from "../components/profile/bio";
 import ConfirmationModal from "../components/confirmationModal";
 import { useRouter } from "next/navigation";
+import TagLink from "../components/tag";
 
 interface Post {
   _id: string;
@@ -102,11 +103,7 @@ export default function UserProfile() {
                 Following Tags :
               </h1>
               {user.followingTags.map((tag, index) => (
-                <Link key={index} href={`/tag/${tag}`}>
-                  <p className="light-bg w-fit text-black font-bold px-2 pb-1 rounded-xl text-sm opacity-70">
-                    {tag}
-                  </p>
-                </Link>
+                <TagLink key={index} tag={tag} index={index} />
               ))}
             </div>
 

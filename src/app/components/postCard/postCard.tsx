@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ConfirmationModal from "../confirmationModal";
 import { motion } from "motion/react";
+import TagLink from "../tag";
 
 interface Post {
   _id: string;
@@ -211,13 +212,10 @@ export default function PostCard({
               {/* <p className="text-sm">
            {new Date(post.createdAt).toLocaleString()}
          </p> */}
-              {tags?.map((tag, index) => (
-                <Link key={index} href={`/tag/${tag}`}>
-                  <p className="light-bg text-black font-bold px-2 pb-1 rounded-xl text-sm">
-                    {tag}
-                  </p>
-                </Link>
+              {tags.map((tag, index) => (
+                <TagLink key={index} tag={tag} index={index} />
               ))}
+
               <div className="flex items-end justify-end w-full gap-5 text-sm">
                 <motion.button
                   onClick={handleLike}
