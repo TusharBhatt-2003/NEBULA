@@ -159,12 +159,12 @@ export default function PostCard({
           className="overflow-hidden flex flex-col justify-center relative border-[#F2F0E4]/30 z-10 w-full backdrop-blur-[2px] p-3 light-text border rounded-3xl"
         >
           <div className="grain"></div>
-          {!hideAuthorInfo && author && (
+          {hideAuthorInfo && author ? null : (
             <Link
-              href={`/profile/${author._id}`}
+              href={`/profile/${author?._id}`}
               className="flex items-center gap-2 mb-2"
             >
-              {author.profileUrl ? (
+              {author?.profileUrl ? (
                 <img
                   src={author.profileUrl}
                   alt={author.username}
@@ -173,7 +173,7 @@ export default function PostCard({
               ) : (
                 <div className="w-8 h-8 rounded-full bg-gray-300 opacity-20"></div>
               )}
-              <p className="font-semibold">{author.username}</p>
+              <p className="font-semibold">{author?.username}</p>
             </Link>
           )}
           <Link href={`/post/${post?._id}`}>
@@ -187,11 +187,11 @@ export default function PostCard({
             <p className="">{postText}</p>
           </Link>
 
-          {!hideAuthorInfo && author ? (
+          {hideAuthorInfo && author ? null : (
             <div className="flex justify-between items-center">
               {/* <p className="text-sm">
-               {new Date(post.createdAt).toLocaleString()}
-             </p> */}
+           {new Date(post.createdAt).toLocaleString()}
+         </p> */}
               {post.tags?.map((tag, index) => (
                 <Link key={index} href={`/tag/${tag}`}>
                   <p className="light-bg text-black font-bold px-2 pb-1 rounded-xl text-sm">
@@ -234,7 +234,7 @@ export default function PostCard({
                 )}
               </div>
             </div>
-          ) : null}
+          )}
         </motion.div>
       ) : (
         <Skeleton />
