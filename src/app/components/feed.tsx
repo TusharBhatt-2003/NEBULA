@@ -8,6 +8,8 @@ import AddPost from "../add-post/page";
 import SearchPage from "../search/page";
 import PopupAlert from "./PopupAlert";
 import Link from "next/link";
+import Loading from "./loading";
+import Skeleton from "./postCard/skeleton";
 
 interface Post {
   _id: string;
@@ -78,22 +80,24 @@ export default function Feed() {
         </div>
 
         <div className="lg:w-[55%] w-full lg:ml-[20vw] text-lg p-5 mb-24 flex flex-col justify-center items-center gap-5 overflow-hidden">
-          {!showPopup &&
-            !loading &&
-            posts.map((post) => (
-              <PostCard
-                key={post._id}
-                image={post.image}
-                text={post.text}
-                tags={post.tags}
-                currentUserId={currentUserId || ""}
-                postId={post._id}
-                authorId={post.userId}
-                username={post.author.username}
-                profileUrl={post.author.profileUrl}
-                likes={post.likes}
-              />
-            ))}
+          {!showPopup && !loading
+            ? posts.map((post) => (
+                <PostCard
+                  key={post._id}
+                  image={post.image}
+                  text={post.text}
+                  tags={post.tags}
+                  currentUserId={currentUserId || ""}
+                  postId={post._id}
+                  authorId={post.userId}
+                  username={post.author.username}
+                  profileUrl={post.author.profileUrl}
+                  likes={post.likes}
+                />
+              ))
+            : Array.from({ length: 5 }).map((_, index) => (
+                <Skeleton key={index} />
+              ))}
 
           {showPopup && (
             <>
