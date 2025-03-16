@@ -109,6 +109,20 @@ export default function AddPost() {
     });
   };
 
+  // onChange handler: detect space on mobile
+  const handleTagInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+
+    if (value.endsWith(" ")) {
+      const trimmedInput = value.trim();
+      if (trimmedInput !== "") {
+        addTag(trimmedInput);
+      }
+    } else {
+      setTagInput(value);
+    }
+  };
+
   // onKeyDown handler: detect Enter and Backspace
   const handleTagKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const trimmedInput = tagInput.trim();
@@ -168,7 +182,7 @@ export default function AddPost() {
           className="border border-[#F2F0E4]/30 backdrop-blur-lg p-2 w-full bg-transparent text-light rounded-3xl outline-none placeholder:text-[#F2F0E4]/30"
           placeholder="Enter tags (space-separated)"
           value={tagInput}
-          onChange={handleTagChange}
+          onChange={handleTagInputChange}
           onKeyDown={handleTagKeyDown} // Trigger adding tag on Enter key press
         />
 
