@@ -8,7 +8,6 @@ import AddPost from "../add-post/page";
 import SearchPage from "../search/page";
 import PopupAlert from "./PopupAlert";
 import Link from "next/link";
-import Loading from "./loading";
 import Skeleton from "./postCard/skeleton";
 
 interface Post {
@@ -46,7 +45,7 @@ export default function Feed() {
 
   // Fetch posts when followingTags is not empty
   useEffect(() => {
-    if (!posts) {
+    if (!followingTags.length) {
       setLoading(false);
       return;
     }
@@ -82,7 +81,7 @@ export default function Feed() {
         </div>
 
         <div className="lg:w-[55%] w-full lg:ml-[20vw] text-lg p-5 mb-24 flex flex-col justify-center items-center gap-5 overflow-hidden">
-          {loading
+          {loading && posts
             ? Array.from({ length: 6 }).map((_, index) => (
                 <Skeleton key={index} />
               ))
