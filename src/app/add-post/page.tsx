@@ -109,14 +109,15 @@ export default function AddPost() {
     });
   };
 
+  // onKeyDown handler: detect Enter and Backspace
   const handleTagKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const trimmedInput = tagInput.trim();
 
-    if ((e.key === "Enter" || e.key === " ") && trimmedInput !== "") {
-      e.preventDefault(); // Prevent default space or enter behavior
+    if (e.key === "Enter" && trimmedInput !== "") {
+      e.preventDefault(); // Prevent form submit
       addTag(trimmedInput);
     } else if (e.key === "Backspace" && tagInput === "") {
-      e.preventDefault(); // Prevent navigating back on mobile browsers
+      e.preventDefault(); // Prevent browser back on mobile
       const lastTag = post.tags[post.tags.length - 1];
       if (lastTag) removeTag(lastTag);
     }
