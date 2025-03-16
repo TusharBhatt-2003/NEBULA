@@ -25,7 +25,7 @@ const TagLink: React.FC<TagLinkProps> = ({ tag, index }) => {
           type: "spring",
           damping: 10,
         }}
-        className="light-bg lowercase z-[99] text-black font-bold px-2 pb-1 rounded-xl text-sm"
+        className="light-bg lowercase z-[99] text-black font-bold py-1 px-2 text-sm rounded-xl"
       >
         {tag}
       </motion.p>
