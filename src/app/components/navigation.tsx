@@ -62,7 +62,7 @@ export default function Navigation() {
         { href: "/feed", icon: <Galaxy /> },
         { href: "/search", icon: <Search /> },
         { href: "/add-post", icon: <AddPost /> },
-        { href: "/notifications", icon: <Notification /> },
+        // { href: "/notifications", icon: <Notification /> },
       ].map(({ href, icon }) => (
         <motion.div
           key={href}
