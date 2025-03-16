@@ -46,7 +46,7 @@ export default function Feed() {
 
   // Fetch posts when followingTags is not empty
   useEffect(() => {
-    if (!followingTags.length) {
+    if (!followingTags) {
       setLoading(false);
       return;
     }
