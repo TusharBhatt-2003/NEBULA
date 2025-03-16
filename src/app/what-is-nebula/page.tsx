@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import StarField from "../components/starField";
 import { Button } from "../components/ui/button";
 import Link from "next/link";
+import LightSpeedAnimation from "../components/lightSpeedAnimation";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -57,13 +58,14 @@ const WhatIsNebulaPage = () => {
       <div className="fixed">
         <StarField />
       </div>
+      <LightSpeedAnimation />
 
       {/* Header Section */}
       <div className="relative z-10 flex flex-col items-center justify-center text-center px-6 pt-24 pb-12">
         <motion.h1
           initial={{ opacity: 1, y: -10, scale: 0 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 4 }}
           className="text-4xl font-['spring'] md:text-6xl font-bold "
         >
           What is{" "}
@@ -76,7 +78,7 @@ const WhatIsNebulaPage = () => {
         <motion.p
           initial={{ opacity: 0, y: 20, scale: 0.5 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 1, delay: 0.4 }}
+          transition={{ duration: 4, delay: 0.4 }}
           className="mt-6 max-w-2xl text-lg md:text-xl text-[#F2F0E4]/70"
         >
           In a universe full of noise,{" "}
@@ -89,7 +91,7 @@ const WhatIsNebulaPage = () => {
         <motion.div
           initial={{ opacity: 0, y: 20, scale: 0.5 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 1.2, delay: 0.8 }}
+          transition={{ duration: 4, delay: 0.8 }}
           className="mt-8 max-w-3xl text-[#F2F0E4]/60 text-md md:text-lg"
         >
           <p>
