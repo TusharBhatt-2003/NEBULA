@@ -114,11 +114,11 @@ const WhatIsNebulaPage = () => {
           transition={{ duration: 1, delay: 1.2 }}
           className="mt-10"
         >
-          <Link href="/search">
+          <a href="/search">
             <Button className="px-6 font-['spring'] py-3 text-lg rounded-full shadow-lg hover:shadow-xl transition">
               Explore Nebula
             </Button>
-          </Link>
+          </a>
         </motion.div>
       </div>
 
