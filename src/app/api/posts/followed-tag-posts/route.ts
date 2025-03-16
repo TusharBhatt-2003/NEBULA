@@ -41,6 +41,7 @@ export async function GET(req: Request) {
         $project: {
           text: 1,
           image: 1,
+          likes: 1,
           tags: 1,
           createdAt: 1,
           updatedAt: 1,

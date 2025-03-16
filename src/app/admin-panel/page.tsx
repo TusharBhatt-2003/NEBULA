@@ -1,10 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import LogoutBtn from "../components/logoutBtn";
 import ConfirmationModal from "../components/confirmationModal";
 import UsersCardForAdminPanel from "../components/usersCardForAdminPanel";
-import NEBULA from "../components/NEBULA";
-import StarField from "../components/starField";
 import Loading from "../components/loading";
 
 const SkeletonUserCard = () => {
