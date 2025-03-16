@@ -131,9 +131,11 @@ export default function Page({ params }: { params: Promise<Params> }) {
                 <h1 className="font-['spring'] light-text border-b w-fit">
                   POSTS:
                 </h1>
-                <div className="columns-2 space-y-3 py-2">
+                <div
+                  className={`${filteredPosts.length > 0 ? "columns-2" : ""} space-y-3 py-2`}
+                >
                   {loading ? null : filteredPosts.length > 0 ? (
-                    filteredPosts.map((post, index) => (
+                    filteredPosts.map((post) => (
                       <PostCard
                         key={post._id}
                         image={post.image}
@@ -150,7 +152,9 @@ export default function Page({ params }: { params: Promise<Params> }) {
                       />
                     ))
                   ) : (
-                    <p>No posts found for this user.</p>
+                    <p className="font-['spring'] p-5 opacity-70 font-semibold text-center">
+                      No posts found for this user.
+                    </p>
                   )}
                 </div>
               </div>

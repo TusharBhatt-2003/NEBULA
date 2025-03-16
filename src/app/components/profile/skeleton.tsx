@@ -34,7 +34,9 @@ export default function Skeleton() {
           </Button>
         </div>
         <div className="flex animate-pulse justify-between items-center">
-          <Button className="text-transparent">Update Profile</Button>
+          <Button variant="outline" className="text-black">
+            Update Profile
+          </Button>
         </div>
       </div>
     </>

@@ -68,6 +68,10 @@ export default function Feed() {
 
     fetchPosts();
   }, [followingTags]);
+
+  console.log(user);
+  console.log(posts);
+
   return (
     <div className="relative">
       <div className="fixed">

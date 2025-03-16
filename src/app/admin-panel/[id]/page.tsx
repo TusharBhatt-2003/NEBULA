@@ -12,6 +12,7 @@ import Bio from "@/app/components/profile/bio";
 interface Post {
   _id: string;
   createdAt: number;
+  likes: { _id: string }[];
   // Add other properties of a post if needed
 }
 interface Params {
@@ -86,28 +87,15 @@ export default function Page({ params }: { params: Promise<Params> }) {
 
   return (
     <>
-      {/* SEO meta tags */}
-      <head>
-        <title>{seoData.title}</title>
-        <meta name="description" content={seoData.description} />
-        <meta property="og:title" content={seoData.title} />
-        <meta property="og:description" content={seoData.description} />
-        <meta property="og:image" content={seoData.image} />
-        <meta property="og:type" content="profile" />
-        <meta property="og:url" content={window.location.href} />
-        {/* Twitter meta tags */}
-        <meta name="twitter:title" content={seoData.title} />
-        <meta name="twitter:description" content={seoData.description} />
-        <meta name="twitter:image" content={seoData.image} />
-      </head>
-
-      <div className=" p-5 overflow-hidden relative w-full flex flex-col items-center">
-        <StarField />
-        <div className="mb-20 w-full z-20 space-y-5">
+      <div className="overflow-hidden relative w-full p-5">
+        <div className="fixed">
+          <StarField />
+        </div>
+        <div className="container mx-auto mb-20 w-full z-20 space-y-5">
           {user ? (
             <>
-              <div className="flex gap-2">
-                <div className="w-1/3">
+              <div className="flex gap-2 ">
+                <div className="w-1/3 z-[99]">
                   <ProfileImage profileUrl={user.profileUrl} />
                 </div>
 
@@ -123,30 +111,35 @@ export default function Page({ params }: { params: Promise<Params> }) {
               </div>
 
               {user.bio ? <Bio bio={user.bio} /> : null}
+
               <div className="border-t-2 light-text border-[#f2f0e4]">
                 <h1 className="font-['spring'] light-text border-b w-fit">
                   POSTS:
                 </h1>
-                <div className="flex flex-col gap-2 py-2">
-                  {loading ? (
-                    <p>Loading...</p>
-                  ) : filteredPosts.length > 0 ? (
+                <div
+                  className={`${filteredPosts.length > 0 ? "columns-2" : ""} space-y-3 py-2`}
+                >
+                  {loading ? null : filteredPosts.length > 0 ? (
                     filteredPosts.map((post, index) => (
                       <PostCard
                         key={post._id}
                         image={post.image}
                         text={post.text}
                         tags={post.tags}
-                        currentUserId={id}
+                        currentUserId={user._id}
                         postId={post._id}
                         authorId={post.userId}
-                        username={post.author.username}
-                        profileUrl={post.author.profileUrl}
+                        username={post.author?.username || "Unknown User"}
+                        profileUrl={
+                          post.author?.profileUrl || "/default-profile.png"
+                        }
                         likes={post.likes}
                       />
                     ))
                   ) : (
-                    <p>No posts found for this user.</p>
+                    <p className="font-['spring'] p-5 opacity-70 font-semibold text-center">
+                      No posts found for this user.
+                    </p>
                   )}
                 </div>
               </div>

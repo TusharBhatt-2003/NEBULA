@@ -119,7 +119,9 @@ export default function UserProfile() {
 
             <div className="border-t-2 light-text border-[#f2f0e4]">
               <h1 className="font-['spring'] light-text w-fit">POSTS:</h1>
-              <div className="columns-2 space-y-3 overflow-auto flex-col gap-2 py-2">
+              <div
+                className={`${filteredPosts.length > 0 ? "columns-2" : ""} space-y-3 py-2`}
+              >
                 {loading ? null : filteredPosts.length > 0 ? (
                   filteredPosts.map((post) => (
                     <PostCard
@@ -138,7 +140,9 @@ export default function UserProfile() {
                     />
                   ))
                 ) : (
-                  <p>No posts found for this user.</p>
+                  <p className="font-['spring'] p-5 opacity-70 font-semibold text-center">
+                    No posts found for this user.
+                  </p>
                 )}
               </div>
             </div>
@@ -146,16 +150,6 @@ export default function UserProfile() {
         ) : (
           <Skeleton />
         )}
-
-        {/* <>
-          {isProfileIncomplete && (
-            <ConfirmationModal
-              sentence="Your profile is incomplete. Please update your information."
-              onConfirm={() => router.push("/update-profile")}
-              onCancel={() => setModalOpen(false)}
-            />
-          )}
-        </> */}
       </div>
     </div>
   );
