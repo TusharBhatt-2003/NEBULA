@@ -1,19 +1,11 @@
 import { NextResponse } from "next/server";
 import Post from "@/models/postsModel";
-import User from "@/models/userModel"; // Import the User model
 import { connect } from "@/dbConfig/dbConfig";
 
-interface Author {
-  username: string;
-  profileUrl?: string; // Mark as optional if it's not always present
-}
-
-// GET only followed tag posts
 export async function GET(req: Request) {
   try {
-    await connect(); // Ensure MongoDB connection
+    await connect();
 
-    // Get search params from the request URL
     const url = new URL(req.url);
     const tagsParam = url.searchParams.get("tags");
 
@@ -24,33 +16,48 @@ export async function GET(req: Request) {
       );
     }
 
-    const tagsArray = tagsParam.split(",");
+    const tagsArray = tagsParam
+      .split(",")
+      .map((tag) => tag.trim().toLowerCase()); // Normalize tags
 
-    const posts = await Post.find({ tags: { $in: tagsArray } })
-      .sort({ createdAt: -1 })
-      .lean(); // Use `.lean()` for better performance
+    const postsWithAuthors = await Post.aggregate([
+      { $match: { tags: { $in: tagsArray } } },
+      { $sort: { createdAt: -1 } },
+      {
+        $lookup: {
+          from: "users", // Must match your MongoDB collection name exactly
+          localField: "userId",
+          foreignField: "_id",
+          as: "author",
+        },
+      },
+      {
+        $unwind: {
+          path: "$author",
+          preserveNullAndEmptyArrays: true, // Keep posts even if author not found
+        },
+      },
+      {
+        $project: {
+          text: 1,
+          image: 1,
+          tags: 1,
+          createdAt: 1,
+          updatedAt: 1,
+          "author.username": 1,
+          "author.profileUrl": 1,
+        },
+      },
+    ]);
 
-    if (posts.length === 0) {
+    if (postsWithAuthors.length === 0) {
       return NextResponse.json(
         { message: "No posts found for the given tags." },
         { status: 404 },
       );
     }
 
-    // Fetch author details for each post
-    const postWithAuthors = await Promise.all(
-      posts.map(async (post) => {
-        const author = (await User.findById(post.userId)
-          .select("username profileUrl")
-          .lean()) as Author | null;
-        return {
-          ...post,
-          author: author || null, // Ensure proper typing
-        };
-      }),
-    );
-
-    return NextResponse.json(postWithAuthors, { status: 200 });
+    return NextResponse.json(postsWithAuthors, { status: 200 });
   } catch (error) {
     console.error("Error fetching posts:", error);
     return NextResponse.json(
