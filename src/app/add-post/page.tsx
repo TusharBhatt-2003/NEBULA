@@ -109,15 +109,14 @@ export default function AddPost() {
     });
   };
 
-  const handleTagKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && tagInput.trim() !== "") {
-      // Add the tag when the user presses Enter
-      addTag(tagInput.trim());
-    } else if (e.key === " " && tagInput.trim() !== "") {
-      // Add the tag when the user presses Space (if there's text in the input)
-      addTag(tagInput.trim());
+  const handleTagKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const trimmedInput = tagInput.trim();
+
+    if ((e.key === "Enter" || e.key === " ") && trimmedInput !== "") {
+      e.preventDefault(); // Prevent default space or enter behavior
+      addTag(trimmedInput);
     } else if (e.key === "Backspace" && tagInput === "") {
-      // Optional: If backspace is pressed and input is empty, remove the last tag
+      e.preventDefault(); // Prevent navigating back on mobile browsers
       const lastTag = post.tags[post.tags.length - 1];
       if (lastTag) removeTag(lastTag);
     }
