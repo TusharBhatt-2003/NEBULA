@@ -13,7 +13,7 @@ const TagLink: React.FC<TagLinkProps> = ({ tag, index }) => {
       href={`/tag/${tag}`}
       className="flex justify-center items-center"
     >
-      <p className="light-bg text-black font-bold px-2 pb-1 rounded-xl text-sm">
+      <p className="light-bg z-[99] text-black font-bold px-2 pb-1 rounded-xl text-sm">
         {tag}
       </p>
     </Link>
