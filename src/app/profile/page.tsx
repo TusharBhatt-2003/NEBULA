@@ -109,7 +109,10 @@ export default function UserProfile() {
 
             <div className="flex justify-between">
               <LogoutBtn />
-              <Button>
+              <Button
+                variant={!isProfileIncomplete ? "outline" : "default"}
+                className={isProfileIncomplete ? "animate-pulse" : ""}
+              >
                 <Link href="/update-profile">Update Profile</Link>
               </Button>
             </div>
@@ -144,7 +147,7 @@ export default function UserProfile() {
           <Skeleton />
         )}
 
-        <>
+        {/* <>
           {isProfileIncomplete && (
             <ConfirmationModal
               sentence="Your profile is incomplete. Please update your information."
@@ -152,7 +155,7 @@ export default function UserProfile() {
               onCancel={() => setModalOpen(false)}
             />
           )}
-        </>
+        </> */}
       </div>
     </div>
   );
