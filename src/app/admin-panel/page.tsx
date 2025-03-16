@@ -90,6 +90,7 @@ export default function Page() {
     setIsModalOpen(false);
     setSelectedUserId(null);
   };
+  console.log(users);
 
   return (
     <div className="relative overflow-hidden pb-24 px-4">
@@ -97,7 +98,7 @@ export default function Page() {
         <h2 className="text-2xl p-2 font-bold">All Users:</h2>
       </div>
 
-      <div className="text-lg space-y-2 my-5 overflow-hidden">
+      <div className="text-lg flex flex-col-reverse space-y-2 my-5 overflow-hidden">
         {loading ? (
           <Loading />
         ) : users.length > 0 ? (
