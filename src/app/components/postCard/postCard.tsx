@@ -144,7 +144,7 @@ export default function PostCard({
     <>
       {loading && postId ? (
         <motion.div
-          whileTap={{ scale: 0.8 }}
+          whileTap={{ scale: 0.95 }}
           initial={{ opacity: 1, y: 0, scale: 0.5 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -20 }}
@@ -203,9 +203,6 @@ export default function PostCard({
               >
                 <motion.button
                   onClick={handleLike}
-                  whileTap={{ scale: 0.8 }}
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 5 }}
                   className="flex bg-black opacity-70 rounded-xl px-4 py-2 items-center"
                 >
                   <motion.svg
@@ -213,7 +210,7 @@ export default function PostCard({
                     viewBox="0 0 20 20"
                     fill={isLiked ? "red" : "gray"}
                     className="w-5 h-5"
-                    animate={{ scale: isLiked ? [1, 1.4, 1] : 1 }}
+                    animate={{ scale: isLiked ? [0, 3, 1.2] : 1 }}
                     transition={{ duration: 0.3, ease: "easeOut" }}
                   >
                     <path

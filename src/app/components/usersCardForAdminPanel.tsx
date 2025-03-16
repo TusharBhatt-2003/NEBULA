@@ -13,9 +13,14 @@ interface UserProps {
     fullName: string;
   };
   onDelete: (userId: string) => void;
+  postCount: number;
 }
 
-const UsersCardForAdminPanel: React.FC<UserProps> = ({ user, onDelete }) => {
+const UsersCardForAdminPanel: React.FC<UserProps> = ({
+  user,
+  postCount,
+  onDelete,
+}) => {
   let backgroundColor = "transparent";
   let textColor = "";
   let borderColor = "#f2f0e4";
@@ -52,6 +57,7 @@ const UsersCardForAdminPanel: React.FC<UserProps> = ({ user, onDelete }) => {
           <p className="font-bold text-sm">{user.fullName}</p>
         </div>
       </Link>
+      <p className="text-sm text-base-content/50">Posts: {postCount}</p>
       <button
         onClick={() => onDelete(user._id)}
         className="m-2 bg-white/50 p-1 rounded-xl "

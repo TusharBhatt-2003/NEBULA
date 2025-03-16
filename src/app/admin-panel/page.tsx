@@ -18,28 +18,45 @@ export default function Page() {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+  const [userPostCounts, setUserPostCounts] = useState<Record<string, number>>(
+    {},
+  );
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchUsersAndPosts = async () => {
       try {
-        const response = await fetch("/api/users");
-        const data = await response.json();
-        if (response.ok) {
-          setUsers(data);
+        const [usersRes, postsRes] = await Promise.all([
+          fetch("/api/users"),
+          fetch("/api/posts"),
+        ]);
+
+        const usersData = await usersRes.json();
+        const postsData = await postsRes.json();
+
+        if (usersRes.ok && postsRes.ok) {
+          setUsers(usersData);
+
+          // Count posts per user
+          const postCounts: Record<string, number> = {};
+          postsData.forEach((post: any) => {
+            const userId = post.userId; // adjust if your post object structure is different
+            postCounts[userId] = (postCounts[userId] || 0) + 1;
+          });
+
+          setUserPostCounts(postCounts);
         } else {
-          console.error(data.message || "Error fetching users.");
+          console.error("Error fetching users or posts.");
         }
       } catch (error) {
-        console.error("Error fetching users:", error);
+        console.error("Error fetching data:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchUsers();
+    fetchUsersAndPosts();
   }, []);
 
-  // Function to delete a user
   const deleteUser = async () => {
     if (!selectedUserId) return;
     try {
@@ -51,8 +68,10 @@ export default function Page() {
 
       const data = await response.json();
       if (response.ok) {
-        setUsers(users.filter((user) => user._id !== selectedUserId));
-        console.log("User deleted successfully");
+        setUsers((prev) => prev.filter((user) => user._id !== selectedUserId));
+        const updatedPostCounts = { ...userPostCounts };
+        delete updatedPostCounts[selectedUserId];
+        setUserPostCounts(updatedPostCounts);
       } else {
         console.error(data.error || "Error deleting user");
       }
@@ -62,13 +81,11 @@ export default function Page() {
     closeModal();
   };
 
-  // Open modal with user ID
   const openModal = (userId: string) => {
     setSelectedUserId(userId);
     setIsModalOpen(true);
   };
 
-  // Close modal
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedUserId(null);
@@ -76,7 +93,7 @@ export default function Page() {
 
   return (
     <div className="relative overflow-hidden pb-24 px-4">
-      <div className="flex z-10  light-text justify-between items-center">
+      <div className="flex z-10 light-text justify-between items-center">
         <h2 className="text-2xl p-2 font-bold">All Users:</h2>
       </div>
 
@@ -88,6 +105,7 @@ export default function Page() {
             <UsersCardForAdminPanel
               key={user._id}
               user={user}
+              postCount={userPostCounts[user._id] || 0}
               onDelete={openModal}
             />
           ))
@@ -96,7 +114,6 @@ export default function Page() {
         )}
       </div>
 
-      {/* Reusable Confirmation Modal */}
       {isModalOpen && (
         <ConfirmationModal
           sentence="Are you sure you want to delete this user?"
