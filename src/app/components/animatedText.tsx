@@ -5,7 +5,7 @@ import GrainContainer from "./grainContainer";
 const AnimatedText = ({ text }: { text: string }) => {
   return (
     <GrainContainer>
-      <h1 className="overflow-hidden m-5 mb-0 flex justify-center relative z-10 light-text font-semibold border-none rounded-3xl text-center font-['spring'] text-light text-lg">
+      <h1 className="overflow-hidden p-2 flex justify-center relative z-10 light-text font-semibold border-none rounded-3xl text-center font-['spring'] text-light text-lg">
         {text.split("  ").map((letter, index) => (
           <motion.div
             key={index}
