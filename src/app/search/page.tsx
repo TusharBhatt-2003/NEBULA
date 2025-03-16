@@ -8,6 +8,7 @@ import Link from "next/link";
 import StarField from "../components/starField";
 import Loading from "../components/loading";
 import TagLink from "../components/tag";
+import { Search } from "lucide-react";
 
 interface User {
   _id: string;
@@ -103,13 +104,16 @@ export default function SearchPage() {
           <p className="text-4xl mb-5 text-center text-transparent bg-clip-text animate-gradient-para z-50 font-['LogoFont'] font-semibold">
             SEARCH
           </p>
-          <Input
-            className=""
-            type="text"
-            placeholder="Search users and posts..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[#f2f0e4]/70 w-5 h-5 pointer-events-none" />
+            <Input
+              className="pl-10" // padding left for the icon
+              type="text"
+              placeholder="Search users and posts..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+          </div>
         </div>
         {loading && <Loading />}
 
@@ -118,9 +122,9 @@ export default function SearchPage() {
           <div className="mt-4">
             {users.length > 0 ? (
               <ul className="space-y-3">
-                <h2 className="text-lg font-semibold font-['spring']">
+                {/* <h2 className="text-lg font-semibold font-['spring']">
                   Users :
-                </h2>
+                </h2> */}
                 {users.map((user) => (
                   <Link
                     href={`/profile/${user._id}`}
@@ -161,9 +165,9 @@ export default function SearchPage() {
           <div className="mt-4">
             {topPosts.length > 0 ? (
               <div className="columns-2 space-y-5">
-                <h2 className="text-lg  font-semibold font-['spring'] mb-2">
+                {/* <h2 className="text-lg  font-semibold font-['spring'] mb-2">
                   Top 10 Posts:
-                </h2>
+                </h2> */}
                 {topPosts.map((post) => (
                   <PostCard
                     key={post._id}
