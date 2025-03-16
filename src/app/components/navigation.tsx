@@ -54,7 +54,7 @@ export default function Navigation() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="fixed z-[99] p-2 py-2 lg:hidden bg-white/10 backdrop-blur-sm bottom-2 left-2 right-2 rounded-3xl flex justify-between items-center overflow-hidden"
+      className="overflow-hidden mb-0 border-[#F2F0E4]/30 z-10 backdrop-blur-[5px] p-3 light-text border rounded-3xl fixed py-2 lg:hidden bg-white/5 bottom-2 left-2 right-2 flex justify-between items-center"
     >
       <div className="grain"></div>
 
