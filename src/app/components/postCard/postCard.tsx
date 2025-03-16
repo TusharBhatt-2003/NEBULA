@@ -60,35 +60,6 @@ export default function PostCard({
   );
   const [showModal, setShowModal] = useState<boolean>(false);
   const pathname = usePathname();
-
-  // useEffect(() => {
-  //   const fetchPost = async () => {
-  //     try {
-  //       const response = await fetch("/api/posts");
-  //       if (!response.ok) throw new Error("Failed to fetch posts");
-
-  //       const data: Post[] = await response.json();
-  //       const foundPost = data.find((p) => p._id === postId);
-  //       if (foundPost) {
-  //         setPost(foundPost);
-
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching post:", error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchPost();
-  // }, [postId, currentUserId]);
-
-  // useEffect(() => {
-  //   if (likes) {
-  //     setIsLiked(likes?.some((like) => like._id === currentUserId));
-  //   }
-  // }, [likes, currentUserId]);
-
   useEffect(() => {
     if (!authorId) return;
 
@@ -173,10 +144,16 @@ export default function PostCard({
     <>
       {loading && postId ? (
         <motion.div
-          initial={{ opacity: 1, y: 20, scale: 0.5 }}
+          whileTap={{ scale: 0.8 }}
+          initial={{ opacity: 1, y: 0, scale: 0.5 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
+          transition={{
+            duration: 0.3,
+            ease: "easeIn",
+            type: "spring",
+            damping: 8,
+          }}
           className="overflow-hidden flex flex-col justify-center relative border-[#F2F0E4]/30 z-10 w-full backdrop-blur-[2px] p-3 light-text border rounded-3xl"
         >
           <div className="grain"></div>
@@ -228,7 +205,7 @@ export default function PostCard({
                   onClick={handleLike}
                   whileTap={{ scale: 0.8 }}
                   whileHover={{ scale: 1.1 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 5 }}
                   className="flex bg-black opacity-70 rounded-xl px-4 py-2 items-center"
                 >
                   <motion.svg

@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { motion } from "motion/react";
 
 interface TagLinkProps {
   tag: string;
@@ -13,9 +14,21 @@ const TagLink: React.FC<TagLinkProps> = ({ tag, index }) => {
       href={`/tag/${tag}`}
       className="flex justify-center items-center"
     >
-      <p className="light-bg lowercase z-[99] text-black font-bold px-2 pb-1 rounded-xl text-sm">
+      <motion.p
+        whileTap={{ scale: 0.8 }}
+        initial={{ opacity: 1, y: 0, scale: 0.5 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{
+          duration: 0.3,
+          ease: "easeIn",
+          type: "spring",
+          damping: 10,
+        }}
+        className="light-bg lowercase z-[99] text-black font-bold px-2 pb-1 rounded-xl text-sm"
+      >
         {tag}
-      </p>
+      </motion.p>
     </Link>
   );
 };
