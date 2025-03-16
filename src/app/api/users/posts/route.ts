@@ -23,7 +23,9 @@ export async function POST(request: NextRequest) {
       userId,
       text: text.trim(),
       image: image || null,
-      tags: tags?.length ? tags.map((tag: string) => tag.trim()) : [],
+      tags: tags?.length
+        ? tags.map((tag: string) => tag.trim().toLowerCase())
+        : [],
     });
 
     const savedPost = await newPost.save();
