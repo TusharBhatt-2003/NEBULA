@@ -97,7 +97,7 @@ export default function Feed() {
                   likes={post.likes}
                 />
               ))
-            : Array.from({ length: 5 }).map((_, index) => (
+            : Array.from({ length: 6 }).map((_, index) => (
                 <Skeleton key={index} />
               ))}
 
