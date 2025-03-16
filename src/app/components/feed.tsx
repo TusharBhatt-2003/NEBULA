@@ -87,18 +87,19 @@ export default function Feed() {
                 <Skeleton key={index} />
               ))
             : posts.map((post) => (
-                <PostCard
-                  key={post._id}
-                  image={post.image}
-                  text={post.text}
-                  tags={post.tags}
-                  currentUserId={currentUserId || ""}
-                  postId={post._id}
-                  authorId={post.userId}
-                  username={post.author.username}
-                  profileUrl={post.author.profileUrl}
-                  likes={post.likes}
-                />
+                <div className="w-full" key={post._id}>
+                  <PostCard
+                    image={post.image}
+                    text={post.text}
+                    tags={post.tags}
+                    currentUserId={currentUserId || ""}
+                    postId={post._id}
+                    authorId={post.userId}
+                    username={post.author.username}
+                    profileUrl={post.author.profileUrl}
+                    likes={post.likes}
+                  />
+                </div>
               ))}
 
           {showPopup && (
