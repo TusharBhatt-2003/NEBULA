@@ -83,10 +83,11 @@ export default function ProfilePictureUpdate({
         <div className="relative mt-4 w-full">
           <div className="absolute top-0 left-0 bg-black border border-[#f2f0e4] h-2 w-full rounded-full z-[1]">
             <div
-              className="absolute top-0 left-0 bg-[#f2f0e4] h-2 rounded-full z-[1]"
+              className={`absolute top-0 left-0 h-2 rounded-full z-[1] transition-all duration-300 ease-in-out ${
+                progress === 100 ? "bg-green-500" : "bg-[#f2f0e4]/60"
+              }`}
               style={{
                 width: `${progress}%`,
-                transition: "width 0.3s ease-in-out",
               }}
             ></div>
           </div>
