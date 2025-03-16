@@ -46,7 +46,7 @@ const WhatIsNebulaPage = () => {
               start: "top 80%",
               toggleActions: "play none none reverse",
             },
-            ease: "power2.out",
+            ease: "bounce",
           },
         );
       });
