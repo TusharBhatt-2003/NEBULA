@@ -160,7 +160,7 @@ const WhatIsNebulaPage = () => {
           className="mt-10"
         >
           <a href="/search">
-            <Button className="px-6 font-['spring'] py-3 text-lg rounded-full shadow-lg hover:shadow-xl transition">
+            <Button className="px-6 font-['spring'] py-3 text-lg rounded-full shadow-lg hover:shadow-xl transition mb-10">
               Explore Nebula
             </Button>
           </a>
@@ -176,19 +176,22 @@ const WhatIsNebulaPage = () => {
               ref={(el) => {
                 if (el) cardsRef.current[index] = el;
               }}
-              className="overflow-hidden relative p-5 border-[#F2F0E4]/30 z-10 w-full backdrop-blur-[2px] light-text border rounded-3xl flex flex-col items-center text-center"
+              className="overflow-hidden text-light relative p-5 border-[#F2F0E4]/30 z-10 w-full backdrop-blur-[2px] light-text border rounded-3xl flex justify-between items-center"
             >
               <div className="grain" />
-              <h3 className="text-xl font-['spring'] font-semibold text-light mb-2 mt-4">
-                {feature.title}
-              </h3>
+              <div className="w-2/3">
+                <h3 className="text-xl font-['spring'] font-semibold mb-2 mt-4">
+                  {feature.title}
+                </h3>
+                <p className="">{feature.description}</p>
+              </div>
               <DotLottieReact
                 src={feature.lottieUrl}
                 loop
+                className="w-1/3"
                 autoplay
                 style={{ width: "120px", height: "120px" }}
               />
-              <p className="text-light font-semibold">{feature.description}</p>
             </div>
           ))}
         </div>
