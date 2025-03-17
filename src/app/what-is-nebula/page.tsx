@@ -6,8 +6,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import StarField from "../components/starField";
 import { Button } from "../components/ui/button";
-import Link from "next/link";
 import LightSpeedAnimation from "../components/lightSpeedAnimation";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,18 +20,23 @@ const WhatIsNebulaPage = () => {
     {
       title: "Post Freely",
       description: "Share images, GIFs, and text. Your creativity, your way.",
+      lottieUrl:
+        "https://lottie.host/dd5dc1db-60f0-4cfd-95e3-24c96ab2b484/5ev3LPOUkW.lottie",
     },
     {
       title: "Follow Tags",
       description:
         "Stay focused on content, not people. Follow what inspires you.",
+      lottieUrl:
+        "https://lottie.host/1e7875d8-c278-40f2-b210-2217f8b1153e/v6UgKFyLls.lottie",
     },
     {
       title: "Cosmic UI",
       description: "Clean, space-themed design with a focus on your content.",
+      lottieUrl:
+        "https://lottie.host/2da51f6f-9ff1-465a-8bfa-53f37a1f3069/WUVQNCWobg.lottie",
     },
   ];
-
   useEffect(() => {
     if (cardsRef.current.length > 0) {
       cardsRef.current.forEach((card, i) => {
@@ -171,12 +176,18 @@ const WhatIsNebulaPage = () => {
               ref={(el) => {
                 if (el) cardsRef.current[index] = el;
               }}
-              className="overflow-hidden relative p-5 border-[#F2F0E4]/30 z-10 w-full backdrop-blur-[2px] light-text border rounded-3xl"
+              className="overflow-hidden relative p-5 border-[#F2F0E4]/30 z-10 w-full backdrop-blur-[2px] light-text border rounded-3xl flex flex-col items-center text-center"
             >
               <div className="grain" />
-              <h3 className="text-xl font-['spring'] font-semibold text-light mb-2">
+              <h3 className="text-xl font-['spring'] font-semibold text-light mb-2 mt-4">
                 {feature.title}
               </h3>
+              <DotLottieReact
+                src={feature.lottieUrl}
+                loop
+                autoplay
+                style={{ width: "120px", height: "120px" }}
+              />
               <p className="text-light font-semibold">{feature.description}</p>
             </div>
           ))}
