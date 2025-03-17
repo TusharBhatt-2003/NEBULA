@@ -13,6 +13,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 const WhatIsNebulaPage = () => {
   const cardsRef = useRef<HTMLDivElement[]>([]);
+  const manifestoRef = useRef<HTMLDivElement | null>(null);
+  const disclaimerRef = useRef<HTMLDivElement | null>(null);
 
   const features = [
     {
@@ -40,16 +42,54 @@ const WhatIsNebulaPage = () => {
             opacity: 1,
             y: 0,
             duration: 1,
-            delay: i * 0.2,
+            delay: i * 0.5,
             scrollTrigger: {
               trigger: card,
-              start: "top 80%",
+              start: "top 90%",
               toggleActions: "play none none reverse",
             },
             ease: "bounce",
           },
         );
       });
+    }
+
+    if (manifestoRef.current) {
+      gsap.fromTo(
+        manifestoRef.current,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          delay: 0.5,
+          duration: 1,
+          scrollTrigger: {
+            trigger: manifestoRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+          ease: "bounce",
+        },
+      );
+    }
+
+    if (disclaimerRef.current) {
+      gsap.fromTo(
+        disclaimerRef.current,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          delay: 0.5,
+          scrollTrigger: {
+            trigger: disclaimerRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+          ease: "bounce",
+        },
+      );
     }
   }, []);
 
@@ -61,7 +101,7 @@ const WhatIsNebulaPage = () => {
       <LightSpeedAnimation />
 
       {/* Header Section */}
-      <div className="relative z-10 flex flex-col items-center justify-center text-center px-6 pt-24 pb-12">
+      <div className="relative z-10 flex flex-col items-center justify-center text-center px-6 pt-24">
         <motion.h1
           initial={{ opacity: 1, y: -10, scale: 0 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -122,8 +162,8 @@ const WhatIsNebulaPage = () => {
         </motion.div>
       </div>
 
-      {/* Features Section with GSAP Scroll Animation */}
-      <div className="relative z-10 px-6 pb-24">
+      {/* Features Section */}
+      <div className="relative z-10 p-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {features.map((feature, index) => (
             <div
@@ -142,8 +182,9 @@ const WhatIsNebulaPage = () => {
           ))}
         </div>
       </div>
-      {/* Manifesto Section */}
-      <div className="relative z-10 px-6 pb-32">
+
+      {/* Manifesto Section with Scroll Animation */}
+      <div className="relative z-10 p-6" ref={manifestoRef}>
         <div className="max-w-4xl mx-auto border border-[#F2F0E4]/30 backdrop-blur-[2px] rounded-3xl p-6 md:p-10">
           <div className="grain" />
           <h2 className="text-2xl md:text-3xl font-['spring'] font-bold text-light mb-4">
@@ -188,14 +229,16 @@ const WhatIsNebulaPage = () => {
           </div>
         </div>
       </div>
-      <div className="relative text-light z-10 px-6 pb-32">
-        {/* Disclaimer */}
-        <div className=" max-w-4xl mx-auto border border-[#F2F0E4]/30 backdrop-blur-[2px] rounded-3xl p-6 md:p-10">
+
+      {/* Disclaimer Section with Scroll Animation */}
+      <div className="relative text-light z-10 px-6 pb-32" ref={disclaimerRef}>
+        <div className="max-w-4xl mx-auto border border-[#F2F0E4]/30 backdrop-blur-[2px] rounded-3xl p-6 md:p-10">
           <div className="grain" />
+          <p className="font-['spring'] pb-2 text-xl">Disclaimer :</p>
           <p>
-            Disclaimer: Nebula is a solo-built, experimental project crafted for
-            learning and creative expression. It’s not intended to be a
-            commercial brand or the next big platform.
+            Nebula is a solo-built, experimental project crafted for learning
+            and creative expression. It’s not intended to be a commercial brand
+            or the next big platform.
           </p>
           <p className="mt-2">
             Think of it as a digital playground—made with curiosity, passion,
