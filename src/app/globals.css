@@ -216,20 +216,33 @@ body {
 }
 
 .animate-gradient-bg {
+  position: relative;
+  border-radius: 1rem;
+  z-index: 0;
+}
+
+.animate-gradient-bg::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
   background: linear-gradient(
     45deg,
-    #9e130e79,
-    #0b8e6077,
-    #30568c78,
-    #f9ce797a,
-    #98169648,
-    #63943845
+    #9e120e,
+    #0b8e60,
+    #30568c,
+    #f9ce79,
+    #981696,
+    #639438
   );
   background-size: 200% 200%;
-
   animation: gradient-animation 8s infinite linear;
-  border-radius: 1rem; /* Optional: for a rounded effect */
-  transition: background-color 0.2s ease;
+  filter: blur(15px);
+  z-index: -1; /* Push behind content */
+  transition: ease-in-out;
 }
 
 @keyframes gradient-animation {
