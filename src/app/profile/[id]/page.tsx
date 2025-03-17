@@ -127,12 +127,10 @@ export default function Page({ params }: { params: Promise<Params> }) {
 
               {user.bio ? <Bio bio={user.bio} /> : null}
 
-              <div className="border-t-2 light-text border-[#f2f0e4]">
-                <h1 className="font-['spring'] light-text border-b w-fit">
-                  POSTS:
-                </h1>
+              <div className="border-t light-text border-[#F2F0E4]/50 py-5">
+                {/* <h1 className="font-['spring'] light-text w-fit">POSTS:</h1> */}
                 <div
-                  className={`${filteredPosts.length > 0 ? "columns-2" : ""} space-y-3 py-2`}
+                  className={`${filteredPosts.length > 0 ? "columns-3" : ""} space-y-3`}
                 >
                   {loading ? null : filteredPosts.length > 0 ? (
                     filteredPosts.map((post) => (

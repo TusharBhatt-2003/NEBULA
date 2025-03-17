@@ -94,7 +94,7 @@ const WhatIsNebulaPage = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-black text-light overflow-hidden">
+    <div className="relative min-h-screen text-light overflow-hidden">
       <div className="fixed">
         <StarField />
       </div>

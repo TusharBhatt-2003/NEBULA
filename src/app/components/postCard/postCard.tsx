@@ -114,7 +114,7 @@ export default function PostCard({
     }
   };
 
-  if (loading) return <Skeleton />;
+  if (loading) return <Skeleton authorId={authorId} />;
 
   return (
     <>
@@ -142,7 +142,7 @@ export default function PostCard({
               <img
                 src={profileUrl}
                 alt={username}
-                className="w-8 h-8 rounded-xl"
+                className="w-8 h-8 rounded-full aspect-square"
               />
             ) : (
               <div className="w-8 h-8 rounded-full light-bg opacity-20"></div>
@@ -163,7 +163,7 @@ export default function PostCard({
         </Link>
 
         {!hideAuthorInfo && (
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-end">
             {!isTagPage && (
               <div className="flex flex-wrap w-3/4 gap-2">
                 {tags.map((tag, index) => (
@@ -182,7 +182,7 @@ export default function PostCard({
             >
               <motion.button
                 onClick={handleLike}
-                className="flex bg-black opacity-70 rounded-3xl px-4 py-2 items-center"
+                className="flex bg-black h-fit opacity-70 rounded-3xl px-4 py-2 items-center"
               >
                 <motion.svg
                   xmlns="http://www.w3.org/2000/svg"
