@@ -5,14 +5,15 @@ import { motion } from "motion/react";
 interface TagLinkProps {
   tag: string;
   index: number;
+  className?: string; // Accept extra className as prop
 }
 
-const TagLink: React.FC<TagLinkProps> = ({ tag, index }) => {
+const TagLink: React.FC<TagLinkProps> = ({ tag, index, className = "" }) => {
   return (
     <Link
       key={index}
       href={`/tag/${tag}`}
-      className="flex justify-center items-center"
+      className={`flex justify-center  items-center ${className}`}
     >
       <motion.p
         whileTap={{ scale: 0.8 }}
@@ -25,7 +26,7 @@ const TagLink: React.FC<TagLinkProps> = ({ tag, index }) => {
           type: "spring",
           damping: 10,
         }}
-        className="light-bg lowercase z-[99] text-black font-bold py-1 px-2 text-sm rounded-xl"
+        className={`light-bg z-[99] text-black font-bold py-1 px-2 rounded-3xl ${className}`}
       >
         {tag}
       </motion.p>

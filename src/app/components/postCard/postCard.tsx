@@ -142,7 +142,7 @@ export default function PostCard({
 
   return (
     <>
-      {loading && postId ? (
+      {!loading && postId ? (
         <motion.div
           whileTap={{ scale: 0.95 }}
           initial={{ opacity: 1, y: 0, scale: 0.5 }}
@@ -193,7 +193,12 @@ export default function PostCard({
               {!isTagPage && (
                 <div className="flex flex-wrap w-3/4 gap-2">
                   {tags.map((tag, index) => (
-                    <TagLink key={index} tag={tag} index={index} />
+                    <TagLink
+                      className="text-xs opacity-50"
+                      key={index}
+                      tag={tag}
+                      index={index}
+                    />
                   ))}
                 </div>
               )}
