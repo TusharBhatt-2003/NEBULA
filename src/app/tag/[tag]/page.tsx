@@ -7,6 +7,7 @@ import useUser from "@/app/hooks/useUser";
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Loading from "@/app/components/loading";
+import AnimatedText from "@/app/components/animatedText";
 
 interface Post {
   _id: string;
@@ -99,7 +100,7 @@ export default function TagPage() {
       </div>
       <div className="flex gap-5 flex-col justify-center container mx-auto p-5">
         {loading ? (
-          <div className="animate-pulse space-y-2">
+          <div className="animate-pulse opacity-50 space-y-2">
             <div className="flex justify-between items-center">
               <h1 className="text-4xl font-['spring']  light-bg rounded-xl w-fit p-2">
                 tag
@@ -133,7 +134,10 @@ export default function TagPage() {
             <p className="text-xl font-semibold">{posts.length} Posts</p>
           </div>
         )}
-        <div className="columns-2 space-y-2">
+        <AnimatedText
+          text={`Explore all posts under the ${tag} tag right here.`}
+        />
+        <div className="columns-2 space-y-5">
           {loading ? (
             Array.from({ length: 6 }).map((_, index) => (
               <Skeleton key={index} />
