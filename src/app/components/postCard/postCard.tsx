@@ -127,7 +127,7 @@ export default function PostCard({
           duration: 0.3,
           ease: "easeIn",
           type: "spring",
-          damping: 8,
+          damping: 10,
         }}
         className="overflow-hidden flex flex-col justify-center relative border-[#F2F0E4]/30 z-10 w-full backdrop-blur-[2px] p-3 light-text border rounded-3xl"
       >
