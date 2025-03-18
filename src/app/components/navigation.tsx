@@ -50,7 +50,7 @@ export default function Navigation() {
         type: "spring",
         damping: 15,
       }}
-      className="overflow-hidden mb-0 border-[#F2F0E4]/30 z-10 backdrop-blur-[10px] p-3 light-text border rounded-3xl fixed py-2 lg:hidden bg-white/5 bottom-3 left-3 right-3 flex justify-between items-center"
+      className="overflow-hidden mb-0 border-[#F2F0E4]/30 z-[999] backdrop-blur-[10px] p-3 light-text border rounded-3xl fixed py-2 lg:hidden bg-white/5 bottom-3 left-3 right-3 flex justify-between items-center"
     >
       <div className="grain"></div>
 

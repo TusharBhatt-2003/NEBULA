@@ -67,18 +67,19 @@ export default function AnimatedBlob({ imageUrl }: BlobProps) {
   return (
     <motion.div
       ref={blobRef}
-      className="fixed top-0 right-0 bottom-0 left-0 w-[200px] h-[200px] lg:w-[400px] lg:h-[400px] z-0 blur-3xl opacity-60 rounded-full pointer-events-none"
+      className="fixed top-0 right-0 bottom-0 left-0 w-[200px] h-[200px] blur-3xl z-0  opacity-60 rounded-full pointer-events-none"
       style={gradientStyle}
       animate={{
         scale: [1, 1.05, 1],
-        skewX: [0, 20, -20, 0],
-        skewY: [0, -15, 15, 0],
+        skewX: [0, 50, -50, 0],
+        skewY: [0, -20, 20, 0],
       }}
       transition={{
         duration: 6,
         ease: "easeInOut",
         repeat: Infinity,
         repeatType: "loop",
+        damping: 5,
       }}
     />
   );
