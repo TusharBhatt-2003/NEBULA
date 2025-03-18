@@ -148,7 +148,7 @@ export default function PostCard({
           type: "spring",
           damping: 20,
         }}
-        className={`overflow-hidden flex flex-col justify-center relative border-[#F2F0E4]/30 z-10 w-full backdrop-blur-[2px] p-3 light-text border rounded-3xl`}
+        className={`overflow-hidden flex flex-col justify-center relative border-[#F2F0E4]/30 z-10 w-full backdrop-blur-[5px] p-3 light-text border rounded-3xl`}
         style={{
           backgroundColor: dominantColor
             ? getRGBAColor(dominantColor, 0.1)
@@ -187,13 +187,26 @@ export default function PostCard({
                 type: "spring",
                 damping: 15,
               }}
-              whileTap={{ scale: 0.95 }}
+              whileTap={{ scale: 0.9 }}
               src={image}
               alt="Post Image"
               className="w-full rounded-2xl mb-2"
             />
           )}
-          <p>{postText}</p>
+          <motion.p
+            initial={{ opacity: 1, y: 0, scale: 0.5 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{
+              duration: 0.5,
+              ease: "easeIn",
+              type: "spring",
+              damping: 15,
+            }}
+            whileTap={{ scale: 0.9 }}
+          >
+            {postText}
+          </motion.p>
         </Link>
 
         {!hideAuthorInfo && (
