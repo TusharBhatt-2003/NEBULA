@@ -28,10 +28,10 @@ const LightSpeedAnimation = () => {
 
       ctx.fillStyle = "white";
       stars.forEach((star) => {
-        star.z -= 20;
+        star.z -= 5;
         if (star.z <= 0) star.z = width;
 
-        const k = 128.0 / star.z;
+        const k = 100.0 / star.z;
         const sx = star.x * k + width / 2;
         const sy = star.y * k + height / 2;
 
@@ -56,7 +56,7 @@ const LightSpeedAnimation = () => {
     // Fade out the animation after 2 seconds
     gsap.to(canvas, {
       opacity: 0,
-      duration: 10,
+      duration: 5,
       delay: 2,
       onComplete: () => {
         cancelAnimationFrame(animationFrameId);

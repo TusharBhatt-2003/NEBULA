@@ -3,6 +3,7 @@ import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import { connect } from "@/dbConfig/dbConfig";
 import jwt from "jsonwebtoken";
+
 connect();
 
 export async function POST(request: NextRequest) {
@@ -11,14 +12,12 @@ export async function POST(request: NextRequest) {
     const { email, password } = reqBody;
     console.log("Loged In user Body", reqBody);
 
-    // check if user exists
     const user = await User.findOne({ email });
 
     if (!user) {
       return NextResponse.json({ message: "User not found" }, { status: 400 });
     }
 
-    // compare hashed password with user's password
     const validPassword = await bcryptjs.compare(password, user.password);
     if (!validPassword) {
       return NextResponse.json(
@@ -27,7 +26,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    //create token data
     const tokenData = {
       id: user._id,
       email: user.email,
@@ -35,10 +33,10 @@ export async function POST(request: NextRequest) {
       profileUrl: user.profileUrl,
     };
 
-    //generate token
-    const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET!, {
+    const token = jwt.sign(tokenData, process.env.TOKEN_SECRET!, {
       expiresIn: "30d",
     });
+
     const response = NextResponse.json({
       message: "Login successful",
       success: true,
@@ -46,6 +44,10 @@ export async function POST(request: NextRequest) {
 
     response.cookies.set("token", token, {
       httpOnly: true,
+      maxAge: 30 * 24 * 60 * 60, // 30 days in seconds
+      secure: process.env.NODE_ENV === "production",
+      path: "/",
+      sameSite: "lax",
     });
 
     return response;

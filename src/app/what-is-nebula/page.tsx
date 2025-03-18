@@ -110,7 +110,7 @@ const WhatIsNebulaPage = () => {
         <motion.h1
           initial={{ opacity: 1, y: -10, scale: 0 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 4 }}
+          transition={{ duration: 2, delay: 1.5 }}
           className="text-4xl font-['spring'] md:text-6xl font-bold "
         >
           What is{" "}
@@ -121,9 +121,9 @@ const WhatIsNebulaPage = () => {
         </motion.h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 20, scale: 0.5 }}
+          initial={{ opacity: 1, y: -10, scale: 0 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 4, delay: 0.4 }}
+          transition={{ duration: 3, delay: 1.5 }}
           className="mt-6 max-w-2xl text-lg md:text-xl text-[#F2F0E4]/70"
         >
           In a universe full of noise,{" "}
@@ -134,9 +134,9 @@ const WhatIsNebulaPage = () => {
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 20, scale: 0.5 }}
+          initial={{ opacity: 1, y: -10, scale: 0 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 4, delay: 0.8 }}
+          transition={{ duration: 4, delay: 1.5 }}
           className="mt-8 max-w-3xl text-[#F2F0E4]/60 text-md md:text-lg"
         >
           <p>
@@ -154,9 +154,9 @@ const WhatIsNebulaPage = () => {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 1.2 }}
+          initial={{ opacity: 1, y: 0, scale: 0 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 5, delay: 1.5 }}
           className="mt-10"
         >
           <a href="/search">
