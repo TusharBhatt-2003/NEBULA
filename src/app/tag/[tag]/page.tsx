@@ -102,7 +102,7 @@ export default function TagPage() {
         {loading ? (
           <div className="animate-pulse opacity-50 space-y-2">
             <div className="flex justify-between items-center">
-              <h1 className="text-4xl font-['spring']  light-bg rounded-xl w-fit p-2">
+              <h1 className="p-5 text-4xl text-transparent font-['spring'] text-light border rounded-3xl w-fit border-[#F2F0E4]/30 p-2 pb-3">
                 tag
               </h1>
 
@@ -120,7 +120,7 @@ export default function TagPage() {
         ) : (
           <div className="space-y-2">
             <div className="flex justify-between items-center">
-              <h1 className="text-4xl font-['spring'] text-light border rounded-3xl w-fit border-[#F2F0E4]/30 p-2 pb-3">
+              <h1 className="px-5 text-4xl font-['spring'] text-light border rounded-3xl w-fit border-[#F2F0E4]/30 p-2 pb-3">
                 {tag}
               </h1>
 
