@@ -89,7 +89,7 @@ export default function TagPage() {
         console.error(data.error);
       }
     } catch (error) {
-      console.error("Error following/unfollowing tag:", error);
+      console.error("Error follow/unfollow tag:", error);
     }
   };
 
@@ -102,7 +102,7 @@ export default function TagPage() {
         {loading ? (
           <div className="animate-pulse opacity-50 space-y-2">
             <div className="flex justify-between items-center">
-              <h1 className="p-5 text-4xl text-transparent font-['spring'] text-light border rounded-3xl w-fit border-[#F2F0E4]/30 p-2 pb-3">
+              <h1 className="px-5 text-4xl text-transparent font-['spring'] text-light border rounded-3xl w-fit border-[#F2F0E4]/30 p-2 pb-3">
                 tag
               </h1>
 

@@ -26,7 +26,7 @@ export default function useUser() {
   const fetchUserDetails = async () => {
     try {
       const res = await axios.get<{ data: User }>("/api/users/me");
-      setUser(res.data.data);
+      setUser(res.data?.data);
     } catch (error) {
       console.error("Failed to fetch user details:", error);
     } finally {

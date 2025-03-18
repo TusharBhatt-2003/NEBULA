@@ -10,7 +10,6 @@ import { ProfileDetails } from "../components/profile/profileDetails";
 import { useEffect, useState } from "react";
 import PostCard from "../components/postCard/postCard";
 import Bio from "../components/profile/bio";
-import ConfirmationModal from "../components/confirmationModal";
 import { useRouter } from "next/navigation";
 import TagLink from "../components/tag";
 
