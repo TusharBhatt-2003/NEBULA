@@ -151,6 +151,13 @@ const WhatIsNebulaPage = () => {
             Join Nebula, post freely, and follow what truly inspires you. Every
             post is a star—let yours shine.
           </p>
+
+          <p className="mt-4 text-[#F2F0E4] max-w-4xl mx-auto border-[#F2F0E4]/30 backdrop-blur-[2px] border rounded-3xl p-2">
+            <div className="grain" />
+            ⚠️ Strongly recommend viewing on mobile – NEBULA’s UI is optimized
+            only for mobile screens right now. Trust me, it looks way better
+            there!{" "}
+          </p>
         </motion.div>
 
         <motion.div
