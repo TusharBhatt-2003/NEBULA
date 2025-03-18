@@ -57,6 +57,16 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
     },
+    animation: {
+      gradientMove: "gradientMove 8s ease-in-out infinite alternate",
+    },
+    keyframes: {
+      gradientMove: {
+        "0%": { transform: "translate(0px, 0px)" },
+        "50%": { transform: "translate(30px, 20px) scale(1.05)" },
+        "100%": { transform: "translate(-20px, -25px) scale(0.95)" },
+      },
+    },
   },
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;

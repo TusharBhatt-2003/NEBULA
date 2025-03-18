@@ -12,6 +12,7 @@ import PostCard from "../components/postCard/postCard";
 import Bio from "../components/profile/bio";
 import { useRouter } from "next/navigation";
 import TagLink from "../components/tag";
+import AnimatedBlob from "../components/profile/animatedBlob";
 
 interface Post {
   _id: string;
@@ -77,7 +78,8 @@ export default function UserProfile() {
       <div className="fixed">
         <StarField />
       </div>
-      <div className="mb-20 w-full z-20 space-y-5">
+      <AnimatedBlob imageUrl={user?.profileUrl || ""} />
+      <div className="relative mb-20 w-full z-20 space-y-5">
         {user ? (
           <>
             <div className="flex gap-2">
