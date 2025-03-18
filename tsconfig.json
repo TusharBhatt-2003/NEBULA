@@ -28,7 +28,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/models/userModel.js",
-    "src/utils/cloudinary.ts"
+    "src/utils/cloudinary.ts",
+    "src/types/**/*.d.ts"
   ],
   "exclude": ["node_modules"]
 }

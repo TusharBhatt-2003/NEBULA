@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import ConfirmationModal from "../confirmationModal";
 import { motion } from "motion/react";
 import TagLink from "../tag";
+import { useImageColors } from "@/app/hooks/useImageColors";
 
 interface Author {
   _id: string;
@@ -39,6 +40,7 @@ export default function PostCard({
   likes,
   onDelete,
 }: PostCardProps) {
+  const { dominantColor, palette, isLoading, error } = useImageColors(image);
   const [author, setAuthor] = useState<Author | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [likeCount, setLikeCount] = useState<number>(likes.length);
@@ -116,20 +118,42 @@ export default function PostCard({
 
   if (loading) return <Skeleton authorId={authorId} />;
 
+  const getRGBAColor = (rgbColor: string, opacity: number) => {
+    const rgbValues = rgbColor.match(/\d+/g);
+    if (!rgbValues || rgbValues.length < 3) return "transparent";
+
+    const [r, g, b] = rgbValues;
+    return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+  };
+
+  // Choose a vibrant or appealing color from the palette
+  const getCatchyColor = () => {
+    if (palette?.Vibrant) return palette.Vibrant;
+    if (palette?.LightVibrant) return palette.LightVibrant;
+    if (palette?.Muted) return palette.Muted;
+    return dominantColor;
+  };
+
+  const catchyColor = getCatchyColor();
+
   return (
     <>
       <motion.div
-        whileTap={{ scale: 0.95 }}
-        initial={{ opacity: 1, y: 0, scale: 0.5 }}
+        initial={{ opacity: 1, y: 0, scale: 0.7 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: -20 }}
         transition={{
           duration: 0.3,
           ease: "easeIn",
           type: "spring",
-          damping: 10,
+          damping: 20,
         }}
-        className="overflow-hidden flex flex-col justify-center relative border-[#F2F0E4]/30 z-10 w-full backdrop-blur-[2px] p-3 light-text border rounded-3xl"
+        className={`overflow-hidden flex flex-col justify-center relative border-[#F2F0E4]/30 z-10 w-full backdrop-blur-[2px] p-3 light-text border rounded-3xl`}
+        style={{
+          backgroundColor: dominantColor
+            ? getRGBAColor(dominantColor, 0.1)
+            : "transparent",
+        }}
       >
         <div className="grain"></div>
 
@@ -153,7 +177,17 @@ export default function PostCard({
 
         <Link href={`/post/${postId}`}>
           {image && (
-            <img
+            <motion.img
+              initial={{ opacity: 1, y: 0, scale: 0.5 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{
+                duration: 0.5,
+                ease: "easeIn",
+                type: "spring",
+                damping: 15,
+              }}
+              whileTap={{ scale: 0.95 }}
               src={image}
               alt="Post Image"
               className="w-full rounded-2xl mb-2"
