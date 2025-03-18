@@ -9,6 +9,7 @@ import SearchPage from "../search/page";
 import PopupAlert from "./PopupAlert";
 import Link from "next/link";
 import Skeleton from "./postCard/skeleton";
+import { Button } from "./ui/button";
 
 interface Post {
   _id: string;
@@ -104,18 +105,19 @@ export default function Feed() {
                 </div>
               ))}
 
+          {followingTags && (
+            <div className="flex flex-col border-2 border-[#F2F0E4]/30 p-10 backdrop-blur-[1px] rounded-3xl justify-center items-center gap-5">
+              <p className="text-lg text-center font-medium text-[#F2F0E4]">
+                To see posts in your feed, follow the tags you're interested in!
+              </p>
+              <Link href="/search">
+                <Button>Follow Tags</Button>
+              </Link>
+            </div>
+          )}
+
           {showPopup && (
             <>
-              <div className="flex h-screen justify-center items-center gap-5">
-                <Link
-                  href="/search"
-                  className="border-2 border-[#F2F0E4]/30 p-10 backdrop-blur-[1px] rounded-xl"
-                >
-                  <div className="p-2 light-bg text-black rounded-xl">
-                    Follow Tags
-                  </div>
-                </Link>
-              </div>
               <PopupAlert alertMessage="You haven't followed any tags yet! Follow some to see relevant posts." />
             </>
           )}
