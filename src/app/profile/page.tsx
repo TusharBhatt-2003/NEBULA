@@ -141,7 +141,7 @@ export default function UserProfile() {
                   ))
                 ) : (
                   <p className="font-['spring'] p-5 opacity-70 font-semibold text-center">
-                    No posts found for this user.
+                    No posts.
                   </p>
                 )}
               </div>

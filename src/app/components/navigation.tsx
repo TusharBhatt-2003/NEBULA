@@ -42,9 +42,14 @@ export default function Navigation() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+      initial={{ opacity: 0, y: 5, scale: 0 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{
+        duration: 0.5,
+        ease: "easeInOut",
+        type: "spring",
+        damping: 15,
+      }}
       className="overflow-hidden mb-0 border-[#F2F0E4]/30 z-10 backdrop-blur-[10px] p-3 light-text border rounded-3xl fixed py-2 lg:hidden bg-white/5 bottom-2 left-2 right-2 flex justify-between items-center"
     >
       <div className="grain"></div>
@@ -56,6 +61,8 @@ export default function Navigation() {
       ].map(({ href, icon }) => (
         <motion.div
           key={href}
+          initial={{ opacity: 0, y: 0, scale: 0 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.7 }}
           transition={{
@@ -80,6 +87,8 @@ export default function Navigation() {
       ))}
 
       <motion.div
+        initial={{ opacity: 0, y: 0, scale: 0 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.7 }}
         transition={{
@@ -109,6 +118,8 @@ export default function Navigation() {
 
       {user.isAdmin && (
         <motion.div
+          initial={{ opacity: 0, y: 0, scale: 0 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{
             duration: 0.3,
             ease: "easeIn",

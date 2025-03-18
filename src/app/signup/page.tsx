@@ -47,7 +47,7 @@ export default function SignUp() {
       toast.success("Signup successful!", { id: toastId });
       console.log("Signup successful", response.data);
 
-      router.push("/login");
+      router.push("/what-is-nebula");
     } catch (error: any) {
       console.log("Signup failed", error.message);
       toast.error(

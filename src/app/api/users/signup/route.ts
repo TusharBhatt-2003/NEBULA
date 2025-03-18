@@ -3,6 +3,7 @@ import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import { connect } from "@/dbConfig/dbConfig";
 import { sendEmail } from "@/helpers/mailer";
+import jwt from "jsonwebtoken";
 
 connect();
 
@@ -22,9 +23,8 @@ export async function POST(request: NextRequest) {
 
     console.log("Body", reqBody);
 
-    // Check if user already exists
-    const user = await User.findOne({ email });
-    if (user) {
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
       return NextResponse.json(
         { error: "User already exists" },
         { status: 400 },
@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
       profileUrl,
       gender,
       city,
-      birthday: new Date(birthday), // Ensure birthday is stored as a Date object
+      birthday: new Date(birthday),
       isAdmin,
     });
 
@@ -53,11 +53,32 @@ export async function POST(request: NextRequest) {
 
     await sendEmail({ email, emailType: "VERIFY", userId: savedUser._id });
 
-    return NextResponse.json({
-      message: "User created successfully",
-      success: true,
-      savedUser,
+    // --- Log the user in (generate token) ---
+    const tokenData = {
+      id: savedUser._id,
+      email: savedUser.email,
+      username: savedUser.username,
+      profileUrl: savedUser.profileUrl,
+    };
+
+    const token = jwt.sign(tokenData, process.env.TOKEN_SECRET!, {
+      expiresIn: "30d",
     });
+
+    const response = NextResponse.json({
+      message: "User created and logged in successfully",
+      success: true,
+    });
+
+    response.cookies.set("token", token, {
+      httpOnly: true,
+      maxAge: 30 * 24 * 60 * 60, // 30 days
+      secure: process.env.NODE_ENV === "production",
+      path: "/",
+      sameSite: "lax",
+    });
+
+    return response;
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
