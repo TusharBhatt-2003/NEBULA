@@ -75,7 +75,7 @@ export default function Navigation() {
         >
           <Link
             href={href}
-            className={`p-2 transition-all ease-in-out duration-100 ${
+            className={`p-2 transition-all ease-in-out duration-5000 ${
               pathname === href
                 ? "animate-gradient-bg scale-125"
                 : "light-bg text-black rounded-[1rem]"
