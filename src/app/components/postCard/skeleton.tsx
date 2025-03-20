@@ -55,11 +55,11 @@ export default function Skeleton({ authorId = "" }: SkeletonProps) {
 
       {randomIndex === 1 ? (
         <div
-          className={`w-full p-5 rounded-3xl ${shimmerBase} ${shimmerEffect}`}
+          className={`w-full p-5 rounded-xl ${shimmerBase} ${shimmerEffect}`}
         ></div>
       ) : (
         <div
-          className={`w-full aspect-square rounded-3xl ${shimmerBase} ${shimmerEffect}`}
+          className={`w-full aspect-square rounded-xl ${shimmerBase} ${shimmerEffect}`}
         ></div>
       )}
 

@@ -95,7 +95,7 @@ export default function SearchPage() {
     .sort((a, b) => b.likes.length - a.likes.length) // Sort by number of likes in descending order
     .slice(0, 10); // Get top 5 posts
 
-  console.log(posts);
+  // console.log(posts);
 
   return (
     <div className="lg:w-[25vw] relative light-text p-5 pb-24 overflow-hidden">

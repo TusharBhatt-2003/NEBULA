@@ -167,7 +167,7 @@ export default function PostCard({
               whileTap={{ scale: 0.9 }}
               src={image}
               alt="Post Image"
-              className="w-full rounded-2xl mb-2"
+              className="w-full rounded-xl mb-2"
             />
           )}
           <motion.p

@@ -31,12 +31,13 @@ export default function AddPost() {
         const response = await fetch("/api/tags");
         if (!response.ok) throw new Error("Failed to fetch tags");
         const data = await response.json();
-        setExistingTags(data); // Assuming the API returns an array of tags
+        console.log("Fetched tags:", data); // Log here
+        setExistingTags(data);
       } catch (error) {
+        console.error(error);
         setMessage("Failed to load tags");
       }
     };
-
     fetchTags();
   }, []);
 
@@ -109,9 +110,10 @@ export default function AddPost() {
     });
   };
 
-  // onChange handler: detect space on mobile
   const handleTagInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
+    console.log("Input:", value); // Debug input
+    console.log("Existing tags:", existingTags); // Debug fetched tags
 
     if (value.endsWith(" ")) {
       const trimmedInput = value.trim();
@@ -120,6 +122,13 @@ export default function AddPost() {
       }
     } else {
       setTagInput(value);
+
+      // Filter tags when user is typing
+      const filtered = existingTags.filter((tag) =>
+        tag.toLowerCase().includes(value.toLowerCase()),
+      );
+      console.log("Filtered tags:", filtered); // Debug filtered results
+      setFilteredTags(filtered);
     }
   };
 
@@ -151,7 +160,7 @@ export default function AddPost() {
       >
         <div className="grain"></div>
         {!post.image && (
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 relative">
             <p className="text-lg text-center">
               Choose an image to attach to your post.
             </p>
@@ -183,15 +192,15 @@ export default function AddPost() {
           placeholder="Enter tags (space-separated)"
           value={tagInput}
           onChange={handleTagInputChange}
-          onKeyDown={handleTagKeyDown} // Trigger adding tag on Enter key press
+          onKeyDown={handleTagKeyDown}
         />
 
         {filteredTags.length > 0 && (
-          <ul className="absolute flex flex-col-reverse border border-[#F2F0E4]/30 rounded-3xl w-fit mt-1 max-h-48 overflow-y-auto">
+          <ul className="z-50 absolute mt-1 p-2 border border-[#F2F0E4]/30 rounded-xl w-fit max-h-48 overflow-y-auto backdrop-blur-lg bg-black/50">
             {filteredTags.map((tag, index) => (
               <li
                 key={index}
-                className="px-3 py-1 text-lg font-bold cursor-pointer"
+                className="px-3 py-1 text-lg border-b border-[#F2F0E4]/30 font-bold cursor-pointer"
                 onClick={() => addTag(tag)}
               >
                 {tag}
