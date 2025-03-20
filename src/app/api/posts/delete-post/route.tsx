@@ -3,24 +3,22 @@ import { getDataFromToken } from "@/helpers/getDataFromToken";
 import Post from "@/models/postsModel";
 import { NextRequest, NextResponse } from "next/server";
 
-// Establish database connection
 await connect();
 
 export async function DELETE(request: NextRequest) {
   try {
-    const userId = await getDataFromToken(request);
-    console.log("Extracted userId:", userId);
+    const user = await getDataFromToken(request);
 
-    if (!userId) {
+    if (!user?._id) {
       return NextResponse.json(
         { error: "Unauthorized: Token invalid or missing" },
         { status: 401 },
       );
     }
 
-    const reqBody = await request.json();
-    console.log("Request Body:", reqBody);
+    const { _id: userId, isAdmin } = user;
 
+    const reqBody = await request.json();
     const { postId } = reqBody;
 
     if (!postId) {
@@ -30,22 +28,21 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    // Find the post
     const post = await Post.findOne({ _id: postId });
 
     if (!post) {
       return NextResponse.json({ error: "Post not found" }, { status: 404 });
     }
 
-    // Check if the user owns the post
-    if (post.userId.toString() !== userId) {
+    const isOwner = post.userId.toString() === userId.toString();
+
+    if (!isOwner && !isAdmin) {
       return NextResponse.json(
         { error: "Unauthorized: Cannot delete this post" },
         { status: 403 },
       );
     }
 
-    // Delete the post
     await Post.deleteOne({ _id: postId });
 
     return NextResponse.json(

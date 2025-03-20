@@ -228,7 +228,7 @@ export default function PostCard({
               {authorId === currentUserId && (
                 <button
                   onClick={() => setShowModal(true)}
-                  className="text-light opacity-50 bg-black rounded-xl px-4 py-2 flex items-center gap-1"
+                  className="text-light opacity-50 bg-black rounded-xl px-2 py-1 flex items-center gap-1"
                 >
                   <FaTrash className="w-5 h-5" />
                 </button>

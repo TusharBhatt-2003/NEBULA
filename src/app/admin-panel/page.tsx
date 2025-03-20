@@ -90,7 +90,7 @@ export default function Page() {
     setIsModalOpen(false);
     setSelectedUserId(null);
   };
-  console.log(users);
+  //console.log(users);
 
   return (
     <div className="relative overflow-hidden pb-24 px-4">
