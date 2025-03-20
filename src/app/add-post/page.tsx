@@ -112,8 +112,8 @@ export default function AddPost() {
 
   const handleTagInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    console.log("Input:", value); // Debug input
-    console.log("Existing tags:", existingTags); // Debug fetched tags
+    // console.log("Input:", value); // Debug input
+    // console.log("Existing tags:", existingTags); // Debug fetched tags
 
     if (value.endsWith(" ")) {
       const trimmedInput = value.trim();
