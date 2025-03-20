@@ -76,7 +76,7 @@ export default {
     },
     backgroundImage: {
       "shimmer-gradient":
-        "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%)",
+        "linear-gradient(90deg, rgba(242, 240, 228,0) 0%, rgba(242, 240, 228,0.1) 50%, rgba(242, 240, 228,0) 100%)",
     },
   },
   plugins: [require("tailwindcss-animate")],
