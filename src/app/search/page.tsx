@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import PostCard from "../components/postCard/postCard";
 import useUser from "../hooks/useUser";
@@ -40,6 +40,24 @@ export default function SearchPage() {
 
   const { user } = useUser();
   const currentUserId = user?._id ?? "";
+
+  const sortedPosts = useMemo(() => {
+    const now = Date.now();
+    return posts
+      .map((post) => {
+        const ageInHours = (now - post.createdAt) / (1000 * 60 * 60);
+        const recencyScore = 1 / (1 + ageInHours);
+        const likeScore = post.likes.length;
+        const commentScore = post.comments.length;
+        const totalScore =
+          recencyScore * 2 + likeScore * 1.5 + commentScore * 1.2;
+        const randomFactor = Math.random();
+        return { ...post, weightedScore: totalScore * randomFactor };
+      })
+      .sort((a, b) => b.weightedScore - a.weightedScore);
+  }, [posts]);
+
+  const topPosts = sortedPosts.slice(0, 10);
 
   // Fetch all tags
   useEffect(() => {
@@ -89,11 +107,6 @@ export default function SearchPage() {
     const delayDebounce = setTimeout(fetchData, 500);
     return () => clearTimeout(delayDebounce);
   }, [query]);
-
-  // Sort posts by likes and get the top 5
-  const topPosts = posts
-    .sort((a, b) => b.likes.length - a.likes.length) // Sort by number of likes in descending order
-    .slice(0, 10); // Get top 5 posts
 
   // console.log(posts);
 

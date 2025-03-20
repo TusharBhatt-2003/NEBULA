@@ -188,52 +188,54 @@ export default function PostCard({
         </Link>
 
         {!hideAuthorInfo && (
-          <div className="flex my-2 justify-between items-end">
-            {!isTagPage && (
-              <div className="flex flex-wrap gap-2">
-                {tags.map((tag, index) => (
-                  <TagLink
-                    className="text-xs opacity-50"
-                    key={index}
-                    tag={tag}
-                    index={index}
-                  />
-                ))}
+          <div>
+            <div className="flex my-2 justify-between items-end">
+              {!isTagPage && (
+                <div className="flex flex-wrap gap-2">
+                  {tags.map((tag, index) => (
+                    <TagLink
+                      className="text-xs opacity-50"
+                      key={index}
+                      tag={tag}
+                      index={index}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+            <div className={`flex items-end w-full  justify-end gap-1 text-sm`}>
+              <div className="flex bg-black h-fit opacity-70 rounded-3xl px-2 py-1 items-center">
+                <FaComment className="w-5 h-5" />
+                <span className="ml-1">{comments?.length}</span>
               </div>
-            )}
+
+              <motion.button
+                onClick={handleLike}
+                className="flex bg-black h-fit opacity-70 rounded-3xl px-2 py-1 items-center"
+              >
+                <motion.div
+                  animate={{
+                    scale: isLiked ? [0, 3, 1.2] : 1,
+                    rotate: isLiked ? [0, 360] : 0,
+                  }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                >
+                  <FcLike className={`w-5 h-5 ${isLiked ? "" : "grayscale"}`} />
+                </motion.div>
+                <span className="ml-1">{likeCount}</span>
+              </motion.button>
+
+              {authorId === currentUserId && (
+                <button
+                  onClick={() => setShowModal(true)}
+                  className="text-light opacity-50 bg-black rounded-xl px-4 py-2 flex items-center gap-1"
+                >
+                  <FaTrash className="w-5 h-5" />
+                </button>
+              )}
+            </div>
           </div>
         )}
-        <div className={`flex items-end w-full  justify-end gap-1 text-sm`}>
-          <div className="flex bg-black h-fit opacity-70 rounded-3xl px-2 py-1 items-center">
-            <FaComment className="w-5 h-5" />
-            <span className="ml-1">{comments?.length}</span>
-          </div>
-
-          <motion.button
-            onClick={handleLike}
-            className="flex bg-black h-fit opacity-70 rounded-3xl px-2 py-1 items-center"
-          >
-            <motion.div
-              animate={{
-                scale: isLiked ? [0, 3, 1.2] : 1,
-                rotate: isLiked ? [0, 360] : 0,
-              }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
-            >
-              <FcLike className={`w-5 h-5 ${isLiked ? "" : "grayscale"}`} />
-            </motion.div>
-            <span className="ml-1">{likeCount}</span>
-          </motion.button>
-
-          {authorId === currentUserId && (
-            <button
-              onClick={() => setShowModal(true)}
-              className="text-light opacity-50 bg-black rounded-xl px-4 py-2 flex items-center gap-1"
-            >
-              <FaTrash className="w-5 h-5" />
-            </button>
-          )}
-        </div>
       </motion.div>
 
       {showModal && (
