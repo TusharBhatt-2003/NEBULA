@@ -44,6 +44,7 @@ export async function GET(req: Request) {
           likes: 1,
           tags: 1,
           userId: 1,
+          comments: 1,
           createdAt: 1,
           updatedAt: 1,
           "author.username": 1,

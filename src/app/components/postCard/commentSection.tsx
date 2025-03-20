@@ -78,14 +78,16 @@ export default function CommentSection({
         value={commentText}
         onChange={(e) => setCommentText(e.target.value)}
       />
-      <Button onClick={handleCommentSubmit}>Post Comment</Button>
+      <div className="flex w-full justify-end">
+        <Button onClick={handleCommentSubmit}>Post Comment</Button>
+      </div>
 
       {comments.map((comment) => (
         <GrainContainer
           key={comment._id}
-          className="flex m-0 w-full gap-5 items-center mt-4 relative"
+          className="flex flex-col m-0 w-full mt-4 relative"
         >
-          <div className="flex items-center w-/4  bg-[#F2F0E4]/50  rounded-3xl p-1 px-2 gap-1">
+          <div className="flex items-center w-fit border border-[#F2F0E4]/30  rounded-3xl py-2 px-3 gap-2">
             {comment.profileUrl ? (
               <img
                 src={comment.profileUrl}
@@ -97,12 +99,10 @@ export default function CommentSection({
                 N/A
               </div>
             )}
-            <div className="font-semibold text-black">
-              {comment.username || "Unknown User"}
-            </div>
+            <div className="">{comment.username || "Unknown User"}</div>
           </div>
 
-          <div className="flex justify-between w-3/4 items-center">
+          <div className="flex p-2 justify-between items-center">
             <p>{comment.text}</p>
 
             {comment.userId === currentUserId && (

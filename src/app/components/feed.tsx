@@ -18,6 +18,7 @@ interface Post {
   image: string;
   text: string;
   userId: string;
+  comments: string[];
   author: {
     username: string;
     profileUrl: string;
@@ -70,8 +71,8 @@ export default function Feed() {
     fetchPosts();
   }, [followingTags]);
 
-  // console.log(user);
-  // console.log(posts);
+  console.log(user);
+  console.log(posts);
 
   return (
     <div className="relative">
@@ -101,6 +102,7 @@ export default function Feed() {
                     username={post.author.username}
                     profileUrl={post.author.profileUrl}
                     likes={post.likes}
+                    comments={post.comments}
                   />
                 </div>
               ))}

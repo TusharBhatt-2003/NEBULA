@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import ConfirmationModal from "../confirmationModal";
 import { motion } from "motion/react";
 import TagLink from "../tag";
+import { FaComment } from "react-icons/fa";
 
 interface Author {
   _id: string;
@@ -24,6 +25,7 @@ interface PostCardProps {
   authorId: string;
   username: string;
   profileUrl: string;
+  comments?: string[];
   likes: { _id: string }[];
 }
 
@@ -36,6 +38,7 @@ export default function PostCard({
   authorId,
   profileUrl,
   username,
+  comments,
   likes,
   onDelete,
 }: PostCardProps) {
@@ -184,9 +187,9 @@ export default function PostCard({
         </Link>
 
         {!hideAuthorInfo && (
-          <div className="flex justify-between items-end">
+          <div className="flex my-2 justify-between items-end">
             {!isTagPage && (
-              <div className="flex flex-wrap w-3/4 gap-2">
+              <div className="flex flex-wrap gap-2">
                 {tags.map((tag, index) => (
                   <TagLink
                     className="text-xs opacity-50"
@@ -197,42 +200,44 @@ export default function PostCard({
                 ))}
               </div>
             )}
-
-            <div
-              className={`flex items-end ${isTagPage ? "w-full" : "w-1/4"} justify-end gap-1 text-sm`}
-            >
-              <motion.button
-                onClick={handleLike}
-                className="flex bg-black h-fit opacity-70 rounded-3xl px-4 py-2 items-center"
-              >
-                <motion.svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill={isLiked ? "red" : "gray"}
-                  className="w-5 h-5"
-                  animate={{ scale: isLiked ? [0, 3, 1.2] : 1 }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 18.35l-1.45-1.32C5.4 13.92 2 11.28 2 8.5 2 6.5 3.5 5 5.5 5c1.54 0 3.04.99 3.57 2.36h1.87C11.46 5.99 12.96 5 14.5 5c2 0 3.5 1.5 3.5 3.5 0 2.78-3.4 5.42-6.55 8.54L10 18.35z"
-                    clipRule="evenodd"
-                  />
-                </motion.svg>
-                <span className="ml-1">{likeCount}</span>
-              </motion.button>
-
-              {authorId === currentUserId && (
-                <button
-                  onClick={() => setShowModal(true)}
-                  className="text-light opacity-50 bg-black rounded-xl px-4 py-2 flex items-center gap-1"
-                >
-                  <FaTrash className="w-5 h-5" />
-                </button>
-              )}
-            </div>
           </div>
         )}
+        <div className={`flex items-end w-full  justify-end gap-1 text-sm`}>
+          <div className="flex bg-black h-fit opacity-70 rounded-3xl px-2 py-1 items-center">
+            <FaComment className="w-5 h-5" />
+            <span className="ml-1">{comments?.length}</span>
+          </div>
+
+          <motion.button
+            onClick={handleLike}
+            className="flex bg-black h-fit opacity-70 rounded-3xl px-2 py-1 items-center"
+          >
+            <motion.svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill={isLiked ? "red" : "gray"}
+              className="w-5 h-5"
+              animate={{ scale: isLiked ? [0, 3, 1.2] : 1 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 18.35l-1.45-1.32C5.4 13.92 2 11.28 2 8.5 2 6.5 3.5 5 5.5 5c1.54 0 3.04.99 3.57 2.36h1.87C11.46 5.99 12.96 5 14.5 5c2 0 3.5 1.5 3.5 3.5 0 2.78-3.4 5.42-6.55 8.54L10 18.35z"
+                clipRule="evenodd"
+              />
+            </motion.svg>
+            <span className="ml-1">{likeCount}</span>
+          </motion.button>
+
+          {authorId === currentUserId && (
+            <button
+              onClick={() => setShowModal(true)}
+              className="text-light opacity-50 bg-black rounded-xl px-4 py-2 flex items-center gap-1"
+            >
+              <FaTrash className="w-5 h-5" />
+            </button>
+          )}
+        </div>
       </motion.div>
 
       {showModal && (

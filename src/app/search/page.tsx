@@ -23,6 +23,7 @@ interface Post {
   tags: string[];
   image: string;
   text: string;
+  comments: string[];
   userId: string;
   author: {
     username: string;
@@ -93,6 +94,8 @@ export default function SearchPage() {
   const topPosts = posts
     .sort((a, b) => b.likes.length - a.likes.length) // Sort by number of likes in descending order
     .slice(0, 10); // Get top 5 posts
+
+  console.log(posts);
 
   return (
     <div className="lg:w-[25vw] relative light-text p-5 pb-24 overflow-hidden">
@@ -182,6 +185,7 @@ export default function SearchPage() {
                       post.author?.profileUrl || "/default-profile.png"
                     }
                     likes={post.likes}
+                    comments={post.comments}
                   />
                 ))}
               </div>
