@@ -7,7 +7,6 @@ import { usePathname } from "next/navigation";
 import ConfirmationModal from "../confirmationModal";
 import { motion } from "motion/react";
 import TagLink from "../tag";
-import { useImageColors } from "@/app/hooks/useImageColors";
 
 interface Author {
   _id: string;
@@ -40,7 +39,6 @@ export default function PostCard({
   likes,
   onDelete,
 }: PostCardProps) {
-  const { dominantColor, palette, isLoading, error } = useImageColors(image);
   const [author, setAuthor] = useState<Author | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [likeCount, setLikeCount] = useState<number>(likes.length);
@@ -117,25 +115,6 @@ export default function PostCard({
   };
 
   if (loading) return <Skeleton authorId={authorId} />;
-
-  const getRGBAColor = (rgbColor: string, opacity: number) => {
-    const rgbValues = rgbColor.match(/\d+/g);
-    if (!rgbValues || rgbValues.length < 3) return "transparent";
-
-    const [r, g, b] = rgbValues;
-    return `rgba(${r}, ${g}, ${b}, ${opacity})`;
-  };
-
-  // Choose a vibrant or appealing color from the palette
-  const getCatchyColor = () => {
-    if (palette?.Vibrant) return palette.Vibrant;
-    if (palette?.LightVibrant) return palette.LightVibrant;
-    if (palette?.Muted) return palette.Muted;
-    return dominantColor;
-  };
-
-  const catchyColor = getCatchyColor();
-
   return (
     <>
       <motion.div
@@ -149,11 +128,6 @@ export default function PostCard({
           damping: 20,
         }}
         className={`overflow-hidden flex flex-col justify-center relative border-[#F2F0E4]/30 z-10 w-full backdrop-blur-[5px] p-3 light-text border rounded-3xl`}
-        style={{
-          backgroundColor: dominantColor
-            ? getRGBAColor(dominantColor, 0.1)
-            : "transparent",
-        }}
       >
         <div className="grain"></div>
 

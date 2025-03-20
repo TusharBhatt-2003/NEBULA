@@ -29,7 +29,8 @@
     ".next/types/**/*.ts",
     "src/models/userModel.js",
     "src/utils/cloudinary.ts",
-    "src/types/**/*.d.ts"
+    "src/types/**/*.d.ts",
+    "src/app/api/posts/delete-comments"
   ],
   "exclude": ["node_modules"]
 }

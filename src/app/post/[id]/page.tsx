@@ -1,10 +1,21 @@
 "use client";
+
 import PostCard from "@/app/components/postCard/postCard";
 import useUser from "@/app/hooks/useUser";
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Head from "next/head";
 import Skeleton from "@/app/components/postCard/skeleton";
+import CommentSection from "@/app/components/postCard/commentSection";
+
+interface Comment {
+  _id: string;
+  userId: string;
+  username: string;
+  profileUrl: string;
+  text: string;
+  createdAt: string;
+}
 
 interface Post {
   _id: string;
@@ -13,7 +24,7 @@ interface Post {
   text: string;
   tags: string[];
   likes: { _id: string }[];
-  comments: string[];
+  comments: Comment[];
   createdAt: string;
   updatedAt: string;
   author: {
@@ -49,7 +60,13 @@ export default function Page() {
     };
 
     if (postId) fetchPost();
-  }, [postId, currentUserId]);
+  }, [postId]);
+
+  const handleNewComment = (updatedComments: Comment[]) => {
+    if (post) {
+      setPost({ ...post, comments: updatedComments });
+    }
+  };
 
   return (
     <>
@@ -61,73 +78,15 @@ export default function Page() {
           name="description"
           content={post ? post.text.slice(0, 150) : "Viewing post details"}
         />
-        <meta
-          property="og:title"
-          content={post ? post.text.slice(0, 50) : "Post Details"}
-        />
-        <meta
-          property="og:description"
-          content={
-            post ? post.text.slice(0, 150) : "Read this amazing post now!"
-          }
-        />
-        <meta
-          property="og:image"
-          content={post?.image || "/default-image.jpg"}
-        />
-        <meta property="og:type" content="article" />
-        <meta
-          property="og:url"
-          content={`https://nebula-socialmedia.vercel.app/post/${postId}`}
-        />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="twitter:title"
-          content={post ? post.text.slice(0, 50) : "Post Details"}
-        />
-        <meta
-          name="twitter:description"
-          content={
-            post ? post.text.slice(0, 150) : "Read this amazing post now!"
-          }
-        />
-        <meta
-          name="twitter:image"
-          content={post?.image || "/default-image.jpg"}
-        />
-        <link
-          rel="canonical"
-          href={`https://nebula-socialmedia.vercel.app/post/${postId}`}
-        />
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            headline: post?.text.slice(0, 50) || "Post Details",
-            description:
-              post?.text.slice(0, 150) || "Read this post on our platform.",
-            image: post?.image || "/default-image.jpg",
-            author: {
-              "@type": "Person",
-              name: post?.author?.username || "Unknown Author",
-            },
-            datePublished: post?.createdAt || new Date().toISOString(),
-            dateModified: post?.updatedAt || new Date().toISOString(),
-            mainEntityOfPage: {
-              "@type": "WebPage",
-              "@id": `https://nebula-socialmedia.vercel.app/post/${postId}`,
-            },
-          })}
-        </script>
       </Head>
 
-      <main className="h-full space-y-5 container p-5  mx-auto pb-36">
-        <div className="">
+      <main className="h-full space-y-5 container p-5 mx-auto pb-36">
+        <div>
           {!loading && post ? (
             <PostCard
               image={post.image}
               text={post.text}
-              tags={post.tags || ""}
+              tags={post.tags || []}
               currentUserId={currentUserId}
               postId={post._id}
               authorId={post.userId}
@@ -139,10 +98,14 @@ export default function Page() {
             <Skeleton />
           )}
         </div>
-        <h1 className="overflow-hidden flex flex-col justify-center relative border-[#F2F0E4]/30 z-10 w-full backdrop-blur-[2px] p-3 light-text font-semibold border rounded-3xl  text-center font-['spring'] text-light text-4xl">
-          <div className="grain"></div>
-          The Comments Section will be added soon.
-        </h1>
+
+        {!loading && post && (
+          <CommentSection
+            postId={post._id}
+            initialComments={post.comments}
+            onNewComment={handleNewComment}
+          />
+        )}
       </main>
     </>
   );
