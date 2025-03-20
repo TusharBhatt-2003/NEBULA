@@ -16,6 +16,10 @@ export default function Skeleton({ authorId = "" }: SkeletonProps) {
 
   const widthClasses = ["w-1/6", "w-1/4", "w-1/3", "w-2/5", "w-1/2"];
 
+  const shimmerBase = "relative overflow-hidden bg-skeleton-bg rounded-3xl";
+  const shimmerEffect =
+    "before:absolute before:inset-0 before:bg-shimmer-gradient before:bg-[length:200%_100%] before:animate-shimmer";
+
   const divs = Array.from({ length: divCount }, (_, index) => {
     const randomWidth =
       widthClasses[Math.floor(Math.random() * widthClasses.length)];
@@ -23,38 +27,48 @@ export default function Skeleton({ authorId = "" }: SkeletonProps) {
     return (
       <div
         key={index}
-        className={`light-bg z-[99] text-transparent animate-pulse opacity-25 font-bold rounded-3xl ${randomWidth}`}
+        className={`${shimmerBase} ${shimmerEffect} z-[99] text-transparent font-bold ${randomWidth}`}
       >
-        hhhh
+        <span className="invisible">hhhh</span>
       </div>
     );
   });
 
   return (
-    <div className="overflow-hidden relative border-[#F2F0E4]/30 z-10 w-full backdrop-blur-[2px] p-3 light-text border rounded-3xl">
+    <div
+      className={`overflow-hidden relative border-[#F2F0E4]/30 z-10 w-full backdrop-blur-[2px] p-3 light-text border rounded-3xl ${shimmerBase} ${shimmerEffect}`}
+    >
       <div className="grain"></div>
 
-      {/* Conditionally render userProfile */}
       {!isProfilePage && (
         <div id="userProfile" className="flex items-center space-x-4 mb-4">
-          <div className="w-8 h-8 aspect-square animate-pulse rounded-full light-bg opacity-25"></div>
+          <div
+            className={`w-8 h-8 aspect-square rounded-full ${shimmerBase} ${shimmerEffect}`}
+          ></div>
           <div className="w-full">
-            <div className="w-[40%] rounded-3xl animate-pulse light-bg p-2 opacity-25"></div>
+            <div
+              className={`w-[40%] p-2 rounded-3xl ${shimmerBase} ${shimmerEffect}`}
+            ></div>
           </div>
         </div>
       )}
 
       {randomIndex === 1 ? (
-        <div className="w-full light-bg animate-pulse p-5 rounded-3xl opacity-25"></div>
+        <div
+          className={`w-full p-5 rounded-3xl ${shimmerBase} ${shimmerEffect}`}
+        ></div>
       ) : (
-        <div className="w-full light-bg animate-pulse aspect-square rounded-3xl opacity-25"></div>
+        <div
+          className={`w-full aspect-square rounded-3xl ${shimmerBase} ${shimmerEffect}`}
+        ></div>
       )}
 
-      {/* Conditionally render tag&likes */}
       {!isProfilePage && (
         <div id="tag&likes" className="flex mt-4 justify-between items-end">
           <div className="flex flex-wrap w-3/4 gap-2">{divs}</div>
-          <div className="flex animate-pulse h-fit opacity-25 bg-black rounded-3xl px-4 py-2 items-center">
+          <div
+            className={`flex h-fit bg-black rounded-3xl px-4 py-2 items-center ${shimmerBase} ${shimmerEffect}`}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"

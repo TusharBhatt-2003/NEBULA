@@ -9,6 +9,9 @@ export default {
   ],
   theme: {
     extend: {
+      animation: {
+        shimmer: "shimmer 1.5s infinite linear",
+      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
@@ -66,6 +69,14 @@ export default {
         "50%": { transform: "translate(30px, 20px) scale(1.05)" },
         "100%": { transform: "translate(-20px, -25px) scale(0.95)" },
       },
+      shimmer: {
+        "0%": { backgroundPosition: "-100% 0" },
+        "100%": { backgroundPosition: "100% 0" },
+      },
+    },
+    backgroundImage: {
+      "shimmer-gradient":
+        "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%)",
     },
   },
   plugins: [require("tailwindcss-animate")],
