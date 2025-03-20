@@ -31,10 +31,10 @@ export default function AddPost() {
         const response = await fetch("/api/tags");
         if (!response.ok) throw new Error("Failed to fetch tags");
         const data = await response.json();
-        console.log("Fetched tags:", data); // Log here
+        //console.log("Fetched tags:", data); // Log here
         setExistingTags(data);
       } catch (error) {
-        console.error(error);
+        //console.error(error);
         setMessage("Failed to load tags");
       }
     };
@@ -127,7 +127,7 @@ export default function AddPost() {
       const filtered = existingTags.filter((tag) =>
         tag.toLowerCase().includes(value.toLowerCase()),
       );
-      console.log("Filtered tags:", filtered); // Debug filtered results
+      //console.log("Filtered tags:", filtered); // Debug filtered results
       setFilteredTags(filtered);
     }
   };

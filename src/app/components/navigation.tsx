@@ -75,7 +75,7 @@ export default function Navigation() {
         >
           <Link
             href={href}
-            className={`p-2 transition-all ease-in-out duration-5000 ${
+            className={`p-2 transition-all ease-in-out duration-500 ${
               pathname === href
                 ? "animate-gradient-bg scale-125"
                 : "light-bg text-black rounded-[1rem]"
@@ -101,7 +101,7 @@ export default function Navigation() {
       >
         <Link
           href="/profile"
-          className={`transition-all duration-100 ease-in-out ${
+          className={`transition-all duration-500 ease-in-out ${
             pathname === "/profile"
               ? "animate-gradient-bg scale-125 p-[2px] rounded-xl"
               : ""

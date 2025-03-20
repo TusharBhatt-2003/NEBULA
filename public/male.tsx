@@ -9,15 +9,18 @@ export default function Male() {
       className=""
       //  xmlns:xlink="http://www.w3.org/1999/xlink"
       viewBox="0 0 28 32"
-      enable-background="new 0 0 28 32"
+      // enable-background="new 0 0 28 32"
       //  xml:space="preserve"
       fill="#f2f0e4"
     >
-      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g
+        id="SVGRepo_bgCarrier"
+        //stroke-width="0"
+      ></g>
       <g
         id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        //stroke-linecap="round"
+        //stroke-linejoin="round"
       ></g>
       <g id="SVGRepo_iconCarrier">
         {" "}
