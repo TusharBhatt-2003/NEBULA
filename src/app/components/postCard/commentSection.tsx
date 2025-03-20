@@ -85,7 +85,7 @@ export default function CommentSection({
       {comments.map((comment) => (
         <GrainContainer
           key={comment._id}
-          className="flex flex-col m-0 w-full mt-4 relative"
+          className="flex flex-col mx-0 w-full mt-4 relative"
         >
           <div className="flex items-center w-fit border border-[#F2F0E4]/30  rounded-3xl py-2 px-3 gap-2">
             {comment.profileUrl ? (
