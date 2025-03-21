@@ -75,61 +75,57 @@ export default function Feed() {
   // console.log(posts);
 
   return (
-    <div className="relative">
+    <div className="relative p-5 mb-24">
       <div className="fixed">
         <StarField />
       </div>
 
-      <div className="flex justify-center relative container mx-auto">
-        <div className="hidden lg:block">
+      <div className="lg:columns-3 relative">
+        {/* <div className="hidden lg:block">
           <UserProfile />
-        </div>
+        </div> */}
 
-        <div className="lg:w-[55%] w-full lg:ml-[20vw] text-lg p-5 mb-24 flex flex-col justify-center items-center gap-5 overflow-hidden">
+        <div className="w-full text-lg flex mb-5 flex-col gap-5 justify-center items-center">
           {loading && !posts
             ? Array.from({ length: 6 }).map((_, index) => (
                 <Skeleton key={index} />
               ))
             : posts.map((post) => (
-                <div className="w-full" key={post._id}>
-                  <PostCard
-                    image={post.image}
-                    text={post.text}
-                    tags={post.tags}
-                    currentUserId={currentUserId || ""}
-                    postId={post._id}
-                    authorId={post.userId}
-                    username={post.author.username}
-                    profileUrl={post.author.profileUrl}
-                    likes={post.likes}
-                    comments={post.comments}
-                  />
-                </div>
+                <PostCard
+                  key={post._id}
+                  image={post.image}
+                  text={post.text}
+                  tags={post.tags}
+                  currentUserId={currentUserId || ""}
+                  postId={post._id}
+                  authorId={post.userId}
+                  username={post.author.username}
+                  profileUrl={post.author.profileUrl}
+                  likes={post.likes}
+                  comments={post.comments}
+                />
               ))}
-
-          {followingTags && (
-            <div className="flex flex-col border-2 border-[#F2F0E4]/30 p-10 backdrop-blur-[1px] rounded-3xl justify-center items-center gap-5">
-              <p className="text-lg text-center font-medium text-[#F2F0E4]">
-                To see posts in your feed, follow the tags you're interested in!
-              </p>
-              <Link href="/search">
-                <Button>Follow Tags</Button>
-              </Link>
-            </div>
-          )}
-
-          {showPopup && (
-            <>
-              <PopupAlert alertMessage="You haven't followed any tags yet! Follow some to see relevant posts." />
-            </>
-          )}
-        </div>
-
-        <div className="hidden lg:block lg:w-[30%]">
-          <AddPost />
-          <SearchPage />
         </div>
       </div>
+      {/* <div className="hidden lg:block lg:w-[30%]">
+          <AddPost />
+          <SearchPage />
+        </div> */}
+      {followingTags && (
+        <div className="flex flex-col border-2 border-[#F2F0E4]/30 p-10 backdrop-blur-[1px] rounded-3xl justify-center items-center gap-5">
+          <p className="text-lg text-center font-medium text-[#F2F0E4]">
+            To see posts in your feed, follow the tags you're interested in!
+          </p>
+          <Link href="/search">
+            <Button>Follow Tags</Button>
+          </Link>
+        </div>
+      )}
+      {showPopup && (
+        <>
+          <PopupAlert alertMessage="You haven't followed any tags yet! Follow some to see relevant posts." />
+        </>
+      )}
     </div>
   );
 }

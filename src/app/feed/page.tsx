@@ -12,7 +12,7 @@ export default function Page() {
   const text = "The posts from the tags you follow will appear here.";
 
   return (
-    <div className="relative overflow-hidden">
+    <div className="container mx-auto relative overflow-hidden">
       <script src="https://cdn.lordicon.com/lordicon.js"></script>
       <GrainContainer className="flex font-['spring'] justify-between items-center">
         <h2>
