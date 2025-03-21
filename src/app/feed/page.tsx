@@ -14,7 +14,7 @@ export default function Page() {
   return (
     <div className="container mx-auto relative overflow-hidden">
       <div className="flex w-full lg:flex-row flex-col">
-        <GrainContainer className="flex w-full font-['spring'] justify-between items-center">
+        <GrainContainer className="flex lg:w-full font-['spring'] justify-between items-center">
           <h2>
             WHAT IS{" "}
             <span className="font-['LogoFont'] text-transparent bg-clip-text animate-gradient">
