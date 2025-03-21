@@ -81,8 +81,8 @@ export default function UserProfile() {
       <AnimatedBlob imageUrl={user?.profileUrl || ""} />
       <div className="relative mb-20 w-full z-20 space-y-5">
         {user ? (
-          <div className="flex lg:flex-row flex-col gap">
-            <div className="space-y-5 lg:sticky">
+          <div className="flex lg:flex-row flex-col gap-5">
+            <div className="space-y-5">
               <div className="flex gap-2 ">
                 <div className="w-1/3 z-[99]">
                   <ProfileImage profileUrl={user.profileUrl} />

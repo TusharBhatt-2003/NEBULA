@@ -7,14 +7,16 @@ connect();
 
 export async function POST(request: NextRequest) {
   try {
-    const userId = await getDataFromToken(request);
+    const user = await getDataFromToken(request);
 
-    if (!userId) {
+    if (!user || !user._id) {
       return NextResponse.json(
         { error: "Unauthorized: Token invalid or missing" },
         { status: 401 },
       );
     }
+
+    const userId = user._id.toString(); // Ensure it's a string
 
     const { postId } = await request.json();
     if (!postId) {
@@ -34,12 +36,10 @@ export async function POST(request: NextRequest) {
     );
 
     if (hasLiked) {
-      // Unlike the post
       post.likes = post.likes.filter(
         (like: { _id: string }) => like._id.toString() !== userId,
       );
     } else {
-      // Like the post
       post.likes.push({ _id: userId });
     }
 
