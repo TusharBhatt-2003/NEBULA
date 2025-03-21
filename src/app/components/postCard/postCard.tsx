@@ -133,7 +133,7 @@ export default function PostCard({
         }}
         className={`overflow-hidden flex flex-col justify-center relative border-[#F2F0E4]/30 z-10 w-full backdrop-blur-[5px] p-3 light-text border rounded-3xl`}
       >
-        <div className="grain"></div>
+        <div className="grain z-[-9]"></div>
 
         {!hideAuthorInfo && (
           <Link
@@ -168,7 +168,7 @@ export default function PostCard({
               whileTap={{ scale: 0.9 }}
               src={image}
               alt="Post Image"
-              className="w-full rounded-xl mb-2"
+              className="w-full z-[999] rounded-xl mb-2"
             />
           )}
           <motion.p
