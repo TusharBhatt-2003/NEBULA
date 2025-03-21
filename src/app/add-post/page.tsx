@@ -147,7 +147,7 @@ export default function AddPost() {
   };
 
   return (
-    <div className="p-5 h-full overflow-hidden relative">
+    <div className="p-5 container mx-auto h-full overflow-hidden relative">
       <div className="fixed">
         <StarField />
       </div>

@@ -111,7 +111,7 @@ export default function SearchPage() {
   // console.log(posts);
 
   return (
-    <div className="lg:w-[25vw] relative light-text p-5 pb-24 overflow-hidden">
+    <div className="container mx-auto relative light-text p-5 pb-24 overflow-hidden">
       <div className="fixed -z-50">
         <StarField />
       </div>
@@ -120,7 +120,7 @@ export default function SearchPage() {
           <p className="text-4xl mb-5 text-center text-transparent bg-clip-text animate-gradient-para z-50 font-['LogoFont'] font-semibold">
             SEARCH
           </p>
-          <div className="relative">
+          <div className="relative  mx-auto  container">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[#f2f0e4]/70 w-5 h-5 pointer-events-none" />
             <Input
               className="pl-10" // padding left for the icon
@@ -180,7 +180,7 @@ export default function SearchPage() {
           {/* Top 5 Posts Section */}
           <div className="mt-4">
             {topPosts.length > 0 ? (
-              <div className="columns-2 space-y-5">
+              <div className="columns-2 md:columns-3  lg:columns-4 space-y-5">
                 {/* <h2 className="text-lg  font-semibold font-['spring'] mb-2">
                   Top 10 Posts:
                 </h2> */}

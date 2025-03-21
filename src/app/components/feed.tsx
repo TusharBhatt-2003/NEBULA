@@ -80,12 +80,12 @@ export default function Feed() {
         <StarField />
       </div>
 
-      <div className="lg:columns-3 relative">
+      <div className="lg:columns-4 mb-5 relative">
         {/* <div className="hidden lg:block">
           <UserProfile />
         </div> */}
 
-        <div className="w-full text-lg flex mb-5 flex-col gap-5 justify-center items-center">
+        <div className="w-full text-lg flex  lg:space-y-5 flex-col gap-5 lg:gap-0 justify-center items-center">
           {loading && !posts
             ? Array.from({ length: 6 }).map((_, index) => (
                 <Skeleton key={index} />

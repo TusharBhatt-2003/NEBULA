@@ -74,48 +74,50 @@ export default function UserProfile() {
   const filteredPosts = posts.filter((post) => post.userId === user?._id);
 
   return (
-    <div className="p-5 lg:w-[20%] lg:fixed overflow-hidden relative w-full ">
+    <div className="p-5 container mx-auto overflow-hidden relative w-full ">
       <div className="fixed">
         <StarField />
       </div>
       <AnimatedBlob imageUrl={user?.profileUrl || ""} />
       <div className="relative mb-20 w-full z-20 space-y-5">
         {user ? (
-          <>
-            <div className="flex gap-2">
-              <div className="w-1/3 z-[99]">
-                <ProfileImage profileUrl={user.profileUrl} />
+          <div className="flex lg:flex-row flex-col gap">
+            <div className="space-y-5 lg:sticky">
+              <div className="flex gap-2 ">
+                <div className="w-1/3 z-[99]">
+                  <ProfileImage profileUrl={user.profileUrl} />
+                </div>
+
+                <div className="w-2/3">
+                  <ProfileDetails
+                    fullName={user.fullName}
+                    username={user.username}
+                    birthDate={user.birthday}
+                    city={user.city}
+                    gender={user.gender}
+                  />
+                </div>
               </div>
 
-              <div className="w-2/3">
-                <ProfileDetails
-                  fullName={user.fullName}
-                  username={user.username}
-                  birthDate={user.birthday}
-                  city={user.city}
-                  gender={user.gender}
-                />
+              {user.bio ? <Bio bio={user.bio} /> : null}
+              <div className="gap-2 flex flex-wrap items-center">
+                <h1 className="font-['spring'] light-text w-fit">
+                  Following Tags :
+                </h1>
+                {user.followingTags.map((tag, index) => (
+                  <TagLink key={index} tag={tag} index={index} />
+                ))}
               </div>
-            </div>
 
-            {user.bio ? <Bio bio={user.bio} /> : null}
-            <div className="gap-2 flex flex-wrap items-center">
-              <h1 className="font-['spring'] light-text w-fit">
-                Following Tags :
-              </h1>
-              {user.followingTags.map((tag, index) => (
-                <TagLink key={index} tag={tag} index={index} />
-              ))}
-            </div>
-
-            <div className="flex justify-between">
-              <LogoutBtn />
-              <Button
-                variant={!isProfileIncomplete ? "outline" : "default"}
-                className={isProfileIncomplete ? "animate-pulse" : ""}
-              >
-                <Link href="/update-profile">Update Profile</Link>
-              </Button>
+              <div className="flex justify-between">
+                <LogoutBtn />
+                <Button
+                  variant={!isProfileIncomplete ? "outline" : "default"}
+                  className={isProfileIncomplete ? "animate-pulse" : ""}
+                >
+                  <Link href="/update-profile">Update Profile</Link>
+                </Button>
+              </div>
             </div>
 
             <div className="border-t light-text border-[#F2F0E4]/50 py-5">
@@ -147,7 +149,7 @@ export default function UserProfile() {
                 )}
               </div>
             </div>
-          </>
+          </div>
         ) : (
           <Skeleton />
         )}
