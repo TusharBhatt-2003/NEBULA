@@ -106,7 +106,12 @@ const WhatIsNebulaPage = () => {
       <LightSpeedAnimation />
 
       {/* Header Section */}
-      <div className="relative z-10 flex flex-col items-center justify-center text-center px-6 pt-24">
+      <motion.div
+        initial={{ opacity: 1, y: -10, scale: 0 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 2, delay: 1.5 }}
+        className="relative z-10 flex flex-col items-center justify-center text-center px-6 pt-24"
+      >
         <motion.h1
           initial={{ opacity: 1, y: -10, scale: 0 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -172,7 +177,7 @@ const WhatIsNebulaPage = () => {
             </Button>
           </a>
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* Features Section */}
       <div className="relative z-10 p-6">

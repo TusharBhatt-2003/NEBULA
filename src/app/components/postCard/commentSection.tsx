@@ -102,9 +102,8 @@ export default function CommentSection({
             <div className="">{comment.username || "Unknown User"}</div>
           </div>
 
-          <div className="flex p-2 justify-between">
-            <p>{comment.text}</p>
-
+          <div className="flex p-2 justify-between items-end">
+            <p className="text-left">{comment.text}</p>
             {comment.userId === currentUserId && (
               <button
                 onClick={() => handleDeleteComment(comment._id)}

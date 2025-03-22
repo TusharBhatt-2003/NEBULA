@@ -57,7 +57,7 @@ const LightSpeedAnimation = () => {
     gsap.to(canvas, {
       opacity: 0,
       duration: 5,
-      delay: 2,
+      delay: 1,
       onComplete: () => {
         cancelAnimationFrame(animationFrameId);
         setShowAnimation(false);
