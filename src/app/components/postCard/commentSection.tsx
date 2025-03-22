@@ -102,7 +102,7 @@ export default function CommentSection({
             <div className="">{comment.username || "Unknown User"}</div>
           </div>
 
-          <div className="flex p-2 justify-between items-center">
+          <div className="flex p-2 justify-between">
             <p>{comment.text}</p>
 
             {comment.userId === currentUserId && (
