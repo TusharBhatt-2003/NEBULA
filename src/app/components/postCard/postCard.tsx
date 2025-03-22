@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import Skeleton from "./skeleton";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import ConfirmationModal from "../confirmationModal";
 import { motion } from "motion/react";
 import TagLink from "../tag";
@@ -51,7 +51,7 @@ export default function PostCard({
   );
   const [showModal, setShowModal] = useState<boolean>(false);
   const pathname = usePathname();
-
+  const router = useRouter();
   const isFeedPage = pathname === `/post/${postId}`;
   const hideAuthorInfo =
     pathname === "/profile" || pathname === `/profile/${authorId}`;
@@ -109,8 +109,15 @@ export default function PostCard({
       });
 
       if (!response.ok) throw new Error("Failed to delete post");
+      router.push("/profile"); // Navigate to profile if on different page
+      if (onDelete) {
+        onDelete(postId);
+      }
 
-      if (onDelete) onDelete(postId);
+      if (pathname.startsWith("/profile")) {
+        router.refresh(); // Refresh profile page to reflect deletion
+      } else {
+      }
     } catch (error) {
       console.error("Error deleting post:", error);
     } finally {

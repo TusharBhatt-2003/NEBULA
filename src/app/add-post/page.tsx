@@ -66,7 +66,7 @@ export default function AddPost() {
         setShowPopup(true); // Show popup
         setTimeout(() => {
           setShowPopup(false);
-          router.push("/feed");
+          router.push("/profile");
         }, 2000); // Auto-dismiss after 2 seconds
       } else {
         setMessage(data.error || "Failed to upload post");
