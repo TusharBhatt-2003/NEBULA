@@ -42,13 +42,12 @@ export default function Navigation() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 5, scale: 0 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
+      initial={{ opacity: 1, scaleX: 0 }}
+      animate={{ opacity: 1, scaleX: 1 }}
       transition={{
         duration: 0.5,
         ease: "easeInOut",
-        type: "spring",
-        damping: 15,
+        type: "velocity",
       }}
       className="overflow-hidden mb-0 border-[#F2F0E4]/30 z-[999] backdrop-blur-[10px] p-3 light-text border rounded-3xl fixed py-2 bg-white/5 bottom-3 left-3 right-3 flex justify-between items-center"
     >
