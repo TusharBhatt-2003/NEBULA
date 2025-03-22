@@ -42,8 +42,8 @@ export default function Navigation() {
 
   return (
     <motion.div
-      initial={{ opacity: 1, scaleX: 0 }}
-      animate={{ opacity: 1, scaleX: 1 }}
+      initial={{ opacity: 1, y: 30, scaleX: 0 }}
+      animate={{ opacity: 1, y: 0, scaleX: 1 }}
       transition={{
         duration: 0.5,
         ease: "easeInOut",
