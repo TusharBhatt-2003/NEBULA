@@ -80,8 +80,8 @@ export default function Page() {
         />
       </Head>
 
-      <main className="h-full space-y-5 container p-5 mx-auto pb-36">
-        <div>
+      <main className="space-y-5 h-full flex justify-center container p-5 mx-auto pb-36">
+        <div className="lg:w-[50%] gap-5 lg:flex">
           {!loading && post ? (
             <PostCard
               image={post.image}
@@ -97,15 +97,15 @@ export default function Page() {
           ) : (
             <Skeleton />
           )}
-        </div>
 
-        {!loading && post && (
-          <CommentSection
-            postId={post._id}
-            initialComments={post.comments}
-            onNewComment={handleNewComment}
-          />
-        )}
+          {!loading && post && (
+            <CommentSection
+              postId={post._id}
+              initialComments={post.comments}
+              onNewComment={handleNewComment}
+            />
+          )}
+        </div>
       </main>
     </>
   );

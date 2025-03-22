@@ -8,7 +8,10 @@ export async function DELETE(request: NextRequest) {
   try {
     await connect();
 
-    const userId = await getDataFromToken(request);
+    const userData = await getDataFromToken(request);
+    const userId = userData._id;
+    const isAdmin = userData.isAdmin;
+
     if (!userId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
@@ -35,11 +38,10 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: "Comment not found" }, { status: 404 });
     }
 
-    if (comment.userId.toString() !== userId) {
+    if (comment.userId.toString() !== userId && !isAdmin) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
-    // Remove comment from comments array using splice
     post.comments = post.comments.filter(
       (c: any) => c._id.toString() !== commentId,
     );
