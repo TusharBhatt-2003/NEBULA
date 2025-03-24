@@ -157,7 +157,7 @@ export default function SearchPage() {
                           src={user.profileUrl}
                           className="w-12 h-12 aspect-square rounded-xl"
                         />
-                        <p className="light-bg rounded-3xl text-black px-2 h-fit w-fit">
+                        <p className="light-bg font-['code'] rounded-3xl text-black px-2 h-fit w-fit">
                           @{user.username}
                         </p>
                       </div>

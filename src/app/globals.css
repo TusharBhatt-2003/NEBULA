@@ -16,11 +16,10 @@ body {
   }
 }
 
-.source-code {
-  font-family: "Source Code Pro", monospace;
-  font-optical-sizing: auto;
+@font-face {
+  font-family: code;
+  src: url(../../fonts/SourceCodePro-VariableFont_wght.ttf);
 }
-
 .light-text {
   color: #f2f0e4;
 }
