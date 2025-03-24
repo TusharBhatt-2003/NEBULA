@@ -56,7 +56,9 @@ const UsersCardForAdminPanel: React.FC<UserProps> = ({
               />
             ) : null}
             <div className="px-2 flex flex-col h-full">
-              <p className="font-thin text-sm">@{user.username}</p>
+              <p className="font-['code'] font-thin text-sm">
+                @{user.username}
+              </p>
               <p className="font-bold text-sm">{user.fullName}</p>
             </div>
           </Link>

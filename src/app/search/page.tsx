@@ -52,15 +52,14 @@ export default function SearchPage() {
         const recencyScore = 1 / (1 + ageInHours);
         const likeScore = post.likes.length;
         const commentScore = post.comments.length;
-        const totalScore =
-          recencyScore * 2 + likeScore * 1.5 + commentScore * 1.2;
+        const totalScore = recencyScore * 2 + likeScore * 0 + commentScore * 0;
         const randomFactor = Math.random();
         return { ...post, weightedScore: totalScore * randomFactor };
       })
       .sort((a, b) => b.weightedScore - a.weightedScore);
   }, [posts]);
 
-  const topPosts = sortedPosts.slice(0, 10);
+  const topPosts = sortedPosts.slice(0, 20);
 
   // Fetch all tags
   useEffect(() => {
