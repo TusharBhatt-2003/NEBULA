@@ -14,6 +14,9 @@ interface User {
   _id: string;
   username: string;
   profileUrl: string;
+  followingTags: string[];
+  bio: string;
+  city: string;
 }
 
 interface Post {
@@ -145,14 +148,29 @@ export default function SearchPage() {
                   <Link
                     href={`/profile/${user._id}`}
                     key={user._id}
-                    className="flex gap-2 items-center overflow-hidden relative border-[#F2F0E4]/30 z-10 w-full backdrop-blur-[2px] p-3 light-text border rounded-3xl"
+                    className="flex flex-col gap-2 justify-between  overflow-hidden relative border-[#F2F0E4]/30 z-10 w-full backdrop-blur-[2px] p-3 light-text border rounded-3xl"
                   >
                     <div className="grain"></div>
-                    <img
-                      src={user.profileUrl}
-                      className="w-12 h-12 aspect-square rounded-xl"
-                    />
-                    <p>{user.username}</p>
+                    <div className="flex justify-between">
+                      <div className="flex gap-2">
+                        <img
+                          src={user.profileUrl}
+                          className="w-12 h-12 aspect-square rounded-xl"
+                        />
+                        <p className="light-bg rounded-3xl text-black px-2 h-fit w-fit">
+                          @{user.username}
+                        </p>
+                      </div>
+                      <p>Tags followed: {user.followingTags.length}</p>
+                    </div>
+                    <div className="flex justify-between">
+                      <p className="text-left w-2/3 source-code lowercase text-sm">
+                        {user.bio}
+                      </p>
+                      <p className="light-bg h-fit text-black rounded-3xl px-2 py-1 opacity-20">
+                        {user.city}
+                      </p>
+                    </div>
                   </Link>
                 ))}
               </ul>
