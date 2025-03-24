@@ -120,8 +120,8 @@ export default function TagPage() {
         ) : (
           <div className="space-y-2">
             <div className="flex justify-between items-center">
-              <h1 className="px-5 text-4xl font-['spring'] text-light border rounded-3xl w-fit border-[#F2F0E4]/30 p-2 pb-3">
-                {tag}
+              <h1 className="px-5 text-4xl font-['code'] text-bold border rounded-3xl w-fit border-[#F2F0E4]/30 p-2 pb-3">
+                #{tag}
               </h1>
 
               <Button
