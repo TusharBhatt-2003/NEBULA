@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -14,6 +15,11 @@ body {
   100% {
     background-position: 200% 50%;
   }
+}
+
+.source-code {
+  font-family: "Source Code Pro", monospace;
+  font-optical-sizing: auto;
 }
 
 .light-text {
@@ -75,6 +81,11 @@ body {
 @font-face {
   font-family: big;
   src: url(../../fonts/BiggerDisplay.otf);
+}
+
+@font-face {
+  font-family: aeronaut;
+  src: url(../..//fonts/POIAeronautTrial-Regular.otf);
 }
 
 @layer base {

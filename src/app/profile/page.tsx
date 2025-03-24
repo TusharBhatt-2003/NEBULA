@@ -113,7 +113,7 @@ export default function UserProfile() {
                 <LogoutBtn />
                 <Button
                   variant={!isProfileIncomplete ? "outline" : "default"}
-                  className={isProfileIncomplete ? "animate-pulse" : ""}
+                  className={isProfileIncomplete ? "animate-shimmer" : ""}
                 >
                   <Link href="/update-profile">Update Profile</Link>
                 </Button>

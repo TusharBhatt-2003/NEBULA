@@ -42,7 +42,7 @@ export const ProfileDetails = ({
           </p> */}
         </div>
         <div className="h-full">
-          <p>@{username}</p>
+          <p className="source-code">@{username}</p>
         </div>
         <div className="flex justify-between items-center">
           <p className="font-['Big'] text-sm">{formattedDate}</p>
