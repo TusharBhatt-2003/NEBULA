@@ -44,35 +44,12 @@ export default function SearchPage() {
   const { user } = useUser();
   const currentUserId = user?._id ?? "";
 
-  const sortedPosts = useMemo(() => {
-    const now = Date.now();
-    return posts
-      .map((post) => {
-        const ageInHours = (now - post.createdAt) / (1000 * 60 * 60);
-        const recencyScore = 1 / (1 + ageInHours);
-        const likeScore = post.likes.length;
-        const commentScore = post.comments.length;
-        const totalScore = recencyScore * 2 + likeScore * 0 + commentScore * 0;
-        const randomFactor = Math.random();
-        return { ...post, weightedScore: totalScore * randomFactor };
-      })
-      .sort((a, b) => b.weightedScore - a.weightedScore);
+  const randomPosts = useMemo(() => {
+    const shuffled = [...posts].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, 20);
   }, [posts]);
 
-  const topPosts = sortedPosts.slice(0, 20);
-
-  // Fetch all tags
-  useEffect(() => {
-    const fetchTags = async () => {
-      try {
-        const response = await axios.get("/api/tags");
-        setTags(response.data);
-      } catch (error) {
-        console.error("Error fetching tags:", error);
-      }
-    };
-    fetchTags();
-  }, []);
+  const topPosts = randomPosts;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -96,20 +73,32 @@ export default function SearchPage() {
             ),
           );
         } else {
-          // Fetch all posts if query is empty
           const postRes = await axios.get("/api/posts");
           setPosts(postRes.data);
+          setUsers([]); // clear users when query is empty
         }
       } catch (error) {
         console.error("Error fetching data", error);
+      } finally {
+        setLoading(false); // ✅ only after all async actions complete
       }
-      setLoading(false);
     };
 
     const delayDebounce = setTimeout(fetchData, 500);
     return () => clearTimeout(delayDebounce);
   }, [query]);
 
+  useEffect(() => {
+    const fetchTags = async () => {
+      try {
+        const response = await axios.get("/api/tags");
+        setTags(response.data);
+      } catch (error) {
+        console.error("Error fetching tags:", error);
+      }
+    };
+    fetchTags();
+  }, []);
   // console.log(posts);
 
   return (
@@ -194,13 +183,9 @@ export default function SearchPage() {
             )}
           </div>
 
-          {/* Top 5 Posts Section */}
           <div className="mt-4">
-            {topPosts.length > 0 ? (
-              <div className="columns-2 md:columns-3  lg:columns-4 space-y-5">
-                {/* <h2 className="text-lg  font-semibold font-['spring'] mb-2">
-                  Top 10 Posts:
-                </h2> */}
+            {!loading && topPosts.length > 0 && (
+              <div className="columns-2 md:columns-3 lg:columns-4 space-y-5">
                 {topPosts.map((post) => (
                   <PostCard
                     key={post._id}
@@ -219,7 +204,7 @@ export default function SearchPage() {
                   />
                 ))}
               </div>
-            ) : null}
+            )}
           </div>
 
           {/* No Results Found */}
